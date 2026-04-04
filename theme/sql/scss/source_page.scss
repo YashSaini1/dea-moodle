@@ -1,0 +1,288 @@
+#page-mod-resource-view,
+#page-mod-url-view {
+  .breadcrumb {
+    padding: 0;
+    margin-bottom: 8px;
+  }
+
+  .page-context-header {
+    .page-header-image,
+    .text-muted.text-uppercase.small.line-height-3 {
+      display: none;
+    }
+  }
+
+  #page.drawers {
+    margin-top: 76px;
+    padding: 0 16px !important;
+
+    @media (max-width: 576px) {
+      padding: 0 !important;
+    }
+  }
+
+  #page-header,
+  .secondary-navigation .navigation .nav-tabs {
+    max-width: 100%;
+    padding-right: 0;
+    padding-left: 0;
+  }
+
+  .main-inner {
+    padding: 30px 56px !important;
+    max-width: 100% !important;
+    margin: 32px 0 !important;
+
+    @media (max-width: 576px) {
+      padding: 24px 48px !important;
+      margin-top: 0 !important;
+    }
+  }
+
+  h1 {
+    font-size: 24px;
+    line-height: 30px;
+    margin-bottom: 32px;
+    font-family: 'Inter-Bold', sans-serif;
+  }
+
+  div[role="main"] {
+    padding-right: 0 !important;
+    padding-left: 0 !important;
+  }
+
+  .activity-header {
+    background: transparent;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+    margin-bottom: 24px;
+    padding-right: 0;
+    padding-left: 0;
+
+    .completion-info {
+      width: fit-content;
+      margin-left: auto;
+
+      button, .badge {
+        padding: 12px 40px;
+        background: $light-green-done;
+        border: 2px solid $light-green-done;
+        color: $white;
+        border-radius: 8px;
+        font-family: 'Inter-Bold', sans-serif;
+        height: 40px;
+        font-size: 14px;
+        line-height: 16px;
+
+        @media (min-width: 1680px) {
+          font-size: 16px;
+          line-height: 18px;
+          height: 48px;
+        }
+      }
+
+      button {
+        &:hover {
+          opacity: 0.8;
+        }
+
+        &.btn-success {
+          color: $light-green-done;
+          background: $white;
+
+          .icon {
+            width: auto !important;
+            height: auto !important;
+            font-size: 16px !important;
+          }
+        }
+      }
+
+      .badge {
+        // to do badge
+        &.badge-light {
+          background: $light-green-done;
+          color: $white;
+          // if i changed this text into mustache template, this texts also changes on course/view.php page
+          &:after {
+            content: "Mark as done";
+          }
+
+          strong {
+            display: none;
+          }
+        }
+
+        // done badge
+        &.alert-success {
+          color: $light-green-done;
+          background: $white;
+
+          .icon {
+            width: auto !important;
+            height: auto !important;
+            font-size: inherit !important;
+          }
+        }
+      }
+    }
+  }
+
+  .completion-info,
+  .activity-description {
+    padding-top: 0;
+    padding-bottom: 0;
+    border: none;
+  }
+
+  .activity-header:not(:empty) > div:last-child > div:last-child {
+    padding: 0;
+  }
+
+  .resourceworkaround {
+    font-size: 16px;
+    line-height: 22px;
+    margin-bottom: 48px;
+
+    a {
+      color: $main-blue-hover;
+      font-family: 'Inter-Bold', sans-serif;
+      font-size: 16px;
+      line-height: 22px;
+      text-decoration: underline;
+      transition: all .3s ease-in-out;
+
+      &:hover {
+        color: $main-yellow;
+        text-decoration: underline;
+      }
+    }
+  }
+
+  .activity-navigation {
+    margin-top: 0 !important;
+    padding-right: 0;
+    padding-left: 0;
+
+    .row {
+      margin: 0;
+      justify-content: flex-start;
+
+      @media (max-width: 576px) {
+        flex-direction: column;
+        align-items: self-start;
+      }
+
+      .col-md-4 {
+        padding: 6px;
+        max-width: fit-content;
+
+        &:empty {
+          padding: 0;
+        }
+      }
+
+      .btn {
+        min-width: 203px;
+        width: 100%;
+      }
+
+      #next-activity-link,
+      #prev-activity-link,
+      .btn.documentation-button {
+        border-radius: 8px;
+        transition: all 0.3s ease-in-out;
+        font-family: 'Inter-Bold', sans-serif;
+        height: 40px;
+        font-size: 14px;
+        line-height: 16px;
+        width: max-content;
+        padding-right: 32px;
+        padding-left: 32px;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        &:focus {
+          text-decoration: none;
+        }
+
+        @media (min-width: 1680px) {
+          height: 48px;
+          font-size: 16px;
+          line-height: 18px;
+          padding-right: 40px;
+          padding-left: 40px;
+        }
+      }
+
+      .documentation-button{
+        margin: 0 auto;
+        border: solid 1px $main-yellow !important;
+
+        &:hover{
+          border-color: $main-blue-hover !important;
+        }
+      }
+
+      #next-activity-link {
+        background: $main-blue-hover !important;
+        color: $white;
+        border: none !important;
+
+        &:hover {
+          background: $main-yellow !important;
+        }
+
+        &:after {
+          content: url([[pix:theme_sql|next_icon]]);
+          width: 16px;
+          height: 16px;
+          margin-left: 4px;
+        }
+      }
+
+      #prev-activity-link {
+        background: transparent !important;
+        color: $main-blue-hover !important;
+
+        border: 2px solid $main-blue-hover !important;
+
+        &:hover {
+          border: 2px solid $main-yellow !important;
+          color: $main-yellow !important;
+          background: transparent;
+
+          &:before {
+            content: '';
+            background-image: url([[pix:theme_sql|previous_icon_hover]]);
+          }
+        }
+
+        &:before {
+          content: '';
+          width: 16px;
+          height: 16px;
+          background-image: url([[pix:theme_sql|previous_icon]]);
+          background-position: center;
+          background-size: auto;
+          background-repeat: no-repeat;
+          margin-right: 4px;
+          transition: all .3s ease-in-out;
+        }
+      }
+    }
+  }
+}
+#page-mod-resource-view {
+  .completion-info {
+    margin-bottom: 16px
+  }
+
+  #page-wrapper {
+    @media (max-width: 576px) {
+      min-height: calc(100vh - 58px);
+    }
+  }
+}

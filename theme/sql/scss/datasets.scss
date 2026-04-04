@@ -1,0 +1,45 @@
+#page-question-type-sqlrunner-dataset-list {
+  h1 {
+    font-family: 'Inter-Bold', sans-serif;
+    font-size: 40px;
+    line-height: 48px;
+    margin-bottom: 32px;
+  }
+
+  table {
+    thead {
+      tr {
+        background: #F5F7F9!important;
+
+        th, td {
+          font-family: 'Inter-Bold', sans-serif;
+          font-size: 14px;
+          line-height: 22px;
+          color: $secondary-black;
+          padding: 4px 12px;
+          border: 1px solid $input-border;
+        }
+      }
+    }
+
+    tbody {
+      tr {
+        background: #fff;
+
+        td {
+          font-size: 14px;
+          line-height: 22px;
+          padding: 4px 12px;
+          color: $secondary-black;
+          border: 1px solid $input-border;
+        }
+      }
+    }
+  }
+}
+
+#page-question-type-sqlrunner-dataset-edit {
+  .file-types {
+    display: none;
+  }
+}

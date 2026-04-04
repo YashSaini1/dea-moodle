@@ -1,0 +1,7 @@
+export const COLORS = {
+  WHITE: '#FFFFFF',
+  HAVELOCK_BLUE: '#6878E1',
+  ATHENS_GRAY: '#E5E6E9',
+  TUNA: '#3A3D46',
+  BLACK: '#000000',
+};

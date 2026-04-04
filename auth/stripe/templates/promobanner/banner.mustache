@@ -1,0 +1,192 @@
+{{!
+    @template auth_stripe/promobanner/banner
+
+    Example context (json):
+    {
+        "logourl": "https://moodle.org/logo/moodle-logo.svg",
+        "sitename": "Site name",
+        "formhtml": "<p>(Form html would go here)</p>"
+    }
+}}
+<div id="promobanner" class="fixed-top" style="display: none; {{#black_friday}}background-color: #D6DAFF{{/black_friday}}">
+    <div class="banner-content" style="display: none">
+
+        <div class="banner-text">
+            {{#black_friday}}
+                <p class="banner-text-main" style="color: #000; font-weight: bold; text-shadow: 0px 0px 0px #000;">It’s Black Friday! Get Premium with 60% OFF</p>
+            {{/black_friday}}
+            {{^black_friday}}
+                <p class="banner-text-main">{{banner_config.text}}</p>
+            {{/black_friday}}
+        </div>
+
+        {{#black_friday}}
+            <div class="banner-arrow-next">{{#pix}} arrow_black, theme_sql {{/pix}}</div>
+        {{/black_friday}}
+        {{^black_friday}}
+            <div class="banner-arrow-next">{{#pix}} arrow_next, theme_sql {{/pix}}</div>
+        {{/black_friday}}
+
+        {{^black_friday}}
+        <div class="banner-coupon">
+            <div class="banner-coupon-wrapper">
+                <div class="banner-coupon-start"></div>
+                <div class="banner-coupon-name">{{banner_config.couponname}}</div>
+                <div class="banner-coupon-end"></div>
+            </div>
+        </div>
+        <div class="banner-timer">
+            <div class="banner-timer-clock">{{#pix}} clock, auth_stripe {{/pix}}</div>
+            <div id="banner-timer-countdown-desktop" class="banner-timer-countdown"></div>
+        </div>
+        {{/black_friday}}
+
+        {{#upgrade_url}}
+            {{#black_friday}}
+                <a href="{{upgrade_url}}" class="upgrade-btn">
+                    {{#pix}} black_friday_button, theme_sql {{/pix}}
+                </a>
+            {{/black_friday}}
+            {{^black_friday}}
+                <a class="upgrade_popup_btn btn btn-primary" href="{{upgrade_url}}">{{#str}} get_premium, auth_stripe{{/str}}</a>
+            {{/black_friday}}
+        {{/upgrade_url}}
+    </div>
+
+    <div class="close_banner">{{#pix}} cross, auth_stripe {{/pix}}</div>
+
+    <div class="banner-content mobile">
+        <div class="banner-mobile-text-wrapper">
+            <div class="banner-text-main">
+                {{#black_friday}}
+                    <p class="banner-text-main" style="color: #000; font-weight: bold; text-shadow: 0px 0px 0px #000;">It’s Black Friday! Get Premium with 60% OFF</p>
+                {{/black_friday}}
+                {{^black_friday}}
+                    <p class="banner-text-main">{{banner_config.text}}</p>
+                {{/black_friday}}
+
+                {{#black_friday}}
+                    <div class="banner-arrow-next">{{#pix}} arrow_black, theme_sql {{/pix}}</div>
+                {{/black_friday}}
+                {{^black_friday}}
+                    <div class="banner-arrow-next">{{#pix}} arrow_next, theme_sql {{/pix}}</div>
+                {{/black_friday}}
+                {{^black_friday}}
+                <div class="banner-coupon">
+                    <div class="banner-coupon-wrapper">
+                        <div class="banner-coupon-name">{{banner_config.couponname}}</div>
+                    </div>
+                </div>
+                {{/black_friday}}
+            </div>
+        </div>
+
+        <div class="banner-mobile-timer-wrapper">
+            {{^black_friday}}
+            <div class="banner-timer">
+                <div class="banner-timer-clock">{{#pix}} clock_mobile, auth_stripe {{/pix}}</div>
+                <div id="banner-timer-countdown-mobile" class="banner-timer-countdown"></div>
+            </div>
+            {{/black_friday}}
+            {{#upgrade_url}}
+                {{#black_friday}}
+                    <a href="{{upgrade_url}}" class="upgrade-btn">
+                        {{#pix}} black_friday_button, theme_sql {{/pix}}
+                    </a>
+                {{/black_friday}}
+                {{^black_friday}}
+                    <a class="upgrade_popup_btn btn btn-primary" href="{{upgrade_url}}">{{#str}} get_premium, auth_stripe{{/str}}</a>
+                {{/black_friday}}
+            {{/upgrade_url}}
+        </div>
+    </div>
+</div>
+
+<div class="show_banner fixed-top">
+    <div class="show_banner_text"><p>{{banner_config.text_short}}</p></div>
+    <div class="banner-arrow-next">{{#pix}} arrow_next, theme_sql {{/pix}}</div>
+</div>
+
+{{!
+}}
+{{#js}}
+require([], function() {
+    const DAY_SEC = 24 * 60 * 60;
+    const BODY_CLASS = 'promobanner-displayed';
+    const timerDesktop = document.getElementById('banner-timer-countdown-desktop');
+    const timerMobile = document.getElementById('banner-timer-countdown-mobile');
+
+    document.body.classList.add(BODY_CLASS);
+
+    const padStartTwoDigits = (num) => num.toString().padStart(2, '0');
+
+    function formatTime(time) {
+        let days = Math.floor(time / (DAY_SEC));
+        let hours = Math.floor((time % (DAY_SEC)) / 3600);
+        let minutes = Math.floor((time % 3600) / 60);
+        let seconds = time % 60;
+
+        let result = '';
+        if (days > 0) {
+            result += days + (days === 1 ? ' day' : ' days') + ' : ';
+        }
+        if (hours > 0 || days > 0) {
+            result += hours + ' h : ';
+        }
+        if (minutes > 0 || hours > 0 || days > 0) {
+            result += minutes + ' min : ';
+        }
+        result += padStartTwoDigits(seconds) + ' sec';
+
+        return result;
+    }
+
+    function startTimer(timeDue) {
+        let currentTime = Math.floor(Date.now() / 1000);
+        console.log(currentTime);
+        console.log(timeDue);
+        if (currentTime >= timeDue){
+            return;
+        }
+
+        let timer_value = timeDue - currentTime;
+        console.log(timer_value);
+        function update() {
+            if (timer_value > 0) {
+                let formatted_time = formatTime(timer_value);
+                timerDesktop.textContent = formatted_time;
+                timerMobile.textContent = formatted_time;
+                timer_value--;
+            } else {
+                timerDesktop.textContent = '';
+                timerMobile.textContent = '';
+                clearTimer();
+                clearInterval(interval_id);
+            }
+        }
+
+        let interval_id = setInterval(update, 1000);
+        update();
+    }
+    function clearTimer(){
+        document.body.classList.remove(BODY_CLASS);
+    }
+
+    startTimer({{user_banner.timedue}});
+
+    let closeButton = document.querySelector('.close_banner');
+    let showBanner = document.querySelector('.show_banner');
+    const promobanner = document.querySelector('#promobanner');
+
+    closeButton.addEventListener('click', () => {
+        promobanner.classList.add('hide');
+        document.body.classList.add('hide_banner');
+        showBanner.classList.add('show')
+    });
+    showBanner.addEventListener('click', () => {
+        promobanner.classList.remove('hide');
+        document.body.classList.remove('hide_banner');
+        showBanner.classList.remove('show')
+    });
+});
+{{/js}}

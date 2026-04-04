@@ -1,0 +1,326 @@
+#page-mod-url-view {
+    #page.drawers {
+        .main-inner {
+            min-height: calc(100vh - 108px);
+            margin-top: 16px !important;
+            margin-bottom: 16px !important;
+            padding:32px 36px 16px !important;
+        }
+    }
+
+    .breadcrumb-item {
+        + .breadcrumb-item {
+            padding-left: 16px;
+
+            &:before {
+                padding-right: 16px;
+                font-size: 18px;
+                line-height: 27px;
+                color: $secondary-black;
+            }
+        }
+    }
+
+    .url_vimeo_split_page {
+        display: flex;
+
+        .video_page_wrapper {
+            flex: 6;
+            margin-right: 32px;
+
+            .video_container {
+                > div {
+                    max-width: 100%;
+                    padding-top: 53.25%;
+                    position: relative;
+                    width: 100%;
+
+                    iframe {
+                        position: absolute;
+                        top: 0;
+                        left: 0;
+                        width: 100% !important;
+                        height: 100% !important;
+                        aspect-ratio: 16 / 9;
+                    }
+                }
+            }
+        }
+
+        .action_menu {
+            flex: 5;
+
+            @media (min-width: 1680px) {
+                flex: 4;
+            }
+
+            .video_name_wrapper {
+                margin-bottom: 32px;
+
+                .video_name {
+                    margin-bottom: 0;
+                    font-family: 'Inter-Bold', sans-serif;
+                    font-size: 24px;
+                    line-height: 30px;
+                }
+            }
+
+            .actions_wrapper {
+                display: flex;
+                flex-flow: column;
+
+                label {
+                    margin-bottom: 24px;
+
+                    &:last-child {
+                        margin-bottom: 0;
+                    }
+                }
+
+                input[type='checkbox'] {
+                    position: absolute;
+                    left: -9999px;
+
+                    &:checked {
+                        + label {
+                            &:after {
+                                opacity: 1;
+                                transform: scale(1);
+                            }
+
+                            &:before {
+                                border: 2px solid $main-yellow;
+                                border-radius: 4px;
+                                background: $main-yellow;
+                            }
+                        }
+                    }
+
+                    + label {
+                        font-weight: 400;
+                        position: relative;
+                        padding-left: 32px;
+                        cursor: pointer;
+                        font-size: 14px;
+                        line-height: 22px;
+                        display: inline-block;
+                        color: $secondary-black;
+
+                        &:hover {
+                            &:before {
+                                border: 2px solid $main-yellow !important;
+                            }
+                        }
+
+                        &:before {
+                            content: '';
+                            position: absolute;
+                            left: 0;
+                            top: 0;
+                            width: 24px;
+                            height: 24px;
+                            border-radius: 4px;
+                            transition: all .25s;
+                            border: 2px solid $input-border;
+                            background: $white;
+                        }
+
+                        &:after {
+                            content: '';
+                            position: absolute;
+                            width: 14px;
+                            height: 11px;
+                            top: 7px;
+                            left: 6px;
+                            background-image: url("data:image/svg+xml,%0A%3Csvg width='14' height='11' viewBox='0 0 14 11' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 6.5L4.5 10L12.5 1' stroke='white' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E%0A");
+                            background-repeat: no-repeat;
+                            background-size: 14px;
+                            background-position: center;
+                            transition: all .25s;
+                            opacity: 0;
+                            transform: scale(0);
+                        }
+                    }
+                }
+            }
+        }
+
+        iframe {
+            min-width: 100%;
+            border: none;
+        }
+
+        .video_container {
+            margin-bottom: 24px;
+
+            @media (min-width: 1680px) {
+                margin-bottom: 32px;
+            }
+        }
+
+        .activity-navigation .row {
+            justify-content: space-between;
+
+            @media (max-width: 1345px) {
+                flex-flow: column;
+                align-items: flex-start;
+            }
+
+            .row {
+                margin: -6px;
+
+                @media (max-width: 777px) {
+                    flex-flow: column;
+                    align-items: flex-start;
+                }
+            }
+
+            .col-md-4 {
+                min-width: 33.33%;
+                padding: 6px;
+
+                @media (max-width: 777px) {
+                    min-width: auto;
+                }
+
+                .mdl-align {
+                    .btn {
+                        margin: 0 auto;
+
+                        @media (max-width: 777px) {
+                            margin: 0;
+                        }
+                    }
+                }
+
+                &:empty {
+                    padding: 0;
+                }
+            }
+        }
+    }
+
+    /////////////////
+    .url_vimeo_single_page {
+        display: flex;
+        flex-direction: column;
+
+        .video_page_wrapper {
+            .video_container, .video_name_wrapper {
+                max-width: 44vw;
+                margin: 0 auto;
+                text-align: center;
+
+                @media (min-width: 1440px) {
+                    max-width: 42vw;
+                }
+                @media (min-width: 1680px) {
+                    max-width: 46vw;
+                }
+            }
+
+            .activity_navigation_wrapper {
+                @media (max-width: 1100px) {
+                    max-width: 100vw
+                }
+
+                .row {
+                    margin: -6px;
+
+                    @media (max-width: 777px) {
+                        flex-flow: column;
+                        align-items: flex-start;
+                    }
+                }
+
+                .col-md-4 {
+                    min-width: 33.33%;
+                    padding: 6px;
+
+                    @media (max-width: 777px) {
+                        min-width: auto;
+                    }
+
+                    .mdl-align {
+                        .btn {
+                            margin: 0 auto;
+
+                            @media (max-width: 777px) {
+                                margin: 0;
+                            }
+                        }
+                    }
+                }
+
+                max-width: 75vw;
+                margin: 0 auto;
+                text-align: center;
+            }
+
+            .video_name_wrapper {
+                margin-top: 16px;
+                margin-bottom: 16px;
+
+                @media (min-width: 1440px) {
+                    margin-top: 12px;
+                    margin-bottom: 12px;
+                }
+
+                .video_name {
+                    margin: 0;
+                    font-size: 24px;
+                    line-height: 30px;
+                    font-weight: 700;
+                    font-family: 'Inter-Bold', sans-serif;
+                }
+            }
+
+            .video_container {
+                @media (max-width: 1440px) {
+                    max-width: 41vw
+                }
+                @media (max-width: 900px) {
+                    max-width: 50vw
+                }
+                @media (max-width: 600px) {
+                    max-width: 80vw
+                }
+
+                max-width: 43vw;
+
+                > div {
+                    max-width: 100%;
+                    padding-top: 56.25%;
+                    position: relative;
+                    width: 100%;
+
+                    iframe {
+                        position: absolute;
+                        top: 0;
+                        left: 0;
+                        width: 100% !important;
+                        height: 100% !important;
+                        aspect-ratio: 16 / 9;
+                    }
+                }
+            }
+        }
+
+        iframe{
+            min-width: 100%;
+            border: none;
+        }
+
+        .video_container {
+            margin-bottom: 24px;
+
+            @media (min-width: 1680px) {
+                margin-bottom: 48px;
+            }
+        }
+
+        .activity-navigation .row {
+            justify-content: space-between;
+        }
+    }
+}

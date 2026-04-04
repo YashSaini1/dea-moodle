@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<XMLDB PATH="blocks/sql_comments/db" VERSION="20221122" COMMENT="XMLDB file for Moodle blocks/sql_comments"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="../../../lib/xmldb/xmldb.xsd"
+>
+  <TABLES>
+    <TABLE NAME="block_sql_comments_karma" COMMENT="block_sql_comments_karma table retrofitted from MySQL">
+      <FIELDS>
+        <FIELD NAME="id" TYPE="int" LENGTH="9" NOTNULL="true" SEQUENCE="true"/>
+        <FIELD NAME="commentid" TYPE="int" LENGTH="9" NOTNULL="true" SEQUENCE="false"/>
+        <FIELD NAME="userid" TYPE="int" LENGTH="9" NOTNULL="true" SEQUENCE="false"/>
+        <FIELD NAME="karma" TYPE="int" LENGTH="9" NOTNULL="true" DEFAULT="0" SEQUENCE="false"/>
+      </FIELDS>
+      <KEYS>
+        <KEY NAME="id" TYPE="primary" FIELDS="id"/>
+      </KEYS>
+    </TABLE>
+    <TABLE NAME="block_sql_comments_karma_u" COMMENT="block_sql_comments_karma_u table retrofitted from MySQL">
+      <FIELDS>
+        <FIELD NAME="id" TYPE="int" LENGTH="9" NOTNULL="true" SEQUENCE="true"/>
+        <FIELD NAME="ckid" TYPE="int" LENGTH="9" NOTNULL="true" SEQUENCE="false"/>
+        <FIELD NAME="userid" TYPE="int" LENGTH="9" NOTNULL="true" SEQUENCE="false"/>
+        <FIELD NAME="karma" TYPE="int" LENGTH="9" NOTNULL="true" SEQUENCE="false"/>
+        <FIELD NAME="setuserid" TYPE="int" LENGTH="9" NOTNULL="true" SEQUENCE="false"/>
+      </FIELDS>
+      <KEYS>
+        <KEY NAME="id" TYPE="primary" FIELDS="id"/>
+      </KEYS>
+    </TABLE>
+  </TABLES>
+</XMLDB>

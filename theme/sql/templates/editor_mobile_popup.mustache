@@ -1,0 +1,17 @@
+<div class="course_popup_wrapper">
+    <div class="course_popup">
+        <img class="course_popup_close" src="/theme/sql/pix/close.svg" alt="Close">
+        <div class="course_popup_content">
+            <img src="/theme/sql/pix/laptop.svg" alt="Laptop">
+            <h3>{{#str}}editor_popup_title, theme_sql{{/str}}</h3>
+            <p>{{#str}}editor_popup_text, theme_sql{{/str}}</p>
+            <a href="#" class="btn btn-primary">{{#str}}editor_popup_button, theme_sql{{/str}}</a>
+        </div>
+    </div>
+</div>
+
+{{#js}}
+    require(['theme_sql/editor_popup'], function(editor_popup) {
+    editor_popup.init();
+    });
+{{/js}}

@@ -1,0 +1,23 @@
+{{!
+    @template theme_sql/mod/url_vimeo_split_video
+}}
+<div class="url_vimeo_split_page">
+    <div class="video_page_wrapper">
+        <div class="video_container">
+            {{{embeded_code}}}
+        </div>
+        <div class="activity_navigation_wrapper">
+            {{{output.activity_navigation}}}
+        </div>
+    </div>
+    <div class="action_menu">
+        <div class="video_name_wrapper">
+            {{{video_name}}}
+        </div>
+        <div class="actions_wrapper">
+            {{#actions}}
+                {{{.}}}
+            {{/actions}}
+        </div>
+    </div>
+</div>

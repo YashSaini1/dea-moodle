@@ -1,0 +1,13 @@
+.tabs_info_container {
+  background: linear-gradient(90deg, transparent 50%, #a7abb315 50%);
+  box-shadow: 0px 0px 12px rgba(93, 126, 172, 0.12);
+  .tab {
+    display: none;
+    flex: 1;
+    &.active {
+      display: block;
+      background: #fff;
+      border-radius: 8px;
+    }
+  }
+}

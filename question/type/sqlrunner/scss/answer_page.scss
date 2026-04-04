@@ -1,0 +1,187 @@
+// See solution page
+.answer_page {
+  pointer-events: none;
+
+  #topofscroll {
+    background: #fff !important;
+  }
+
+  #page {
+    padding: 0!important;
+    margin: 108px auto 16px!important;
+    max-width: 1176px;
+    width: 100%;
+
+    @media (max-width: 576px) {
+      padding: 32px 0 0!important;
+      height: 100%;
+      margin: 64px 0 0 0!important;
+    }
+  }
+
+  #page-wrapper {
+    @media (max-width: 576px) {
+      min-height: 100%;
+      height: 100%;
+    }
+  }
+
+  #page-header,
+  div[role="main"] {
+    margin: 0;
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+
+    .d-flex.align-items-center {
+      display: none !important;
+    }
+  }
+
+  .breadcrumb {
+    padding: 0;
+  }
+
+  .main-inner {
+    border-radius: 16px !important;
+    padding: 64px 56px !important;
+    max-width: 100% !important;
+    margin-bottom: 0 !important;
+  }
+
+  h1 {
+    font-family: 'Inter-Bold', sans-serif;
+    font-size: 40px;
+    line-height: 48px;
+    margin-bottom: 32px;
+  }
+
+  h3 {
+    font-family: 'Inter-Bold', sans-serif;
+    font-size: 18px;
+    line-height: 27px;
+    margin-bottom: 16px;
+  }
+
+  .answer_wrapper {
+    border-radius: 8px;
+    height: 100%;
+
+    @media (max-width: 576px) {
+      height: calc(100vh - 240px);
+    }
+
+    &::-webkit-scrollbar {
+      width: 4px;
+      height: 4px;
+    }
+
+    &::-webkit-scrollbar-track {
+      background: $background-grey;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background-color: $scroll-purple;
+      border-radius: 4px;
+    }
+
+    .testcode {
+      margin-bottom: 24px;
+
+      pre {
+        font-size: 18px;
+        line-height: 27px;
+        color: $secondary-black;
+        font-family: 'Inter-Regular', sans-serif !important;
+      }
+    }
+
+    .expected {
+      font-size: 18px;
+      line-height: 27px;
+      color: $secondary-black;
+    }
+  }
+
+  #page-content {
+    .answer_wrapper {
+      .ui_wrapper {
+        border: 1px solid #E5E6E9 !important;
+        padding: 16px 0;
+        background: none;
+        border-radius: 8px;
+        resize: none !important;
+        height: 80%;
+
+        .ace_editor {
+          background-color: transparent;
+        }
+
+        .ace_mobile-menu {
+          background: transparent;
+          border: none;
+        }
+
+        // line numbers
+        .ace_gutter {
+          background: unset;
+          color: #3A3D46;
+
+          .ace_gutter-cell {
+            padding: 0 16px;
+            border: none;
+            font-size: 14px;
+
+            &.ace_gutter-active-line {
+              background: none;
+            }
+          }
+        }
+
+        .ace_scrollbar-h {
+          bottom: 2px !important;
+        }
+
+        .ace_scrollbar-v,
+        .ace_scrollbar-h {
+          &::-webkit-scrollbar {
+            height: 4px;
+            width: 4px;
+          }
+
+          &::-webkit-scrollbar-track {
+            background: #F5F7F9;
+            height: 4px;
+          }
+
+          &::-webkit-scrollbar-thumb {
+            background-color: $scroll-purple;
+            border-radius: 12px;
+          }
+        }
+
+        // writing area
+        .ace_scroller {
+          .ace_layer {
+            .ace_print-margin {
+              display: none;
+            }
+
+            .ace_line {
+              font-size: 100%;
+              line-height: 18px;
+              color: #3A3D46;
+
+              .ace_keyword {
+                color: #6878E1;
+              }
+            }
+
+            .ace_active-line {
+              background: none;
+            }
+          }
+        }
+      }
+    }
+  }
+}

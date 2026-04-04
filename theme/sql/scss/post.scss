@@ -1,0 +1,23 @@
+@import "fonts";
+@import "_global";
+@import "auth/login";
+@import "auth/forgot_password";
+@import "profile/change_password";
+@import "auth/setup_password";
+@import "profile/profile";
+@import "profile/edit_profile";
+@import "one_course_page";
+@import "quiz";
+@import "datasets";
+@import "admin_pages";
+@import "slider";
+@import "aws_course";
+@import "multitopic_course";
+@import "question_layout/layout";
+@import "coaching_course";
+@import "source_page";
+@import "mod/url_video";
+
+.block_sql_myoverview.card {
+  border: none!important;
+}

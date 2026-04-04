@@ -1,0 +1,22 @@
+<div id="cancel_premium_popup" class="cancel_popup_bg">
+    <div class="cancel_popup_wrapper">
+        <div class="cancel_popup">
+            <div class="close_popup close_extended_popup_btn">
+                {{#pix}}close, auth_stripe{{/pix}}
+            </div>
+            <h3 class="cancel_title">{{{popup_title}}}</h3>
+            <div class="extended_checkbox_list">
+                {{#checkboxes}}
+                    <div class="fitem">
+                        <input type="checkbox" id="checkbox_{{id}}" value="{{id}}" class="form-checkbox">
+                        <label for="checkbox_{{id}}" class="form-label">{{label}}</label>
+                    </div>
+                {{/checkboxes}}
+            </div>
+            <div class="cancel_btn_wrapper">
+                <button class="cancel_popup_btn close_btn close_extended_popup_btn btn">{{#str}}extended_cancel, auth_stripe{{/str}}</button>
+                <a class="cancel_popup_btn confirm_btn btn">{{#str}}extended_save, auth_stripe{{/str}}</a>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,13 @@
+<div class="slider-container">
+    <div class="swiper mySwiper">
+        <div class="swiper-wrapper">
+            {{#data}}
+                <div class="swiper-slide {{{class}}}" slide-id="{{id}}">
+                    <a href="{{{url}}}" style="background-image: url({{{poster_url}}})"></a>
+                </div>
+            {{/data}}
+        </div>
+        <div class="swiper-button-prev"></div>
+        <div class="swiper-button-next"></div>
+    </div>
+</div>

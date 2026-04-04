@@ -1,0 +1,59 @@
+{{!
+    @template auth_stripe/payment_layout
+
+    Example context (json):
+    {
+        "logourl": "https://moodle.org/logo/moodle-logo.svg",
+        "sitename": "Site name",
+        "formhtml": "<p>(Form html would go here)</p>"
+    }
+}}
+
+<div class="main_payment_form">
+    <div class="form_right">
+        <div class="payment_wrapper">
+            <img src="{{logourl}}" class="site_logo">
+            <div class="payment_form{{#single_card}} single_form{{/single_card}}">
+                {{{formhtml}}}
+
+                <div class="plan_selector_wrapper{{#single_card}} single_card{{/single_card}}">
+                    {{#single_card}}
+                        <h3>{{#str}}your_plan,auth_stripe{{/str}}</h3>
+                    {{/single_card}}
+                    {{^single_card}}
+                        <h3>{{#str}}choose_a_plan,auth_stripe{{/str}}</h3>
+                    {{/single_card}}
+                    <div class="plans_wrapper">
+                        {{#product_cards}}
+                            <div class="plan_container">
+                                <input {{#single_card}}checked {{/single_card}}type="radio" id="plan-{{priceid}}" name="price" value="{{priceid}}">
+                                <label class="plan-{{priceid}}" for="plan-{{priceid}}">
+                                    <div class="plan">
+                                        <div class="plan_title">
+                                            <p class="plan_name">Data Engineer Academy</p>
+                                            <p class="price" data-price="{{price_sum}}">${{price_info}}</p>
+                                        </div>
+                                        <div class="plan_info">
+                                            {{{plan_info}}}
+                                        </div>
+                                    </div>
+                                </label>
+                            </div>
+                        {{/product_cards}}
+                    </div>
+                    {{{additional_product_info}}}
+                </div>
+            </div>
+            {{> theme_sql/auth/login_footer }}
+        </div>
+    </div>
+</div>
+<div class="basic-preload">
+    {{> theme_sql/loader_svg}}
+</div>
+
+{{#js}}
+    require(['theme_sql/global_preloader'], function(sql_preloader) {
+        sql_preloader.init();
+    });
+{{/js}}

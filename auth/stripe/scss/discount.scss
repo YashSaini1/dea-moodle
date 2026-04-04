@@ -1,0 +1,78 @@
+.coupon_register_form {
+  .coupon_form_wrapper {
+    margin: 0 auto;
+    width: fit-content;
+
+    .col-md-3 {
+      display: none !important;
+    }
+
+    #fitem_id_couponid {
+      .col-md-9 {
+        max-width: 75% !important;
+      }
+    }
+
+    #id_couponid,
+    #id_submitbutton {
+      height: 42px;
+    }
+  }
+}
+
+.promocode_register_form {
+  .promocode_form_wrapper {
+    margin: 0 auto;
+    width: fit-content;
+
+    .col-md-3 {
+      display: none !important;
+    }
+
+    #fitem_id_promocodeid {
+      .col-md-9 {
+        max-width: 75% !important;
+      }
+    }
+
+    #id_promocodeid,
+    #id_submitbutton {
+      height: 42px;
+    }
+  }
+}
+
+.coupon_table,
+.promocode_table {
+  tbody td {
+    vertical-align: middle;
+  }
+
+  .disable_btn {
+    height: auto !important;
+    padding: 8px 18px !important;
+  }
+
+  .text-disabled {
+    color: red;
+  }
+
+  tr.used_in_promobanner {
+    background-color: #00b9ff4a !important;
+
+    .coupon_name {
+      position: relative;
+      margin-top: 12px;
+
+      &:after {
+        content: "Used in promobanner";
+        color: red;
+        position: absolute;
+        font-size: 11px;
+        top: -18px;
+        left: 0;
+        text-wrap: nowrap;
+      }
+    }
+  }
+}

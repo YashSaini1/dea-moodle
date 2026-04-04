@@ -1,0 +1,18 @@
+<div class="upgrade_popup_wrapper">
+    <div class="upgrade_popup">
+        <div class="close_popup">
+            <img src="/theme/sql/pix/close.svg" alt="">
+        </div>
+        <img class="upgrade_popup_icon" src="/theme/sql/pix/lock_payments.svg" alt="">
+        <h3 class="upgrade_title">{{#str}}access_to_upgrade, theme_sql{{/str}}</h3>
+        <p>{{#str}}access_to_upgrade_description, theme_sql{{/str}}</p>
+        <a class="upgrade_popup_btn btn btn-primary" href="/auth/stripe/payment/main.php">{{#str}}
+            upgrade_to_premium, auth_stripe{{/str}}</a>
+    </div>
+</div>
+
+{{#js}}
+    require(['theme_sql/upgrade_popup'], function(upgrade_popup) {
+        upgrade_popup.init();
+    });
+{{/js}}

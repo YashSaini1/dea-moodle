@@ -1,0 +1,13 @@
+<div class="card_text">
+    <p class="main_text">{{#str}} deposit_payment:main_info, auth_stripe, {
+            "first_deposit" : {{#quote}} {{deposit_info.first_deposit}} {{/quote}},
+            "period_price"  : {{#quote}} {{deposit_info.period_price}} {{/quote}},
+            "period"        : {{#quote}} {{deposit_info.period}} {{/quote}},
+            "period_times"  : {{#quote}} {{deposit_info.period_times}} {{/quote}},
+            "final_times"   : {{#quote}} {{deposit_info.final_times}} {{/quote}},
+            "period_many"   : {{#quote}} {{deposit_info.period_many}} {{/quote}},
+            "final_price"   : {{#quote}} {{deposit_info.final_price}} {{/quote}}
+        }{{/str}}
+    </p>
+    <b> {{#str}} deposit_payment:next_payment_date, auth_stripe, {{nextdate}} {{/str}}</b>
+</div>

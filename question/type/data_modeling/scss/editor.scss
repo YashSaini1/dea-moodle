@@ -1,0 +1,24 @@
+.que.data_modeling{
+  textarea.edit_code {
+    font-family: courier, monospace;
+    vertical-align: top;
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+  }
+
+  .ace_editor {
+    font-size: 100%;
+    line-height: 18px;
+  }
+
+  div.ui_wrapper {
+    max-width: 100%;
+    box-sizing: border-box;
+    background-color: #f0f0f0;
+  }
+
+  div#data_modelling_editor {
+    height: 100%;
+  }
+}

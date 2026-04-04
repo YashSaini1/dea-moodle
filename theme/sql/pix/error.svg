@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="20px" height="20px" viewBox="0 0 20 20" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: sketchtool 64 (101010) - https://sketch.com -->
+    <title>E8AA5308-184B-4E9F-B824-A0252A342E32</title>
+    <desc>Created with sketchtool.</desc>
+    <g id="UI-1680" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Student-/-Reset-Password-1680" transform="translate(-990.000000, -498.000000)" fill="#E63346" fill-rule="nonzero">
+            <g id="Error-message" transform="translate(972.000000, 489.000000)">
+                <g id="inc/16/arrow-right-black-gray-copy" transform="translate(16.000000, 7.000000)">
+                    <path d="M12,2 C6.4775,2 2,6.4775 2,12 C2,17.5225 6.4775,22 12,22 C17.5225,22 22,17.5225 22,12 C22,6.4775 17.5225,2 12,2 Z M12,20.75 C7.175,20.75 3.25,16.825 3.25,12 C3.25,7.175 7.175,3.25 12,3.25 C16.825,3.25 20.75,7.175 20.75,12 C20.75,16.825 16.825,20.75 12,20.75 Z M12,5.75 C11.31,5.75 10.75,6.31 10.75,7 L10.75,13.25 C10.75,13.94 11.31,14.5 12,14.5 C12.69,14.5 13.25,13.94 13.25,13.25 L13.25,7 C13.25,6.31 12.69,5.75 12,5.75 Z M10.75,16.98 C10.75,17.6703559 11.3096441,18.23 12,18.23 C12.6903559,18.23 13.25,17.6703559 13.25,16.98 C13.25,16.533418 13.0117514,16.1207592 12.625,15.8974683 C12.2382486,15.6741772 11.7617514,15.6741772 11.375,15.8974683 C10.9882486,16.1207592 10.75,16.533418 10.75,16.98 Z" id="Shape"></path>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

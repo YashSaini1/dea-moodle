@@ -1,0 +1,47 @@
+{
+  "compilerOptions": {
+    "allowJs": true,
+    "allowUnreachableCode": false,
+    "allowUnusedLabels": false,
+    "allowSyntheticDefaultImports": true,
+    "baseUrl": "./src",
+    "esModuleInterop": true,
+    "incremental": false,
+    "isolatedModules": true,
+    "jsx": "react-jsx",
+    "lib": ["es6", "dom", "dom.iterable"],
+    "module": "ESNext",
+    "moduleResolution": "node",
+    "noFallthroughCasesInSwitch": true,
+    "noImplicitAny": true,
+    "noImplicitOverride": true,
+    "noImplicitReturns": false,
+    "noImplicitThis": true,
+    "noPropertyAccessFromIndexSignature": true,
+    "noUncheckedIndexedAccess": true,
+    "noUnusedLocals": false,
+    "noUnusedParameters": true,
+    "paths": {
+      "@colors/*": ["colors/*"],
+      "@components/*": ["components/*"],
+      "@constants/*": ["constants/*"],
+      "@pages/*": ["pages/*"],
+      "@store/*": ["store/*"],
+      "@projectTypes/*": ["types/*"],
+      "@scss/*": ["../scss/*"],
+      "@widgets/*": ["widgets/*"],
+    },
+    "resolveJsonModule": true,
+    "strictBindCallApply": true,
+    "skipLibCheck": true,
+    "strictNullChecks": false,
+    "target": "es6"
+  },
+  "include": ["./src"],
+  "exclude": [
+    "node_modules",
+    "jest.config.js",
+    "lint-staged.config.js",
+    "webpack.config.js"
+  ]
+}

@@ -1,0 +1,57 @@
+.ScaleControlContainer {
+  display: flex;
+  flex-direction: row;
+  position: relative;
+  width: 102px;
+}
+
+.ScaleControl {
+  width: 56px;
+}
+
+.ScalePercent {
+  position: absolute;
+  left: 68px;
+  top: -5px;
+  font-family: Inter-Regular, sans-serif;
+  font-style: normal;
+  font-size: 12px;
+  line-height: 18px;
+  color: var(--tuna);
+}
+
+.rc-slider {
+  position: relative;
+  width: 100%;
+  height: 8px !important;
+  padding: 0 !important;
+  border-radius: 100px !important;
+}
+
+.rc-slider-track {
+  height: 8px !important;
+  background-color: var(--sun) !important;
+  border-radius: 100px !important;
+}
+
+.rc-slider-rail {
+  height: 8px !important;
+  background-color: var(--titan_white) !important;
+  border-radius: 100px !important;
+}
+
+.rc-slider-handle {
+  margin-top: -3px !important;
+  background-color: var(--white) !important;
+  border: 1px solid var(--titan_white) !important;
+  opacity: 1 !important;
+}
+
+.rc-slider-handle:active {
+  border-color: var(--titan_white) !important;
+  box-shadow: none !important;
+}
+
+.rc-slider-handle:hover {
+  border-color: var(--titan_white) !important;
+}

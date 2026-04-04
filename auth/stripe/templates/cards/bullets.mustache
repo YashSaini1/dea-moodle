@@ -1,0 +1,10 @@
+<div class="payment_info">
+    <p class="payment_title">{{#str}}what_you_get, auth_stripe{{/str}}</p>
+    {{#has_info}}
+    <ul class="payment_list">
+        {{#bullet_options}}
+            <li class="payment_item">{{{option_value}}}</li>
+        {{/bullet_options}}
+    </ul>
+    {{/has_info}}
+</div>

@@ -1,0 +1,365 @@
+.promobanner-displayed {
+  .navbar.fixed-top {
+    margin-top: 70px;
+
+    @media (max-width: 1024px) {
+      margin-top: 185px;
+    }
+    @media (max-width: 676px) {
+      margin-top: 228px;
+    }
+  }
+  #page-wrapper #page {
+    margin-top: 146px;
+
+    @media (max-width: 1024px) {
+      margin-top: 255px;
+    }
+    @media (max-width: 676px) {
+      margin-top: 304px;
+    }
+  }
+
+  &.hide_banner {
+    .navbar.fixed-top {
+      margin-top: 44px;
+    }
+
+    #page-wrapper #page {
+      margin-top: 110px;
+    }
+  }
+
+  #promobanner {
+    height: 70px;
+    padding: 15px;
+    background: $main-blue-hover;
+    display: flex!important;
+    justify-content: space-around;
+    color: #ffffff;
+    position: fixed;
+
+    &.hide {
+      display: none!important;
+    }
+
+    @media (max-width: 1024px) {
+      background: $background-purple;
+      height: 185px;
+      padding: 24px 44px 24px;
+    }
+    @media (max-width: 676px) {
+      height: 228px;
+      padding: 44px 44px 24px;
+    }
+
+    .close_banner {
+      display: none;
+      position: absolute;
+      top: 16px;
+      right: 16px;
+      cursor: pointer;
+
+      @media (max-width: 1024px) {
+        display: block;
+      }
+
+      img {
+        width: 24px;
+        height: 24px;
+      }
+    }
+
+    p {
+      margin-top: auto !important;
+      margin-bottom: auto !important;
+    }
+  }
+
+  .banner-content {
+    display: flex!important;
+    align-items: center;
+    position: relative;
+
+    &:not(.mobile) {
+      @media (max-width: 1024px) {
+        display: none!important;
+      }
+
+      .upgrade_popup_btn {
+        &.btn.btn-primary {
+          border: 2px solid transparent !important;
+
+          &:hover {
+            border: 2px solid white !important;
+            background: transparent !important;
+          }
+        }
+      }
+    }
+
+    &.mobile {
+      display: none!important;
+      @media (max-width: 1024px) {
+        display: flex!important;
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .banner-mobile-text-wrapper {
+        display: flex;
+        margin-bottom: 20px;
+      }
+
+      .banner-mobile-timer-wrapper{
+        display:flex;
+        flex-direction: column;
+        align-items: center;
+      }
+    }
+
+    .banner-text-main {
+      font-weight: 700;
+      font-size: 24px;
+      line-height: 30px;
+
+      @media (max-width: 1200px) {
+        font-size: 18px;
+        line-height: 26px;
+      }
+
+      @media (max-width: 1024px) {
+        color: $secondary-black;
+        text-align: center;
+      }
+    }
+
+    .banner-text {
+      display: flex;
+      margin-right: 12px;
+
+      @media (max-width: 1200px) {
+        margin-right: 8px;
+      }
+    }
+    .banner-arrow-next {
+      margin-right: 12px;
+
+      @media (max-width: 1200px) {
+        margin-right: 8px;
+      }
+      @media (max-width: 1024px) {
+        display: inline-block;
+      }
+
+      img {
+        width: 35px;
+        height: 24px;
+        margin-right: 15px;
+        margin-left: 10px;
+
+        @media (max-width: 676px) {
+          width: 16px;
+          height: 16px;
+        }
+      }
+    }
+    .banner-coupon {
+      margin-right: 40px;
+
+      @media (max-width: 1200px) {
+        margin-right: 24px;
+      }
+      @media (max-width: 1024px) {
+        margin-right: 0;
+        display: inline-block;
+        margin-top: 8px;
+      }
+    }
+    .banner-coupon-wrapper{
+      height: 40px;
+      width: 100%;
+      padding: 0 20px 0 35px;
+      background-repeat: no-repeat;
+      position: relative;
+      display: flex;
+      align-items: center;
+
+      @media (max-width: 1024px) {
+        height: 32px;
+        padding: 0 13px 0 35px;
+      }
+
+      .banner-coupon-start {
+        height: 40px;
+        width: 30px;
+        display: inline-block;
+        background: url([[pix:auth_stripe|coupon_prefix]]) no-repeat;
+        background-size: cover;
+        margin-right: -1px;
+        margin-top: 1px;
+          @media (max-width: 1024px) {
+            display: none;
+          }
+        }
+
+      .banner-coupon-end{
+        height: 40px;
+        width: 12px;
+        display: inline-block;
+        background: url([[pix:auth_stripe|coupon_postfix]]) no-repeat;
+        margin-left: -1px;
+        background-size: cover;
+        margin-top: 1px;
+        @media (max-width: 1024px) {
+          display: none;
+        }
+      }
+
+
+      &:after {
+        @media (max-width: 1024px) {
+          content:  url([[pix:auth_stripe|coupon_mobile]]);
+          height: 32px;
+          position: absolute;
+          right: 0;
+          top: 0;
+          z-index: -1;
+        }
+      }
+
+      &:before {
+        @media (max-width: 1024px) {
+          content:  url([[pix:auth_stripe|coupon_mobile]]);
+          height: 32px;
+          position: absolute;
+          left: 0;
+          top: 0;
+          z-index: -1;
+        }
+      }
+    }
+
+    .banner-coupon-name {
+      display: inline-block;
+      font-size: 14px;
+      font-style: normal;
+      font-weight: 700;
+      line-height: 22px;
+      color: $main-blue-hover;
+      background: white;
+      padding: 8px 3px 8px 0;
+      height: 40px;
+      margin-top: 1px;
+
+      @media (max-width: 1024px) {
+        background: $main-blue-hover;
+        color: white;
+        padding: 5px 0 5px;
+        height: auto;
+        margin-top: 0;
+      }
+    }
+
+    .banner-timer-clock {
+      margin-right: 8px;
+
+      @media (max-width: 1024px) {
+        color: $secondary-black;
+      }
+
+      img {
+        width: 24px;
+        height: 24px;
+        margin-right: 0;
+      }
+    }
+
+    .banner-timer-countdown {
+      font-size: 18px;
+      font-style: normal;
+      font-weight: 700;
+      line-height: 27px;
+      color: white;
+      font-feature-settings: 'tnum';
+
+      @media (max-width: 1200px) {
+        font-size: 16px;
+        line-height: 22px;
+      }
+      @media (max-width: 1024px) {
+        color: $secondary-black;
+      }
+      @media (max-width: 676px) {
+        font-size: 14px;
+      }
+    }
+    .banner-timer {
+      display: flex;
+      align-items: center;
+      margin-right: 40px;
+
+      @media (max-width: 1200px) {
+        margin-right: 24px;
+      }
+      @media (max-width: 1024px) {
+        margin-right: 0;
+        margin-bottom: 16px;
+      }
+    }
+
+    .upgrade_popup_btn{
+      height: 40px !important;
+      margin-right: 0;
+
+      @media (max-width: 1024px) {
+        height: 32px!important;
+      }
+      @media (max-width: 768px) {
+        display: flex!important;
+      }
+    }
+  }
+
+  .show_banner {
+    display: none;
+    padding: 10px;
+    justify-content: center;
+    background: $main-blue-hover;
+    position: fixed;
+    width: 100%;
+
+    &.show {
+      display: flex;
+      cursor: pointer;
+    }
+
+    &_text {
+      font-size: 16px;
+      font-style: normal;
+      font-weight: 700;
+      line-height: 24px;
+      margin-right: 8px;
+      color: white;
+    }
+
+    .banner-arrow-next {
+      img {
+        width: 20px;
+        height: 20px;
+      }
+    }
+  }
+}
+
+.upgrade-btn img {
+  width: 180px;
+  height: 64px;
+}
+
+@media (min-width: 1025px) {
+  .upgrade-btn img {
+    margin-top: 5px;
+  }
+}
+

@@ -1,0 +1,86 @@
+<style>
+
+.loading-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(255, 255, 255, 0.9);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+}
+
+.spinner {
+    width: 50px;
+    height: 50px;
+    border-top: 5px solid #FEB50D;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.hidden {
+    display: none;
+}
+</style>
+
+<div id="loading-overlay" class="loading-overlay">
+    <div class="spinner"></div>
+</div>
+
+<div class="account-created-page hidden">
+    <div class="account-created-wrapper">
+        <div class="account-created-form">
+            <div class="header-logo">
+                <a href="{{ logolink }}">
+                    <img src="{{ logo_url }}" alt="Logo">
+                </a>
+            </div>
+
+            <div class="account-created-block">
+                <img class="success-checkmark" src="/auth/stripe/pix/success-big-checkmark.svg" alt="Success checkmark">
+                {{^usermail}}
+                    <h3 class="account-created-text">{{#str}} paid_success:coaching_title, auth_stripe {{/str}}</h3>
+                {{/usermail}}
+                {{#usermail}}
+                    <h3 class="account-created-text">{{#str}} paid_success:access_instructions_sent, auth_stripe {{/str}}</h3>
+                    <p class="account-created-user-email-text">
+                        {{#str}}
+                            paid_success:user_created_text,
+                            auth_stripe,
+                            { "usermail":{{#quote}} {{usermail}} {{/quote}},"supportmail":{{#quote}} {{supportmail}} {{/quote}} }
+                        {{/str}}
+                    </p>
+                {{/usermail}}
+                {{^logged_in}}
+                    <a href="{{buttonurl}}" class="btn btn-primary paid_btn">{{#str}}go_to_login, auth_stripe{{/str}}</a>
+                {{/logged_in}}
+                {{#logged_in}}
+                    <a href="{{buttonurl}}" class="btn btn-primary paid_btn">{{#str}}go_to_profile, auth_stripe{{/str}}</a>
+                {{/logged_in}}
+            </div>
+        </div>
+
+        <div class="footer">{{#str}} privacy_text, auth_stripe {{/str}}</div>
+    </div>
+</div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        setTimeout(function () {
+            document.getElementById("loading-overlay").style.display = "none";
+            document.querySelector(".account-created-page").classList.remove("hidden");
+        }, 1000);
+    });
+</script>

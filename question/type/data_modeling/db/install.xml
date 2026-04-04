@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<XMLDB PATH="question/type/data_modeling/db" VERSION="20171210" COMMENT="XMLDB file for Moodle question/type/data_modeling"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="../../../../lib/xmldb/xmldb.xsd"
+>
+  <TABLES>
+    <TABLE NAME="question_dm" COMMENT="Options for data_modeling questions.">
+      <FIELDS>
+        <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true"/>
+        <FIELD NAME="question" TYPE="int" LENGTH="10" NOTNULL="true" DEFAULT="0" SEQUENCE="false" COMMENT="Redundant, because of the answer field. Foreign key references question.id."/>
+        <FIELD NAME="table_data" TYPE="text" LENGTH="10" NOTNULL="true" SEQUENCE="false" COMMENT="Redundant, because of the answer field. Foreign key references question.id."/>
+        <FIELD NAME="videourl" TYPE="text" NOTNULL="false" SEQUENCE="false" COMMENT="An extra text field for video url in question."/>
+      </FIELDS>
+      <KEYS>
+        <KEY NAME="primary" TYPE="primary" FIELDS="id"/>
+        <KEY NAME="question" TYPE="foreign" FIELDS="question" REFTABLE="question" REFFIELDS="id"/>
+      </KEYS>
+    </TABLE>
+  </TABLES>
+</XMLDB>

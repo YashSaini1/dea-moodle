@@ -1,0 +1,269 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<XMLDB PATH="auth/stripe/db" VERSION="20231101" COMMENT="XMLDB file for Moodle auth/stripe">
+  <TABLES>
+    <TABLE NAME="auth_stripe_coupon" COMMENT="">
+      <FIELDS>
+        <FIELD NAME="id" TYPE="int" LENGTH="11" NOTNULL="true" SEQUENCE="true" />
+        <FIELD NAME="name" TYPE="char" LENGTH="60" NOTNULL="true" SEQUENCE="false"/>
+        <FIELD NAME="stripeid" TYPE="char" LENGTH="40" NOTNULL="true" SEQUENCE="false"/>
+        <FIELD NAME="amount_off" TYPE="int" LENGTH="10" NOTNULL="false" SEQUENCE="false"/>
+        <FIELD NAME="percent_off" TYPE="int" LENGTH="10" NOTNULL="false" SEQUENCE="false"/>
+        <FIELD NAME="currency" TYPE="char" LENGTH="5" NOTNULL="false" SEQUENCE="false"/>
+        <FIELD NAME="duration" TYPE="char" LENGTH="15" NOTNULL="false" SEQUENCE="false"/>
+        <FIELD NAME="duration_in_months" TYPE="int" LENGTH="10" NOTNULL="false" SEQUENCE="false"/>
+        <FIELD NAME="owner" TYPE="int" LENGTH="11" NOTNULL="true" SEQUENCE="false" DEFAULT="0"/>
+        <FIELD NAME="enabled" TYPE="int" LENGTH="1" DEFAULT="1" NOTNULL="false" SEQUENCE="false"/>
+      </FIELDS>
+      <KEYS>
+        <KEY NAME="primary" TYPE="primary" FIELDS="id" />
+        <KEY NAME="coupon_owner" TYPE="foreign" FIELDS="owner" REFTABLE="user" REFFIELDS="id"/>
+      </KEYS>
+      <INDEXES>
+        <INDEX NAME="coupon_name" UNIQUE="false" FIELDS="name"/>
+      </INDEXES>
+    </TABLE>
+
+    <TABLE NAME="auth_stripe_customer" COMMENT="Customer table">
+      <FIELDS>
+        <FIELD NAME="id" TYPE="int" LENGTH="11" NOTNULL="true" SEQUENCE="true" />
+        <FIELD NAME="userid" TYPE="int" LENGTH="11" NOTNULL="true" DEFAULT="0" SEQUENCE="false"/>
+        <FIELD NAME="username" TYPE="char" LENGTH="100" NOTNULL="true" SEQUENCE="false"/>
+        <FIELD NAME="email" TYPE="char" LENGTH="100" NOTNULL="true" SEQUENCE="false"/>
+        <FIELD NAME="customerid" TYPE="char" LENGTH="100" NOTNULL="false" SEQUENCE="false" COMMENT="Stripe customerid"/>
+        <FIELD NAME="status_access" TYPE="char" LENGTH="40" NOTNULL="true" SEQUENCE="false"/>
+      </FIELDS>
+      <KEYS>
+        <KEY NAME="primary" TYPE="primary" FIELDS="id" />
+        <KEY NAME="user_customer" TYPE="foreign" FIELDS="userid" REFTABLE="user" REFFIELDS="id"/>
+      </KEYS>
+      <INDEXES>
+        <INDEX NAME="as_customer" UNIQUE="false" FIELDS="userid,username,email"/>
+      </INDEXES>
+    </TABLE>
+
+    <TABLE NAME="auth_stripe_invoices" COMMENT="">
+      <FIELDS>
+        <FIELD NAME="id" TYPE="int" LENGTH="11" NOTNULL="true" SEQUENCE="true" />
+        <FIELD NAME="customer_id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false" DEFAULT="0"/>
+        <FIELD NAME="invoice_id" TYPE="char" LENGTH="30" NOTNULL="true" SEQUENCE="false"/>
+        <FIELD NAME="number" TYPE="char" LENGTH="30" NOTNULL="true" SEQUENCE="false"/>
+        <FIELD NAME="price" TYPE="float" LENGTH="10" NOTNULL="true" SEQUENCE="false"/>
+        <FIELD NAME="status" TYPE="char" LENGTH="25" NOTNULL="true" SEQUENCE="false"/>
+        <FIELD NAME="url" TYPE="char" LENGTH="255" NOTNULL="false" SEQUENCE="false"/>
+        <FIELD NAME="created_at" TYPE="char" LENGTH="25" NOTNULL="true" SEQUENCE="false"/>
+        <FIELD NAME="expire_at" TYPE="char" LENGTH="25" NOTNULL="false" SEQUENCE="false" DEFAULT="0"/>
+      </FIELDS>
+      <KEYS>
+        <KEY NAME="primary" TYPE="primary" FIELDS="id" />
+        <KEY NAME="asi_customer_id" TYPE="foreign" FIELDS="customer_id" REFTABLE="auth_stripe_customer" REFFIELDS="id"/>
+      </KEYS>
+      <INDEXES>
+        <INDEX NAME="as_invoices" UNIQUE="false" FIELDS="customer_id,status"/>
+      </INDEXES>
+    </TABLE>
+
+    <TABLE NAME="auth_stripe_payment_method" COMMENT="">
+      <FIELDS>
+        <FIELD NAME="id" TYPE="int" LENGTH="11" NOTNULL="true" SEQUENCE="true" />
+        <FIELD NAME="customer_id" TYPE="int" LENGTH="10" NOTNULL="false" SEQUENCE="false" DEFAULT="0"/>
+        <FIELD NAME="payment_method_id" TYPE="char" LENGTH="100" NOTNULL="false" SEQUENCE="false" DEFAULT=""/>
+        <FIELD NAME="client_name" TYPE="char" LENGTH="100" NOTNULL="false" SEQUENCE="false" DEFAULT=""/>
+        <FIELD NAME="last4" TYPE="char" LENGTH="5" NOTNULL="false" SEQUENCE="false" DEFAULT=""/>
+        <FIELD NAME="exp_month" TYPE="int" LENGTH="10" NOTNULL="false" SEQUENCE="false" DEFAULT="0"/>
+        <FIELD NAME="exp_year" TYPE="int" LENGTH="10" NOTNULL="false" SEQUENCE="false" DEFAULT="0"/>
+        <FIELD NAME="type" TYPE="char" LENGTH="20" NOTNULL="true" SEQUENCE="false"/>
+      </FIELDS>
+      <KEYS>
+        <KEY NAME="primary" TYPE="primary" FIELDS="id" />
+        <KEY NAME="aspm_customer_id" TYPE="foreign" FIELDS="customer_id" REFTABLE="auth_stripe_customer" REFFIELDS="id"/>
+      </KEYS>
+    </TABLE>
+
+    <TABLE NAME="auth_stripe_price" COMMENT="Product table">
+      <FIELDS>
+        <FIELD NAME="id" TYPE="int" LENGTH="11" NOTNULL="true" SEQUENCE="true" />
+        <FIELD NAME="plan_name" TYPE="char" LENGTH="100" NOTNULL="true" SEQUENCE="false"/>
+        <FIELD NAME="productid" TYPE="int" LENGTH="11" NOTNULL="true" SEQUENCE="false"/>
+        <FIELD NAME="price" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false" DEFAULT="0"/>
+        <FIELD NAME="priceid" TYPE="char" LENGTH="40" NOTNULL="true" SEQUENCE="false" COMMENT="Stripe priceid"/>
+        <FIELD NAME="period" TYPE="char" LENGTH="40" NOTNULL="true" SEQUENCE="false" COMMENT="Price period"/>
+        <FIELD NAME="currency" TYPE="char" LENGTH="5" NOTNULL="true" SEQUENCE="false"/>
+        <FIELD NAME="dependency" TYPE="int" LENGTH="1" NOTNULL="false" SEQUENCE="false" DEFAULT="0"/>
+        <FIELD NAME="max_times" TYPE="int" LENGTH="11" NOTNULL="true" SEQUENCE="false"/>
+        <FIELD NAME="base_price" TYPE="int" LENGTH="1" NOTNULL="false" SEQUENCE="false" DEFAULT="1"/>
+        <FIELD NAME="ab_info" TYPE="text" NOTNULL="false" SEQUENCE="false"/>
+        <FIELD NAME="enabled" TYPE="int" LENGTH="1" NOTNULL="false" SEQUENCE="false" DEFAULT="1"/>
+        <FIELD NAME="owner" TYPE="int" LENGTH="11" NOTNULL="false" SEQUENCE="false" UNSIGNED="true"/>
+      </FIELDS>
+      <KEYS>
+        <KEY NAME="primary" TYPE="primary" FIELDS="id" />
+        <KEY NAME="price_product" TYPE="foreign" FIELDS="productid" REFTABLE="auth_stripe_product" REFFIELDS="id"/>
+        <KEY NAME="price_owner" TYPE="foreign" FIELDS="owner" REFTABLE="user" REFFIELDS="id"/>
+      </KEYS>
+      <INDEXES>
+        <INDEX NAME="as_price_product" UNIQUE="false" FIELDS="id,productid"/>
+      </INDEXES>
+    </TABLE>
+    <TABLE NAME="auth_stripe_price_desc" COMMENT="">
+      <FIELDS>
+        <FIELD NAME="id" TYPE="int" LENGTH="11" NOTNULL="true" SEQUENCE="true" />
+        <FIELD NAME="priceid" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false"/>
+        <FIELD NAME="info" TYPE="text" NOTNULL="true" SEQUENCE="false"/>
+      </FIELDS>
+      <KEYS>
+        <KEY NAME="primary" TYPE="primary" FIELDS="id" />
+        <KEY NAME="price_description" TYPE="foreign" FIELDS="priceid" REFTABLE="auth_stripe_price" REFFIELDS="id"/>
+      </KEYS>
+    </TABLE>
+    <TABLE NAME="auth_stripe_price_email" COMMENT="">
+      <FIELDS>
+        <FIELD NAME="id" TYPE="int" LENGTH="11" NOTNULL="true" SEQUENCE="true" />
+        <FIELD NAME="priceid" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false"/>
+        <FIELD NAME="email_text" TYPE="text" NOTNULL="true" SEQUENCE="false"/>
+      </FIELDS>
+      <KEYS>
+        <KEY NAME="primary" TYPE="primary" FIELDS="id" />
+        <KEY NAME="price_email" TYPE="foreign" FIELDS="priceid" REFTABLE="auth_stripe_price" REFFIELDS="id"/>
+      </KEYS>
+    </TABLE>
+    <TABLE NAME="auth_stripe_price_token" COMMENT="">
+      <FIELDS>
+        <FIELD NAME="id" TYPE="int" LENGTH="11" NOTNULL="true" SEQUENCE="true" />
+        <FIELD NAME="priceid" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false" DEFAULT="0"/>
+        <FIELD NAME="token" TYPE="char" LENGTH="255" NOTNULL="true" SEQUENCE="false"/>
+      </FIELDS>
+      <KEYS>
+        <KEY NAME="primary" TYPE="primary" FIELDS="id" />
+        <KEY NAME="foreignkey1" TYPE="foreign" FIELDS="priceid" REFTABLE="auth_stripe_price" REFFIELDS="id"/>
+      </KEYS>
+    </TABLE>
+
+    <TABLE NAME="auth_stripe_product" COMMENT="Product table">
+      <FIELDS>
+        <FIELD NAME="id" TYPE="int" LENGTH="11" NOTNULL="true" SEQUENCE="true" />
+        <FIELD NAME="name" TYPE="char" LENGTH="20" NOTNULL="true" SEQUENCE="false"/>
+        <FIELD NAME="productid" TYPE="char" LENGTH="40" NOTNULL="true" SEQUENCE="false"/>
+        <FIELD NAME="tier" TYPE="int" LENGTH="11" NOTNULL="true" SEQUENCE="false" DEFAULT="0"/>
+        <FIELD NAME="sql_page" TYPE="char" LENGTH="40" NOTNULL="true" SEQUENCE="false"/>
+      </FIELDS>
+      <KEYS>
+        <KEY NAME="primary" TYPE="primary" FIELDS="id" />
+      </KEYS>
+      <INDEXES>
+        <INDEX NAME="timemodified" UNIQUE="false" FIELDS="id,tier"/>
+      </INDEXES>
+    </TABLE>
+
+    <TABLE NAME="auth_stripe_promocode" COMMENT="">
+      <FIELDS>
+        <FIELD NAME="id" TYPE="int" LENGTH="11" NOTNULL="true" SEQUENCE="true" />
+        <FIELD NAME="code" TYPE="char" LENGTH="60" NOTNULL="true" SEQUENCE="false"/>
+        <FIELD NAME="couponid" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false"/>
+        <FIELD NAME="stripeid" TYPE="char" LENGTH="40" NOTNULL="true" SEQUENCE="false"/>
+        <FIELD NAME="owner" TYPE="int" LENGTH="11" NOTNULL="true" SEQUENCE="false" DEFAULT="0"/>
+        <FIELD NAME="enabled" TYPE="int" LENGTH="1" DEFAULT="1" NOTNULL="false" SEQUENCE="false"/>
+      </FIELDS>
+      <KEYS>
+        <KEY NAME="primary" TYPE="primary" FIELDS="id" />
+        <KEY NAME="promocode_owner" TYPE="foreign" FIELDS="owner" REFTABLE="user" REFFIELDS="id"/>
+        <KEY NAME="promocode_coupon" TYPE="foreign" FIELDS="couponid" REFTABLE="auth_stripe_coupon" REFFIELDS="id"/>
+      </KEYS>
+      <INDEXES>
+        <INDEX NAME="promocode_code" UNIQUE="false" FIELDS="code"/>
+      </INDEXES>
+    </TABLE>
+
+    <TABLE NAME="auth_stripe_send_invoices" COMMENT="Table for scheduled invoices, that we need to send for the user">
+      <FIELDS>
+        <FIELD NAME="id" TYPE="int" LENGTH="11" NOTNULL="true" SEQUENCE="true" />
+        <FIELD NAME="invoiceid" TYPE="char" LENGTH="40" NOTNULL="true" SEQUENCE="false"/>
+        <FIELD NAME="userid" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false"/>
+        <FIELD NAME="priceid" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false"/>
+        <FIELD NAME="productid" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false"/>
+      </FIELDS>
+      <KEYS>
+        <KEY NAME="primary" TYPE="primary" FIELDS="id" />
+        <KEY NAME="user" TYPE="foreign" FIELDS="userid" REFTABLE="user" REFFIELDS="id"/>
+        <KEY NAME="price" TYPE="foreign" FIELDS="priceid" REFTABLE="auth_stripe_price" REFFIELDS="id"/>
+        <KEY NAME="product" TYPE="foreign" FIELDS="productid" REFTABLE="auth_stripe_product" REFFIELDS="id"/>
+      </KEYS>
+      <INDEXES>
+        <INDEX NAME="as_price_product" UNIQUE="false" FIELDS="invoiceid"/>
+      </INDEXES>
+    </TABLE>
+
+    <TABLE NAME="auth_stripe_transaction" COMMENT="Log table that contains data about user payments">
+      <FIELDS>
+        <FIELD NAME="id" TYPE="int" LENGTH="11" NOTNULL="true" SEQUENCE="true" />
+        <FIELD NAME="price" TYPE="int" LENGTH="10" NOTNULL="false" SEQUENCE="false" DEFAULT="0"/>
+        <FIELD NAME="subscription_item_id" TYPE="char" LENGTH="255" NOTNULL="false" SEQUENCE="false" DEFAULT=""/>
+        <FIELD NAME="subscription_id" TYPE="char" LENGTH="100" NOTNULL="false" SEQUENCE="false" DEFAULT=""/>
+      </FIELDS>
+      <KEYS>
+        <KEY NAME="primary" TYPE="primary" FIELDS="id" />
+      </KEYS>
+    </TABLE>
+
+    <TABLE NAME="auth_stripe_user_promobanner" COMMENT="">
+      <FIELDS>
+        <FIELD NAME="id" TYPE="int" LENGTH="11" NOTNULL="true" SEQUENCE="true" />
+        <FIELD NAME="type" TYPE="char" LENGTH="20" NOTNULL="false" SEQUENCE="false" DEFAULT=""/>
+        <FIELD NAME="userid" TYPE="int" LENGTH="11" NOTNULL="false" SEQUENCE="false"/>
+        <FIELD NAME="timecreated" TYPE="int" LENGTH="10" NOTNULL="false" SEQUENCE="false"/>
+        <FIELD NAME="timedue" TYPE="int" LENGTH="10" NOTNULL="false" SEQUENCE="false"/>
+      </FIELDS>
+      <KEYS>
+        <KEY NAME="primary" TYPE="primary" FIELDS="id" />
+        <KEY NAME="userid" TYPE="foreign" FIELDS="userid" REFTABLE="user" REFFIELDS="id"/>
+      </KEYS>
+    </TABLE>
+
+    <TABLE NAME="auth_stripe_user_sub" COMMENT="">
+      <FIELDS>
+        <FIELD NAME="id" TYPE="int" LENGTH="11" NOTNULL="true" SEQUENCE="true" />
+        <FIELD NAME="product_id" TYPE="int" LENGTH="11" NOTNULL="false" SEQUENCE="false" DEFAULT="0"/>
+        <FIELD NAME="customer_id" TYPE="int" LENGTH="10" NOTNULL="false" SEQUENCE="false" DEFAULT="0"/>
+        <FIELD NAME="transaction_id" TYPE="int" LENGTH="10" NOTNULL="false" SEQUENCE="false" DEFAULT="0"/>
+      </FIELDS>
+      <KEYS>
+        <KEY NAME="primary" TYPE="primary" FIELDS="id" />
+        <KEY NAME="sus_transaction_id" TYPE="foreign" FIELDS="transaction_id" REFTABLE="auth_stripe_transaction" REFFIELDS="id"/>
+        <KEY NAME="sus_client_id" TYPE="foreign" FIELDS="customer_id" REFTABLE="auth_stripe_customer" REFFIELDS="id"/>
+        <KEY NAME="sus_product_id" TYPE="foreign" FIELDS="product_id" REFTABLE="auth_stripe_product" REFFIELDS="id"/>
+      </KEYS>
+    </TABLE>
+
+    <TABLE NAME="auth_stripe_user_tier" COMMENT="">
+      <FIELDS>
+        <FIELD NAME="id" TYPE="int" LENGTH="11" NOTNULL="true" SEQUENCE="true" />
+        <FIELD NAME="userid" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false" DEFAULT="0"/>
+        <FIELD NAME="tier" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false" DEFAULT="0"/>
+        <FIELD NAME="current_period_start" TYPE="int" NOTNULL="false" SEQUENCE="false" LENGTH="10"/>
+        <FIELD NAME="current_period_end" TYPE="int" NOTNULL="false" SEQUENCE="false" LENGTH="10"/>
+        <FIELD NAME="can_cancel" TYPE="int" LENGTH="1" NOTNULL="false" SEQUENCE="false" DEFAULT="0"/>
+        <FIELD NAME="time_cancelled" TYPE="int" LENGTH="10" NOTNULL="false" SEQUENCE="false" UNSIGNED="true"/>
+        <FIELD NAME="time_created" TYPE="int" LENGTH="10" NOTNULL="false" SEQUENCE="false" UNSIGNED="true"/>
+      </FIELDS>
+      <KEYS>
+        <KEY NAME="primary" TYPE="primary" FIELDS="id" />
+        <KEY NAME="asut_userid" TYPE="foreign" FIELDS="userid" REFTABLE="user" REFFIELDS="id"/>
+      </KEYS>
+    </TABLE>
+
+    <TABLE NAME="auth_stripe_user_tier_price" COMMENT="">
+      <FIELDS>
+        <FIELD NAME="id" TYPE="int" LENGTH="11" NOTNULL="true" SEQUENCE="true" />
+        <FIELD NAME="priceid" TYPE="int" LENGTH="11" NOTNULL="true" SEQUENCE="false"/>
+        <FIELD NAME="usertierid" TYPE="int" LENGTH="11" NOTNULL="true" SEQUENCE="false"/>
+        <FIELD NAME="stripepriceid" TYPE="char" LENGTH="40" NOTNULL="false" SEQUENCE="false"/>
+        <FIELD NAME="couponid" TYPE="int" LENGTH="10" NOTNULL="false" SEQUENCE="false"/>
+      </FIELDS>
+      <KEYS>
+        <KEY NAME="primary" TYPE="primary" FIELDS="id" />
+        <KEY NAME="usertier_price" TYPE="foreign" FIELDS="priceid" REFTABLE="auth_stripe_price" REFFIELDS="id"/>
+        <KEY NAME="usertier_tier" TYPE="foreign" FIELDS="usertierid" REFTABLE="auth_stripe_user_tier" REFFIELDS="id"/>
+        <KEY NAME="usertier_coupon" TYPE="foreign" FIELDS="couponid" REFTABLE="auth_stripe_coupon" REFFIELDS="id"/>
+      </KEYS>
+    </TABLE>
+  </TABLES>
+</XMLDB>

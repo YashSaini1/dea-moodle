@@ -1,0 +1,62 @@
+{
+  "premium_price": {
+    "enabled": false,
+    "metrics": {
+      "utm1": "utm_source",
+      "utm2": "utm_medium",
+      "utm3": "utm_campaign"
+    },
+    "available_campaigns": [
+      "price_600",
+      "price_900"
+    ],
+    "campaign_parameter": "utm3",
+    "default": "price_600",
+    "pages": {
+      "/login/signup.php": null,
+      "/auth/stripe/payment/main.php": "utm1=moodle&utm2=payment_page&utm3=${campaign}",
+      "/user/profile.php": "utm1=moodle&utm2=paid_page&utm3=${campaign}"
+    },
+    "final_analytics_js": "// Do not change anything in the following two lines\n  window.VWO = window.VWO || [];\nVWO.event = VWO.event || function () {VWO.push([\"event\"].concat([].slice.call(arguments)));};\n// Replace the property values with your actual values\nVWO.event(\"payment_goal_vwo\", {\n    \"payment_goal_vwo\": \"${price}\",\n});\nconsole.log('PAYMENT COMPLETED ${price}');\nif (typeof window['gtag'] === 'function'){ gtag('event', 'ab_test_payment_premium_price', {\n'user_campaign': '${campaign}',\n'price_type': '${price}',\n}); } else { console.log('Cannot use gtag for payment');};"
+  },
+  "premium_price_annual": {
+    "enabled": true,
+    "metrics": {
+      "utm1": "utm_source",
+      "utm2": "utm_medium",
+      "utm3": "utm_campaign"
+    },
+    "available_campaigns": [
+      "price_497",
+      "price_997"
+    ],
+    "campaign_parameter": "utm3",
+    "default": "price_497",
+    "pages": {
+      "/login/signup.php": null,
+      "/auth/stripe/payment/main.php": "utm1=moodle&utm2=payment_page&utm3=${campaign}",
+      "/user/profile.php": "utm1=moodle&utm2=paid_page&utm3=${campaign}"
+    },
+    "final_analytics_js": "// Do not change anything in the following two lines\n  window.VWO = window.VWO || [];\nVWO.event = VWO.event || function () {VWO.push([\"event\"].concat([].slice.call(arguments)));};\n// Replace the property values with your actual values\nVWO.event(\"payment_goal_vwo\", {\n    \"payment_goal_vwo\": \"${price}\",\n});\nconsole.log('PAYMENT COMPLETED ${price}');\nif (typeof window['gtag'] === 'function'){ gtag('event', 'ab_test_payment_premium_price', {\n'user_campaign': '${campaign}',\n'price_type': '${price}',\n}); } else { console.log('Cannot use gtag for payment');};"
+  },
+  "premium_description": {
+    "enabled": false,
+    "metrics": {
+      "utm1": "utm_source",
+      "utm2": "utm_medium",
+      "utm3": "utm_campaign"
+    },
+    "available_campaigns": [
+      "original_card",
+      "changed_card"
+    ],
+    "campaign_parameter": "utm3",
+    "default": "original_card",
+    "pages": {
+      "/login/signup.php": null,
+      "/auth/stripe/payment/main.php": "utm1=moodle&utm2=payment_page&utm3=${campaign}",
+      "/user/profile.php": "utm1=moodle&utm2=${medium}&utm3=${campaign}"
+    },
+    "final_analytics_js": "// Do not change anything in the following two lines\n  window.VWO = window.VWO || [];\n  VWO.event = VWO.event || function () {VWO.push([\"event\"].concat([].slice.call(arguments)))};\n\n  // Replace the property values with your actual values\n  VWO.event(\"payment_goal_vwo\", {\n    \"payment_goal_vwo\": \"${price}\"\n  });\nconsole.log('price ${price}');\ngtag('event', 'ab_test_payment_price_description', {\n'user_campaign': '${campaign}',\n'price': '${price}',\n});"
+  }
+}

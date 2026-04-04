@@ -1,0 +1,54 @@
+.pythonrunner .outcome.clearfix {
+  padding: 0;
+  border: none;
+  margin-top: 0;
+  margin-bottom: 0;
+  max-height: calc(100vh - 425px);
+
+  overflow-y: scroll;
+  overflow-x: scroll;
+
+  background-color: transparent !important;
+
+  &::-webkit-scrollbar {
+    height: 4px;
+    width: 4px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: #fff;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: $scroll-purple;
+    border-radius: 4px;
+  }
+
+  .feedback,
+  .specificfeedback {
+    margin: 0;
+    width: fit-content;
+    overflow: hidden;
+  }
+
+  .pythonrunner-test-results {
+    border-radius: 0;
+    width: fit-content;
+    overflow: hidden;
+  }
+
+  .pythonrunner-test-results.bad,
+  .pythonrunner-test-results.good {
+    background-color: $white !important;
+    padding: 0;
+  }
+
+  .result-header,
+  .result-data {
+    font-family: 'Inter-Regular', sans-serif;
+    font-size: 14px;
+    line-height: 22px;
+    color: $secondary-black;
+    margin-bottom: 16px;
+  }
+}

@@ -1,0 +1,19 @@
+<div id="cancel_premium_popup" class="cancel_popup_bg">
+    <div class="cancel_popup_wrapper">
+        <div class="cancel_popup">
+            <div class="close_popup close_popup_btn">
+                {{#pix}}close, auth_stripe{{/pix}}
+            </div>
+            <div class="cancel_popup_icon">
+                {{#pix}}cancel_premium, auth_stripe{{/pix}}
+            </div>
+            <h3 class="cancel_title">{{{popup_title}}}</h3>
+            <div class="cancel_btn_wrapper">
+                <button class="cancel_popup_btn close_btn close_popup_btn btn">{{#str}}
+                    cancel_tier:cancel, auth_stripe{{/str}}</button>
+                <a class="cancel_popup_btn confirm_btn btn">{{#str}}
+                    cancel_tier:confirm, auth_stripe{{/str}}</a>
+            </div>
+        </div>
+    </div>
+</div>

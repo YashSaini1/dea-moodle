@@ -1,0 +1,97 @@
+#page-login-signup,
+.pagelayout-notice,
+.payment_page {
+
+  .basic-preload {
+    width: 100%;
+    display: flex;
+    height: 100%;
+    background: $white;
+  }
+
+  div [role='main'] {
+    padding-left: 24px!important;
+    padding-right: 24px!important;
+  }
+
+  form {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+    align-items: start;
+    height: 100%;
+    padding: 0;
+  }
+
+  .signupform {
+    display: flex;
+    width: 100%;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    margin: 0;
+    height: 100%;
+    background: #FFF;
+    padding: 24px 0;
+  }
+
+  .form_right {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    flex-flow: column;
+    width: 100%;
+    height: 100%;
+    position: relative;
+    background-color: #fff;
+  }
+
+  .image-wrapper {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    max-width: 665px;
+    width: 100%;
+    height: 100%;
+
+    @media (max-width: 1232px) {
+      display: none;
+    }
+
+    .image {
+      width: 100%;
+      overflow: hidden;
+      border-radius: 16px;
+
+      img {
+        height: 100%;
+        min-width: 100%;
+        width: 100%;
+        object-fit: cover;
+      }
+    }
+  }
+
+  .sale {
+    color: $main-yellow;
+    text-transform: uppercase;
+    margin-left: 5px;
+  }
+
+  .site_logo {
+    margin-bottom: 48px;
+
+    @media (max-height: 1021px) {
+      height: 44px;
+      width: 177px;
+      margin-bottom: 4vh;
+    }
+
+    @media (max-width: 576px) {
+      height: 48px;
+      width: 194px;
+      margin-bottom: 16px;
+    }
+  }
+}

@@ -1,0 +1,15 @@
+<table class="result_table">
+    <thead class="result_header">
+    <tr class="header_row">{{#fields}}<th class="cell">{{.}}</th>{{/fields}}</tr>
+    </thead>
+    <tbody class="result_body">
+        {{#has_data}}{{{data}}}{{/has_data}}
+        {{^has_data}}
+            <tr class="result_row">
+                <td class="cell" style="text-align: center" colspan="{{#count_fields}}{{.}}{{/count_fields}}">
+                    {{#str}}empty_set, qtype_sqlrunner{{/str}}
+                </td>
+            </tr>
+        {{/has_data}}
+    </tbody>
+</table>

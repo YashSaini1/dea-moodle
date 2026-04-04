@@ -1,0 +1,24 @@
+<div class="tier_card_wrapper {{status}}">
+    <div class="tariff_plan">
+        <p class="tariff_plan_title">{{name}}</p>
+        <div class="tier_status tier_status_{{status}}"><span>{{status_text}}</span></div>
+    </div>
+    <div class="tier_card_prices">
+        {{#discounted_price}}
+            <p class="discounted-price">${{discounted_price}}</p>
+        {{/discounted_price}}
+        {{#formatted_price}}
+            <p class="tariff_price">${{formatted_price}}</p>
+        {{/formatted_price}}
+    </div>
+    <div class="subscription_info">{{{text}}}</div>
+    {{#update_link}}
+        <a class="tier_card_button btn btn-primary" href="{{{update_link}}}">{{#str}}upgrade_to_premium, auth_stripe{{/str}}</a>
+    {{/update_link}}
+    {{#cancel_button}}
+        <button class="tier_card_button cancel_tier btn" data-id="{{tierid}}">{{#str}}cancel_tier:cancel_premium, auth_stripe{{/str}}</button>
+    {{/cancel_button}}
+    {{#cancelled}}
+        <span class="cancelled">{{#str}}cancel_tier:cancel_premium, auth_stripe{{/str}}</span>
+    {{/cancelled}}
+</div>

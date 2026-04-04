@@ -1,0 +1,554 @@
+.payment_page {
+  .main_payment_form {
+    display: flex;
+    width: 100%;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    margin: 0;
+    height: 100%;
+    background: #FFF;
+    padding: 24px 0;
+  }
+
+  .payment_wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    width: 100%;
+    max-width: fit-content;
+  }
+
+  .payment_form {
+    display: flex;
+    box-shadow: 0 0 27px rgba(93, 126, 172, 0.1) !important;
+    border-radius: 16px;
+    margin-bottom: 32px;
+    padding: 16px;
+
+    &.signle-form {
+      @media (max-width: 991px) {
+        flex-direction: column;
+      }
+    }
+    @media (max-width: 1188px) {
+      flex-direction: column;
+    }
+
+    @media (max-width: 576px) {
+      box-shadow: none !important;
+      padding: 0;
+      width: 100%;
+      margin-bottom: 56px;
+    }
+
+    #stripe-payment-form {
+      flex-direction: column;
+      align-items: flex-start;
+      padding: 31px 56px 31px 40px;
+      flex: 1;
+
+      .coupon_user_message {
+        margin-top: 14px;
+        text-align: center;
+        padding: 10px 18px;
+        border-radius: 8px;
+        background: #d7e4d6;
+      }
+
+      @media (max-width: 576px) {
+        padding: 40px 0 32px 0;
+      }
+
+      .form_wrapper {
+        width: 100%;
+      }
+
+      .label_column {
+        display: flex;
+        flex-direction: column;
+      }
+
+      .promocode, .coupon {
+        width: 100%;
+        margin-bottom: 24px;
+
+        label {
+          margin-bottom: 0;
+        }
+
+        .promocode-wrapper, .coupon-wrapper {
+          display: flex;
+          align-items: center;
+          margin-top: 4px;
+
+          #promocode, #coupon {
+            flex: 1;
+            text-transform: uppercase;
+
+            &:disabled{
+              background-color: #e9ecef !important;
+            }
+          }
+
+          #coupon-button {
+            margin-left: 24px;
+            line-height: 28px;
+            padding: 6px 24px;
+            text-wrap: nowrap;
+            height: auto !important;
+          }
+
+          @media (max-width: 610px) {
+            flex-direction: column;
+
+            #promocode, #coupon {
+              flex: unset;
+              width: 100%;
+              margin-bottom: 12px;
+            }
+
+            #coupon-button {
+              margin-left: 0;
+              flex: 1;
+              width: 100%;
+            }
+          }
+        }
+      }
+
+      .cardholder_name {
+        text-transform: uppercase;
+      }
+
+      #agreeterms {
+        display: none;
+      }
+
+      #stripe-payment-form_links {
+        display: flex;
+        width: 100%;
+
+        @media (max-width: 576px) {
+          flex-direction: column-reverse;
+        }
+
+        .btn {
+          background: $main-yellow;
+          color: $white;
+          font-size: 16px;
+          line-height: 18px;
+          height: 48px;
+          border-radius: 8px;
+          transition: all .3s ease-in-out;
+
+          &:hover {
+            background: $main-blue-hover;
+            text-decoration: none;
+          }
+
+          @media (max-width: 576px) {
+            flex: none;
+          }
+        }
+      }
+
+      .back_readonly {
+        background: $white;
+        border: 2px solid $main-yellow;
+        border-radius: 8px;
+        color: $main-yellow;
+        font-family: 'Inter-Bold', sans-serif;
+        font-size: 16px;
+        line-height: 18px;
+        min-width: 123px;
+        height: 48px;
+        transition: all .3s ease-in-out;
+        margin-right: 16px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        &:hover {
+          border: 2px solid $main-blue-hover;
+        }
+      }
+
+      #require_agreements {
+        input[type="checkbox"]:checked + label::before {
+          background-color: $main-yellow;
+          border: none;
+        }
+
+        label {
+          display: flex;
+          align-items: center;
+          cursor: pointer;
+
+          a {
+            font-family: 'Inter-Bold', sans-serif;
+            font-size: 14px;
+            line-height: 22px;
+            text-decoration: underline;
+            transition: all .3s ease-in-out;
+
+            &:hover {
+              color: $main-yellow;
+            }
+          }
+        }
+
+        label:before {
+          content: '';
+          display: block;
+          width: 24px;
+          height: 24px;
+          background: url([[pix:theme_sql|check]]) center no-repeat;
+          background-color: #ffffff;
+          border: 1px solid $input-border;
+          border-radius: 4px;
+          margin-right: 8px;
+          transition: 0.3s all;
+        }
+      }
+
+      label {
+        width: 100%;
+        margin-bottom: 24px;
+
+        span + input {
+          margin-top: 4px;
+        }
+      }
+
+      input {
+        padding: 0 16px;
+      }
+
+      #card-element {
+        min-width: 328px;
+        height: 40px;
+        border: 1px solid $input-border;
+        border-radius: 4px;
+        display: flex;
+        flex-direction: column;
+        padding: 0 16px;
+        margin-top: 4px;
+
+        @media (max-width: 576px) {
+          min-width: 100%;
+        }
+      }
+
+      #payments_method {
+        display: none;
+
+        & + label {
+          @media (max-width: 576px) {
+            width: auto;
+          }
+        }
+      }
+    }
+
+    .plan_selector_wrapper {
+      padding: 56px;
+      border-radius: 16px;
+      background: $background-purple;
+      height: 100%;
+      flex: 1;
+      max-width: 654px;
+
+      @media (max-width: 1200px) {
+        min-width: initial;
+      }
+
+      @media (max-width: 576px) {
+        padding: 24px 32px;
+        min-width: 100%;
+      }
+
+      &.single_card {
+        label {
+          border: none !important;
+          margin-bottom: 0 !important;
+        }
+        .plan .plan_info {
+          font-size: 16px;
+        }
+      }
+
+      input[type="radio"]:checked + label {
+        border: solid 2px #6878E1;
+      }
+
+      h3 {
+        font-family: 'Inter-Bold', sans-serif;
+        font-size: 32px;
+        line-height: 40px;
+        margin-bottom: 40px;
+
+        @media (max-width: 576px) {
+          font-size: 22px;
+          line-height: 30px;
+          margin-bottom: 24px;
+        }
+      }
+
+      .plan_container {
+        input[type="radio"] {
+          display: none;
+        }
+
+        & + .plan_container {
+          margin-left: 20px;
+        }
+
+        label {
+          line-height: 30px;
+          margin-bottom: 0;
+          border: solid 2px #F3F4FF;
+          border-radius: 8px;
+          height: 100%;
+
+          @media (max-width: 576px) {
+            font-size: 18px;
+            line-height: 26px;
+          }
+        }
+      }
+
+      .plan {
+        background: #F3F4FF;
+        padding: 32px 24px;
+        border-radius: 8px;
+        flex: 1;
+        height: 100%;
+        min-width: 261px;
+        font-size: 16px;
+        line-height: 22px;
+
+        .plan_name {
+          margin-bottom: 16px;
+          font-family: "Inter-Bold", sans-serif;
+        }
+
+        .price {
+          font-family: "Inter-Bold", sans-serif;
+          font-size: 24px;
+          line-height: 30px;
+          margin-bottom: 16px;
+        }
+
+        .discounted-price {
+          font-family: "Inter-Bold", sans-serif;
+          font-size: 24px;
+          line-height: 30px;
+          margin-bottom: 0;
+          color: $main-blue-hover;
+
+          & + .price {
+            font-size: 18px;
+            line-height: 26px;
+            text-decoration: line-through;
+          }
+
+          @media (max-width: 576px) {
+            font-size: 18px;
+            line-height: 26px;
+
+            & + .price {
+              font-size: 16px;
+              line-height: 24px;
+              text-decoration: line-through;
+            }
+          }
+        }
+
+
+        .plan_info {
+          font-size: 14px;
+          line-height: 22px;
+
+          .payment_text {
+            margin-bottom: 16px;
+            word-break: break-word !important;
+
+            a {
+              word-break: break-all !important;
+            }
+          }
+
+          .card_text {
+            .main_text {
+              margin-bottom: 8px;
+            }
+          }
+
+          .payment_info {
+            margin-top: 16px;
+
+            .payment_title {
+              display: none;
+            }
+          }
+        }
+      }
+
+      @media (max-width: 576px) {
+        .plan_container{
+          margin-left: 0 !important;
+
+          & + .plan_container{
+            margin-top: 16px;
+          }
+
+          label {
+            width: 100%;
+          }
+        }
+        .plan {
+          font-size: 12px;
+          line-height: 18px;
+          padding: 24px 16px;
+
+
+          .plan_name{
+            font-size: 14px;
+            line-height: 22px;
+            margin-bottom: 8px;
+          }
+
+          .price {
+            font-size: 18px;
+            line-height: 26px;
+          }
+
+          .plan_info {
+            font-size: 12px;
+            line-height: 18px;
+
+            .payment_text{
+              margin-bottom: 16px;
+            }
+
+            .card_text {
+              .main_text {
+                margin-bottom: 4px;
+              }
+            }
+
+            .payment_info {
+              margin-top: 8px;
+            }
+          }
+        }
+      }
+    }
+
+    .sign-up-title {
+      font-family: 'Inter-Bold', sans-serif;
+      color: $black;
+      font-size: 48px;
+      line-height: 56px;
+      margin-bottom: 40px;
+
+      @media (max-width: 576px) {
+        font-size: 40px;
+        line-height: 52px;
+        margin-bottom: 32px;
+      }
+    }
+
+    #prev-activity-link {
+      min-width: 123px;
+      margin-right: 16px;
+      transition: all .3s ease-in-out;
+
+      svg {
+        margin-right: 4px;
+        stroke: $main-yellow;
+        transition: all .3s ease-in-out;
+      }
+
+      &:hover {
+        svg {
+          stroke: $main-blue-hover;
+          transition: all .3s ease-in-out;
+        }
+      }
+
+      @media (max-width: 576px) {
+        margin-right: 0;
+        min-width: 100%;
+      }
+    }
+
+    #next-activity-link {
+      padding: 14px 65px;
+
+      @media (max-width: 576px) {
+        margin-bottom: 24px;
+      }
+    }
+  }
+
+  .plans_wrapper {
+    display: flex;
+
+    @media (max-width: 576px) {
+      flex-direction: column;
+    }
+  }
+
+  .payment_title {
+    font-size: 16px;
+    line-height: 22px;
+    margin: 16px 0;
+    font-family: 'Inter-Bold', sans-serif;
+
+    @media (max-width: 576px) {
+      font-size: 12px;
+      line-height: 18px;
+      margin: 16px 8px;
+    }
+
+    a {
+      font-family: 'Inter-Bold', sans-serif;
+      font-size: 16px;
+      line-height: 22px;
+      color: $main-blue-hover;
+      text-decoration: underline;
+      word-break: break-word;
+      transition: all .3s ease-in-out;
+
+      @media (max-width: 576px) {
+        font-size: 12px;
+        line-height: 18px;
+      }
+
+      &:hover {
+        text-decoration: underline !important;
+        color: $main-yellow;
+      }
+    }
+  }
+
+  .payment_list {
+    margin-bottom: 0;
+    margin-left: 0;
+
+    .payment_item {
+      font-family: 'Inter-Regular', sans-serif;
+      font-size: 16px;
+      line-height: 22px;
+
+      @media (max-width: 576px) {
+        font-size: 12px;
+        line-height: 18px;
+      }
+    }
+  }
+}

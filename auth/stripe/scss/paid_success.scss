@@ -1,0 +1,142 @@
+.pagelayout-notice {
+  #page,
+  #region-main-box {
+    padding: 0!important;
+  }
+
+  #page {
+    @media (max-width: 576px) {
+      justify-content: start;
+    }
+  }
+
+  #page-wrapper,
+  .account-created-page,
+  #page-content {
+    background: $white;
+    @media (max-width: 576px) {
+      height: 100%;
+    }
+  }
+
+  div [role="main"] {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .account-created-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    @media (max-width: 576px) {
+      height: 100%;
+      justify-content: space-between;
+      padding-bottom: 24px;
+    }
+  }
+
+  .account-created-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    @media (max-width: 576px) {
+      padding: 56px 24px 24px;
+    }
+
+    .header-logo {
+      margin-bottom: 32px;
+
+      @media (max-width: 576px) {
+        img {
+          width: 194px;
+          height: 48px;
+        }
+      }
+    }
+
+    .account-created-block {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      box-shadow: 0px 0px 27px rgba(93, 126, 172, 0.1) !important;
+      border-radius: 16px;
+      max-width: 540px;
+      padding: 64px 56px 91px;
+      margin-bottom: 32px;
+
+      @media (max-width: 576px) {
+        box-shadow: none!important;
+        padding: 108px 0 0;
+      }
+    }
+
+    .success-checkmark {
+      margin-bottom: 24px;
+    }
+
+    .account-created-text {
+      font-family: 'Inter-Bold', sans-serif;
+      font-size: 32px;
+      line-height: 40px;
+      margin-bottom: 16px;
+      text-align: center;
+
+      @media (max-width: 576px) {
+        font-size: 22px;
+        line-height: 30px;
+        margin-bottom: 8px;
+      }
+    }
+
+    .account-created-user-email-text {
+      font-family: 'Inter-Regular', sans-serif;
+      font-size: 18px;
+      line-height: 27px;
+      text-align: center;
+      margin-bottom: 0;
+
+      @media (max-width: 576px) {
+        font-size: 16px;
+        line-height: 24px;
+      }
+    }
+
+    .paid_btn {
+      margin-top: 40px;
+      width: 100%;
+
+      @media (max-width: 576px) {
+        margin-top: 32px;
+      }
+    }
+  }
+
+  .email-text {
+    font-family: 'Inter-Bold', sans-serif;
+    font-size: 18px;
+    line-height: 27px;
+    color: $main-blue-hover;
+    transition: all .3s ease-in-out;
+
+    &:hover {
+      color: $main-yellow;
+    }
+  }
+
+  .footer {
+    font-family: 'Inter-Regular', sans-serif;
+    font-size: 14px;
+    line-height: 22px;
+    color: #A7ABB3;
+
+    @media (max-width: 576px) {
+      font-size: 12px;
+      line-height: 18px;
+    }
+  }
+}

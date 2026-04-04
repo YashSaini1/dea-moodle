@@ -1,0 +1,12 @@
+<div class="update-subscription-buttons-wrapper d-flex justify-content-between mb-4 mt-2">
+    {{#user_buttons}}
+        <button
+            class="btn btn-secondary update-subscription-button"
+            data-link="{{link}}"
+            style="width: fit-content"
+            {{#disabled}}disabled{{/disabled}}
+        >
+            {{title}}
+        </button>
+    {{/user_buttons}}
+</div>

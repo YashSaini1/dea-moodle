@@ -1,0 +1,122 @@
+.admin_editor_page {
+  .ui_wrapper {
+    border: 1px solid #E5E6E9 !important;
+    padding: 16px 0;
+    background: $white!important;
+    border-radius: 8px;
+    resize: none!important;
+
+    .ace_editor {
+      background-color: transparent;
+    }
+
+    .ace_mobile-menu {
+      background: transparent;
+      border: none;
+    }
+
+    // line numbers
+    .ace_gutter {
+      background: unset;
+      color: #3A3D46;
+
+      .ace_gutter-cell {
+        padding: 0 16px;
+        border: none;
+        font-size: 14px;
+
+        &.ace_gutter-active-line {
+          background: none;
+        }
+      }
+    }
+
+    .ace_scrollbar-h {
+      bottom: 2px!important;
+    }
+
+    .ace_scrollbar-v,
+    .ace_scrollbar-h {
+      &::-webkit-scrollbar {
+        height: 4px;
+        width: 4px;
+      }
+
+      &::-webkit-scrollbar-track {
+        background: #F5F7F9;
+        height: 4px;
+      }
+
+      &::-webkit-scrollbar-thumb {
+        background-color: $scroll-purple;
+        border-radius: 12px;
+      }
+    }
+
+    // writing area
+    .ace_scroller {
+      .ace_layer {
+        .ace_print-margin {
+          display: none;
+        }
+
+        .ace_line {
+          font-size: 100%;
+          line-height: 18px;
+          color: #3A3D46;
+
+          .ace_keyword {
+            color: #6878E1;
+          }
+        }
+
+        .ace_active-line {
+          background: none;
+        }
+      }
+    }
+  }
+
+  div.ui_wrapper {
+    max-width: 100%;
+    box-sizing: border-box;
+    background-color: #f0f0f0;
+  }
+
+  .ace_editor {
+    font-size: 100%;
+    line-height: 18px;
+  }
+
+  /* Editing form. */
+  div.edit_code textarea {
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+    font-family: courier, monospace;
+  }
+
+  button.toggleuidetails {
+    border: none;
+    color: blue;
+  }
+
+  .ace_wrapper {
+    border: 1px solid #bbb;
+  }
+
+  textarea.edit_code {
+    width: 100%;
+    box-sizing: border-box;
+    font-family: courier, monospace;
+  }
+
+  textarea.uiloadfailed {
+    border: 6px solid orange;
+  }
+
+  div.uiloadfailed {
+    background-color: orange;
+    padding-left: 10px;
+  }
+}

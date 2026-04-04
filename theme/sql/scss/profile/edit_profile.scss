@@ -1,0 +1,610 @@
+#page-user-edit {
+
+  #page {
+    background: $background-grey;
+  }
+
+  .main-inner {
+    min-width: 1110px !important;
+    box-shadow: 0px 0px 27px rgba(93, 126, 172, 0.1) !important;
+    border-radius: 16px !important;
+    margin-bottom: 32px !important;
+    padding: 64px 56px !important;
+
+    @media (max-width: 1150px) {
+      min-width: 100% !important;
+    }
+
+    @media (max-width: 576px) {
+      padding: 54px 24px !important;
+      margin-top: 10px !important;
+      margin-bottom: 0 !important;
+    }
+  }
+
+  #page-header {
+    display: none;
+  }
+
+  label {
+    color: $secondary-black;
+    font-size: 14px;
+    line-height: 22px;
+  }
+
+  input {
+    color: $main-black;
+  }
+
+  form {
+    padding-left: 0;
+    padding-right: 0;
+  }
+
+  h1 {
+    font-family: 'Inter-Bold', sans-serif;
+    font-size: 48px;
+    line-height: 56px;
+    margin-bottom: 40px;
+
+    @media (max-width: 576px) {
+      font-size: 40px;
+      line-height: 52px;
+      margin-bottom: 32px;
+    }
+  }
+
+  #fitem_id_moodle span {
+    font-family: 'Inter-Bold', sans-serif;
+    font-size: 24px;
+    line-height: 30px;
+    margin-bottom: 24px;
+
+    @media (max-width: 576px) {
+      font-size: 18px;
+      line-height: 26px;
+    }
+  }
+
+  .profile-fields-group .fitem {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: initial;
+    margin-bottom: 24px;
+    margin-left: 0;
+
+    .form-label-addon {
+      [aria-label="Required"] {
+        display: none !important;
+      }
+    }
+
+    @media (max-width: 576px) {
+      width: 100%;
+    }
+
+    .col-md-3.col-form-label.d-flex.pb-0.pr-md-0,
+    .col-md-9.form-inline.align-items-start.felement {
+      padding: 0;
+      max-width: 398px !important
+    }
+
+    input {
+      height: 40px;
+      max-width: 184px;
+
+      @media (max-width: 576px) {
+        max-width: 100%;
+      }
+    }
+
+    label {
+      margin-bottom: 4px;
+    }
+  }
+
+  #fitem_phone,
+  #fitem_id_email,
+  #fitem_id_username {
+    min-width: 398px;
+
+    input {
+      min-width: 398px;
+
+      @media (max-width: 576px) {
+        min-width:initial;
+      }
+    }
+
+    @media (max-width: 576px) {
+      min-width:initial;
+    }
+  }
+
+  #fitem_phone .iti{
+    width: 100%;
+  }
+
+  #fitem_id_username {
+    margin-bottom: 40px;
+
+    @media (max-width: 576px) {
+      margin-bottom: 56px;
+    }
+  }
+
+  .edit-profile-name-fields {
+    display: flex;
+
+    @media (max-width: 576px) {
+      flex-direction: column;
+    }
+  }
+
+  #fitem_id_firstname {
+    margin-right: 30px;
+
+    @media (max-width: 576px) {
+      margin-right: 0;
+    }
+  }
+
+  #fitem_id_moodle_picture {
+    margin-bottom: 24px;
+
+    @media (max-width: 576px) {
+      margin-left: 0;
+      margin-right: 0;
+
+      div {
+        padding-left: 0;
+      }
+    }
+
+    span {
+      font-family: 'Inter-Bold', sans-serif;
+      font-size: 24px;
+      line-height: 30px;
+
+      @media (max-width: 576px) {
+        font-size: 18px;
+        line-height: 26px;
+      }
+    }
+  }
+
+  .edit-profile-picture-wrapper {
+    display: flex;
+    margin-bottom: 40px;
+
+    @media (max-width: 950px) {
+      flex-direction: column;
+    }
+
+    @media (max-width: 576px) {
+      margin-right: 0;
+      margin-bottom: 32px;
+
+      div {
+        padding-left: 0;
+        left: 0;
+        right: 0;
+        padding-right: 0;
+      }
+    }
+
+    .form-group.row.fitem {
+      margin-bottom: 0;
+
+      label {
+        margin-bottom: 0;
+      }
+    }
+
+    .edit-profile-picture {
+      margin-right: 40px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+
+      @media (max-width: 950px) {
+        margin-bottom: 32px;
+      }
+
+      @media (max-width: 576px) {
+        .row {
+          margin-right: 0;
+          margin-left: 0;
+        }
+      }
+    }
+
+    .col-md-9.checkbox {
+      min-width: 100%;
+
+      .form-check {
+        padding: 0;
+      }
+
+      input {
+        display: none;
+      }
+
+      input[type="checkbox"]:checked + label::before {
+        background-color: $main-yellow;
+        border: none;
+      }
+
+      input[disabled] + label:hover:before {
+        border: 1px solid $input-border!important;
+        cursor: default;
+      }
+
+      label {
+        font-size: 14px;
+        line-height: 20px;
+        display: flex;
+        align-items: center;
+        color: $secondary-black;
+
+        &:before {
+          content: '';
+          display: block;
+          width: 24px;
+          height: 24px;
+          background: url([[pix:theme_sql|check]]) center no-repeat;
+          background-color: #ffffff;
+          border: 1px solid $input-border;
+          border-radius: 4px;
+          margin-right: 8px;
+          transition: 0.3s all;
+        }
+      }
+    }
+
+    #fitem_id_currentpicture {
+      margin-bottom: 24px;
+
+      @media (max-width: 576px) {
+        margin-bottom: 16px;
+      }
+
+      .col-md-3.col-form-label.d-flex.pb-0.pr-md-0 {
+        display: none !important;
+      }
+
+      .form-group.row.fitem {
+        .col-md-3.col-form-label.pb-0.pt-0 {
+          display: none;
+        }
+      }
+
+      img {
+        width: 126px;
+        height: 126px;
+      }
+    }
+
+    #fitem_id_imagefile {
+      width: 100%;
+
+      @media (max-width: 576px) {
+        margin-left: 0;
+        margin-right: 0;
+      }
+
+      .col-md-3.col-form-label.d-flex.pb-0.pr-md-0 {
+        display: none !important;
+      }
+
+      .col-md-9.form-inline.align-items-start.felement {
+        min-width: 100%;
+      }
+    }
+
+
+  }
+
+  #fgroup_id_buttonar {
+    margin-bottom: 0;
+
+    .col-md-3.col-form-label.d-flex.pb-0.pr-md-0 {
+      display: none !important;
+    }
+
+    .form-group.fitem {
+      input {
+        background: $main-yellow;
+        border-radius: 8px;
+        font-family: 'Inter-Bold', sans-serif;
+        font-size: 16px;
+        line-height: 18px;
+        margin-right: 16px;
+        width: 137px;
+        height: 48px;
+        border: none;
+        color: $white;
+        transition: all .3s ease-in-out;
+
+        &:hover {
+          background: $main-blue-hover;
+        }
+      }
+    }
+
+    .form-group.fitem.btn-cancel {
+      input {
+        background: transparent;
+        border-radius: 8px;
+        border: 2px solid $main-yellow;
+        font-family: 'Inter-Bold', sans-serif;
+        font-size: 16px;
+        line-height: 18px;
+        margin-right: 16px;
+        width: 137px;
+        height: 48px;
+        color: $main-yellow;
+        transition: all .3s ease-in-out;
+
+        &:hover {
+          border: 2px solid $main-blue-hover;
+          color: $main-blue-hover;
+        }
+      }
+    }
+  }
+
+  .fdescription.required {
+    display: none;
+  }
+
+  #fitem_id_imagefile {
+    fieldset {
+      p,
+      .form-filetypes-descriptions,
+      .fp-restrictions {
+        display: none;
+      }
+    }
+
+    .filetypes-wrapper {
+      display: flex;
+      justify-content: space-between;
+
+      @media (max-width: 780px) {
+        flex-direction: column;
+      }
+    }
+
+    .file-types span {
+      font-size: 14px;
+      line-height: 22px;
+      color: $light-grey;
+      display: block;
+
+      @media (max-width: 780px) {
+        font-size: 12px;
+        line-height: 18px;
+        margin-bottom: 16px;
+      }
+    }
+  }
+
+  #fgroup_id_buttonar fieldset div {
+    @media (max-width: 576px) {
+      flex-direction: column;
+
+      div input,
+      div {
+        width: 100% !important;
+        margin-right: 0 !important;
+      }
+
+      div input:not(.btn-secondary) {
+        margin-bottom: 24px;
+      }
+    }
+  }
+
+  .has-danger {
+    .felement {
+      max-width: 184px;
+    }
+  }
+}
+
+.dndupload-message {
+  display: flex!important;
+  justify-content: center;
+  align-items: center;
+  font-size: 18px;
+  line-height: 27px;
+  color: $secondary-black;
+
+  @media (max-width: 576px) {
+    font-size: 14px;
+    line-height: 22px;
+  }
+
+  .dndupload-arrow {
+    position: relative;
+    width: 24px;
+    height: 24px;
+    top: initial;
+    margin-right: 8px;
+
+    &:before {
+      content: url([[pix:theme_sql|upload]]);
+      display: block;
+      width: 24px;
+      height: 24px;
+      margin-right: 8px;
+    }
+
+    i {
+      display: none;
+    }
+  }
+}
+
+.fm-empty-container {
+  padding-top: 30px!important;
+
+  @media (max-width: 780px) {
+    left: 0;
+  }
+}
+
+.filemanager {
+
+  .fp-file-download,
+  .fp-file-delete ,
+  .fp-file-update,
+  .fp-file-cancel {
+    display: inline-block!important;
+  }
+
+  .dndupload-target {
+    .dndupload-arrow {
+      display: none!important;
+    }
+  }
+
+  .fp-viewbar,
+  .icon,
+  .fp-pathbar {
+    display: none;
+  }
+
+  .fp-toolbar {
+
+    .btn.btn-secondary.btn-sm {
+      padding: 0;
+      display: flex;
+      background: transparent!important;
+      border: none!important;
+      height: auto;
+
+      @media (max-width: 780px) {
+        margin-bottom: 16px;
+      }
+
+      &:hover {
+        &:before {
+          content: url([[pix:theme_sql|attach_hover]]);
+        }
+
+        &:after {
+          color: $main-yellow;
+        }
+      }
+
+      &:before {
+        content: url([[pix:theme_sql|attach]]);
+        display: block;
+        width: 16px;
+        height: 16px;
+        margin-right: 4px;
+      }
+
+      &:after {
+        content: 'Attach Picture' !important;
+        display: block;
+        font-family: 'Inter-Bold', sans-serif;
+        font-size: 14px;
+        line-height: 16px;
+        color: $main-blue-hover;
+      }
+    }
+  }
+
+
+  .fp-navbar.bg-faded.card.mb-0 {
+    border: none;
+  }
+
+  .fp-iconview .fp-filename-field {
+    top: 50px;
+    height: initial;
+
+    .fp-filename {
+      padding: 0 !important;
+      font-size: 14px;
+      line-height: 22px;
+      color: $secondary-black;
+    }
+  }
+
+  .fp-thumbnail {
+    min-width: 48px;
+    min-height: 48px;
+    width: 48px !important;
+    height: 48px !important;
+
+    img {
+      max-width: 48px !important;
+      max-height: 48px !important;
+      border-radius: 8px;
+      position: absolute;
+      left: 8px;
+    }
+  }
+
+  .fm-empty-container,
+  .fp-content {
+    border: 2px dashed $input-border;
+    border-radius: 16px;
+    max-height: 96px !important;
+    min-height: 96px !important;
+
+    @media (max-width: 576px) {
+      max-height: 88px !important;
+      min-height: 88px !important;
+      width: 100%;
+    }
+  }
+
+  .filemanager-container {
+    border: none;
+
+    @media (max-width: 576px) {
+      min-height: 100px;
+    }
+  }
+
+  .dndupload-target {
+    border: 2px dashed $input-border;
+    border-radius: 16px;
+    max-height: 96px;
+    background-color: $background-purple;
+
+    span {
+      font-size: 18px;
+      line-height: 27px;
+      color: $secondary-black;
+      position: absolute;
+      top: 30px;
+      display: flex;
+      left: 50%;
+      transform: translate(-50%, 0);
+
+      &:before {
+        content: url([[pix:theme_sql|upload]]);
+        display: block;
+        width: 24px;
+        height: 24px;
+        margin-right: 8px;
+      }
+    }
+  }
+}
+
+div:not(.edit-profile-picture-wrapper) {
+  .filemanager {
+    .btn.btn-secondary.btn-sm {
+      &:after {
+        content: 'Attach File' !important;
+      }
+    }
+  }
+}

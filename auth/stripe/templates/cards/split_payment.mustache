@@ -1,0 +1,9 @@
+<div class="card_text">
+    {{#display_billed_twice}}
+    <p style="margin-bottom: 8px">{{#str}} split_payment:billed_twice, auth_stripe{{/str}}</p>
+    {{/display_billed_twice}}
+    <p style="margin-bottom: 0px">
+        {{#str}} split_payment:second_payment, auth_stripe {{/str}}
+        <b> {{#str}} split_payment:second_payment_date, auth_stripe, {{nextdate}} {{/str}}</b>
+    </p>
+</div>

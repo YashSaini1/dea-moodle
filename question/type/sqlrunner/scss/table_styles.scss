@@ -1,0 +1,113 @@
+.results {
+  overflow-x: scroll;
+
+  &::-webkit-scrollbar {
+    height: 4px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: $scroll-purple;
+    border-radius: 24px;
+  }
+
+  .result button {
+    background: transparent;
+    border-radius: 8px;
+    border: 2px solid $main-yellow;
+    font-family: 'Inter-Bold', sans-serif;
+    font-size: 16px;
+    line-height: 18px;
+    margin-bottom: 32px;
+    width: 137px;
+    height: 48px;
+    color: $main-yellow;
+    transition: all .3s ease-in-out;
+
+    &:hover, &:disabled{
+      border: 2px solid $main-blue-hover;
+      color: $main-blue-hover;
+    }
+  }
+}
+
+.result_table {
+  .result_header {
+    .header_row {
+      background: #F5F7F9!important;
+
+      .cell {
+        font-family: 'Inter-Bold', sans-serif;
+        font-size: 14px;
+        line-height: 22px;
+        color: $secondary-black;
+        padding: 4px 12px;
+        border: 1px solid $input-border;
+      }
+    }
+  }
+
+  .result_body {
+    .result_row {
+      background: #fff;
+
+      .cell {
+        font-size: 14px;
+        line-height: 22px;
+        padding: 4px 12px;
+        color: $secondary-black;
+        border: 1px solid $input-border;
+      }
+    }
+  }
+}
+
+.outcome.clearfix {
+  padding: 0;
+  border: none;
+  border-radius: 0;
+  margin-bottom: 0;
+  margin-top: 16px;
+  max-height: calc(100vh - 425px);
+
+  overflow-y: scroll;
+  overflow-x: scroll;
+
+  background-color: transparent!important;
+
+  &::-webkit-scrollbar {
+    height: 4px;
+    width: 4px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: #fff;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: $scroll-purple;
+    border-radius: 4px;
+  }
+
+  .feedback,
+  .specificfeedback {
+    margin: 0;
+    width: fit-content;
+    overflow: hidden;
+  }
+
+  .sqlrunner-test-results {
+    border-radius: 0;
+    width: fit-content;
+    overflow: hidden;
+  }
+
+  .sqlrunner-test-results.bad,
+  .sqlrunner-test-results.good {
+    background-color: $white!important;
+    padding: 0;
+  }
+}

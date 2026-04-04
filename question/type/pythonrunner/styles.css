@@ -1,0 +1,422 @@
+/* Question and results page */
+
+.que.pythonrunner div.pythonrunner-examples,
+.que.pythonrunner div.pythonrunner-test-results {
+    width: 100%;
+    overflow-x: auto;
+    box-sizing: border-box;
+}
+
+#page-question-type-pythonrunner table.pythonrunner-test-results td,
+#page-question-type-pythonrunner table.pythonrunner-test-results th,
+.que.pythonrunner table.pythonrunner-test-results td,
+.que.pythonrunner table.pythonrunnerexamples td,
+.que.pythonrunner textarea.edit_code {
+    font-family: courier, monospace;
+    vertical-align: top;
+}
+
+.que.pythonrunner textarea.edit_code {
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+}
+
+.que.pythonrunner div.initialisationerror {
+    color: #ca3120;
+}
+
+.que.pythonrunner div.pythonrunnerexamples {
+    padding-bottom: 10px;
+}
+
+#page-question-type-pythonrunner div.ui_wrapper,
+.que.pythonrunner div.ui_wrapper {
+    max-width: 100%;
+    box-sizing: border-box;
+    background-color: #f0f0f0;
+}
+
+.que.pythonrunner .ace_editor,
+body#page-question-type-pythonrunner .ace_editor {
+    font-size: 100%;
+    line-height: 18px;
+}
+
+.que.pythonrunner p.for-example-para {
+    font-weight: bold;
+}
+
+.que.pythonrunner .btn {
+    margin-right: 10px;
+}
+
+.que.pythonrunner div.pythonrunner-test-results {
+    padding: 0.5em;
+}
+
+.que.pythonrunner label.answerprompt {
+    font-weight: bold;
+}
+
+.que.pythonrunner div.prompt {
+    margin-top: 20px;
+    margin-bottom: 7px;
+}
+
+.que.pythonrunner div.pythonrunner-lang-select-div {
+    padding-top: 10px;
+    padding-bottom: 3px;
+}
+
+.que.pythonrunner select.pythonrunner-lang-select {
+    margin: 0 0 0 10px;
+    padding: 1px 5px 1px 5px;
+}
+
+.que.pythonrunner input.answer_reset_btn {
+    margin-bottom: 5px;
+}
+
+#page-question-type-pythonrunner table.pythonrunner-test-results td,
+#page-question-type-pythonrunner table.pythonrunner-test-results th,
+.que.pythonrunner table.pythonrunner-test-results td,
+.que.pythonrunner table.pythonrunner-test-results th,
+.que.pythonrunner table.pythonrunnerexamples td,
+.que.pythonrunner table.pythonrunnerexamples th {
+    border: 1px solid #b0b0b0;
+    padding: 0.4em;
+}
+
+#page-question-type-pythonrunner table.pythonrunner-test-results .header,
+.que.pythonrunner table.pythonrunner-test-results .header,
+.que.pythonrunner table.pythonrunnerexamples .header {
+    text-align: left;
+    background-color: #f8f8ff;
+}
+
+.que.pythonrunner table.pythonrunner-test-results tr.hidden-test {
+    opacity: 0.5;
+}
+
+#page-question-type-pythonrunner table.pythonrunner-test-results {
+    margin-top: 0.5em;
+    margin-bottom: 0;
+}
+
+.que.pythonrunner table.pythonrunner-test-results,
+.que.pythonrunner table.pythonrunnerexamples {
+    margin-bottom: 1em;
+}
+
+#page-question-type-pythonrunner div.pythonrunner-test-results td:last-child,
+#page-question-type-pythonrunner div.pythonrunner-test-results td:first-child
+.que.pythonrunner div.pythonrunner-test-results td:last-child,
+.que.pythonrunner div.pythonrunner-test-results td:first-child {
+    min-width: 16px;
+}
+
+.que.pythonrunner textarea.pythonrunner-answer[cols] {
+    max-width: 100%;
+    width: auto;
+    line-height: 18px;
+}
+
+.que.pythonrunner div.pythonrunner-test-results {
+    color: black;
+}
+
+.que.pythonrunner div.precheck h3 {
+    margin: 3px 0;
+    font-size: 24px;
+    color: #333;
+}
+
+.que.pythonrunner pre.tablecell {
+    background-color: inherit;
+    border: none;
+    padding: 0;
+    white-space: pre;
+}
+
+.que.pythonrunner div.pythonrunner-test-results pre,
+.que.pythonrunner div.pythonrunner-examples pre {
+    margin-bottom: 0;
+}
+
+.que.pythonrunner div.pythonrunner-test-results.good,
+#page-question-type-pythonrunner tr.pythonrunner-failed-test.fixed {
+    background-color: #afa;
+}
+
+.que.pythonrunner div.pythonrunner-test-results.outputonly {
+    background-color: #f0f0f0;
+}
+
+.que.pythonrunner div.pythonrunner-test-results.good.precheck {
+    background: repeating-linear-gradient(0deg, #fff, #fff 8px, #f8f1f9 8px, #f8f1f9 16px);
+}
+
+.que.pythonrunner div.pythonrunner-test-results.bad,
+.que.pythonrunner div.pre_syntax_error,
+.que.pythonrunner div.pre_question_error {
+    background-color: #faa;
+}
+
+.que.pythonrunner div.pythonrunner-test-results.bad.precheck,
+.que.pythonrunner pre.pre_syntax_error .precheck {
+    background: repeating-linear-gradient(0deg, #fdd, #fdd 8px, #fee 8px, #fee 16px);
+}
+
+.que.pythonrunner pre.pre_syntax_error,
+.que.pythonrunner div.pre_question_error {
+    border: none;
+}
+
+div.pythonrunner-test-results.partial {
+    background-color: #fff3bf;
+}
+
+.que.pythonrunner span.answerprompt {
+    font-weight: bold;
+}
+
+.que.pythonrunner span.penaltyregime {
+    padding-left: 0.6em;
+}
+
+/* Ins and del elements are used to show differences. ins elements are
+   always hidden and del elements are always displayed (without decoration),
+   but the background colour of del elements is toggled by the
+   Show/Hide differences button.
+*/
+.que.pythonrunner div.pythonrunner-test-results del {
+    text-decoration: none;
+    background-color: #e0e000;
+}
+
+/* Add lines I seem to have somehow overridden in styles.php */
+.que.pythonrunner tr.r0 td {
+    background-color: #f5f5f5;
+}
+
+.que.pythonrunner tr.r1 td {
+    background-color: #e5e5e5;
+}
+
+.que.pythonrunner div.im-controls p.penaltyregime {
+    display: inline;
+    float: right;
+}
+
+.que.pythonrunner .ace_wrapper {
+    border: 1px solid #d9edf7;
+}
+
+.que.pythonrunner .ace_gutter-cell {
+    border-right: solid 1px #000;
+}
+
+.que.pythonrunner .ace_fold-widget {
+    background-color: transparent;
+    background-image: none;
+    border: none;
+}
+
+.que.pythonrunner .ace_fold-widget:hover {
+    border: 1px solid gray;
+    margin-top: 1px;
+}
+
+/* expand */
+.que.pythonrunner .ace_fold-widget.ace_closed::before {
+    content: '►';
+    color: gray;
+    font-size: 80%;
+    margin: 0 2px;
+    margin-top: -4px;
+}
+
+/* collapse */
+.que.pythonrunner .ace_fold-widget.ace_open::before {
+    content: '▼';
+    color: gray;
+    font-size: 60%;
+    margin: 0 2px;
+}
+
+.que.pythonrunner .ace_line .ace_fold {
+    padding-right: 1px;
+    line-height: 9px;
+}
+
+.que.pythonrunner .ace_line .ace_fold::before {
+    background-image: none;
+    content: '←→';
+    float: right;
+    margin-top: -1px;
+}
+
+/* Editing form. */
+body#page-question-type-pythonrunner div.edit_code textarea {
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+    font-family: courier, monospace;
+}
+
+body#page-question-type-pythonrunner pre.templateparamserror {
+    color: #ca3120;
+}
+
+body#page-question-type-pythonrunner div#id_qtype_pythonrunner_error_div:empty {
+    display: none;
+}
+
+body#page-question-type-pythonrunner div#id_qtype_pythonrunner_error_div {
+    font-size: 120%;
+    font-weight: bold;
+    color: red;
+    border: 2px solid red;
+    padding: 4px;
+}
+
+body#page-question-type-pythonrunner textarea#id_templateparams {
+    resize: both;
+}
+
+body#page-question-type-pythonrunner .uiparamtablediv {
+    padding-top: 8px;
+}
+
+body#page-question-type-pythonrunner table.uiparamtable,
+body#page-question-type-pythonrunner table.uiparamtable th,
+body#page-question-type-pythonrunner table.uiparamtable td {
+    border: 1px solid #ccc;
+    padding: 4px;
+    background-color: #f8f8f8;
+}
+
+body#page-question-type-pythonrunner button.toggleuidetails {
+    border: none;
+    color: blue;
+}
+
+body#page-question-type-pythonrunner .ace_wrapper {
+    border: 1px solid #bbb;
+}
+
+body#page-question-type-pythonrunner div[id^=fitem_id_],
+body#page-question-type-pythonrunner div[id^=fgroup_id_] {
+    background: #eee;
+    margin-bottom: 0;
+    margin-top: 0;
+    padding-bottom: 5px;
+    padding-top: 5px;
+    border: 1px solid #bbb;
+    border-top: 0;
+    border-bottom: 0;
+    overflow: visible;
+}
+
+body#page-question-type-pythonrunner label[for^=id_useasexample],
+body#page-question-type-pythonrunner label[for^=id_hiderestiffail],
+body#page-question-type-pythonrunner label.form-check {
+    padding: 5px;
+    border: 1px solid lightgray;
+}
+
+body#page-question-type-pythonrunner p.question-type-details-header {
+    font-size: 130%;
+}
+
+body#page-question-type-pythonrunner div[id^=fgroup_id_][id*=show_columns]
+.felement span {
+    margin-right: 2em;
+}
+
+body#page-question-type-pythonrunner div[id^=fgroup_id_][id*=show_columns] {
+    padding-top: 16px;
+    padding-bottom: 16px;
+}
+
+body#page-question-type-pythonrunner select#id_pythonrunner_type {
+    margin-right: 2em;
+}
+
+body#page-question-type-pythonrunner div[id^=fitem_id_testcode]:not(:first-of-type) {
+    margin-top: 14px;
+    border: 1px solid #bbb;
+    border-bottom: 0;
+    padding-top: 8px;
+}
+
+body#page-question-type-pythonrunner div[id=fitem_id_addanswers] {
+    margin-top: 14px;
+    border: 1px solid #bbb;
+    padding-top: 8px;
+}
+
+body#page-question-type-pythonrunner input[name="usecurrentcat"] {
+    margin-right: 1px;
+    margin-left: 2em;
+}
+
+body#page-question-type-pythonrunner input[type="checkbox"] + label {
+    margin-right: 1em;
+}
+
+body#page-question-type-pythonrunner textarea.edit_code {
+    width: 100%;
+    box-sizing: border-box;
+    font-family: courier, monospace;
+}
+
+body#page-question-type-pythonrunner textarea.uiloadfailed {
+    border: 6px solid orange;
+}
+
+body#page-question-type-pythonrunner div.uiloadfailed {
+    background-color: orange;
+    padding-left: 10px;
+}
+
+body#page-question-type-pythonrunner input.testcasemark,
+body#page-question-type-pythonrunner input.pythonrunner_answerbox_size,
+body#page-question-type-pythonrunner input#id_cputimelimitsecs,
+body#page-question-type-pythonrunner input#id_memlimitmb {
+    width: auto;
+}
+
+body#page-question-type-pythonrunner label + select,
+body#page-question-type-pythonrunner label + input {
+    margin-right: 1em;
+}
+
+body#page-question-type-pythonrunner div.testcaseexpression {
+    padding-top: 10px;
+    border-top: 1px solid lightgrey;
+}
+
+/* Bulk tester */
+li.bulktest.pythonrunner.context.quiz {
+    padding-left: 1.5em;
+    list-style-type: none;
+}
+
+/* Ace gapfiller ui */
+.ace-gap-background {
+    position: absolute;
+    background-color: SeaShell;
+    border-radius: 0;
+}
+
+.ace-gap-outline {
+    position: absolute;
+    outline: 1px solid;
+    outline-color: rgba(0, 0, 0, 0.5);
+}
+
+.formulation-area.closed {
+    display: none;
+}

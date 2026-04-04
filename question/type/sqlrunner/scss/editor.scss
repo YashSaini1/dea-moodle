@@ -1,0 +1,233 @@
+#page-mod-quiz-attempt,
+.pagelayout-modhvp,
+.pagelayout-questioneditor {
+  background-color: #F5F7F9;
+  pointer-events: none;
+
+  #page-wrapper {
+    #page {
+      margin: 108px 48px 16px 48px;
+      padding: 24px 56px;
+      box-shadow: 0 0 27px rgba(93, 126, 172, 0.1) !important;
+      border-radius: 16px;
+      background: #fff;
+      height: calc(100vh - 134px);
+      overflow: visible;
+
+      @media (max-width: 576px) {
+        margin: 64px 0 0 0;
+      }
+
+      &.show-drawer-right {
+        margin-right: 488px;
+
+        &::-webkit-scrollbar-track {
+          background: $background-grey!important;
+        }
+
+        &::-webkit-scrollbar-thumb {
+          background-color: $scroll-purple!important;
+          border: none!important;
+        }
+      }
+
+      .main-inner {
+        padding: 0 56px;
+        margin: 0;
+        min-height: initial;
+
+        @media (max-width: 576px) {
+          padding: 0 24px!important;
+        }
+      }
+
+      footer {
+        display: none;
+      }
+    }
+
+    #page-header {
+      max-width: unset;
+      padding-left: 0;
+      padding-right: 0;
+      margin-bottom: 0;
+
+      .breadcrumb {
+        padding: 0;
+        margin-bottom: 32px;
+        font-size: 18px;
+        line-height: 27px;
+
+        .breadcrumb-item {
+          padding-left: 16px;
+
+          &:first-child {
+            padding-left: 0;
+          }
+
+          &:last-child {
+            color: #FEB50D;
+            font-family: Inter-Bold;
+          }
+
+          &:before {
+            padding-right: 16px;
+            font-family: Inter;
+          }
+
+          a {
+            color: #3A3D46;
+          }
+        }
+      }
+
+      .page-context-header {
+        padding: 0;
+      }
+
+      h1 {
+        font-size: 40px;
+        line-height: 48px;
+        font-family: 'Inter-Bold', sans-serif;
+        color: #001C29;
+        text-transform: capitalize;
+        margin: 0;
+      }
+    }
+
+    .main-inner,
+    #page-header {
+      max-width: unset;
+      padding: 0;
+      margin-top: 0;
+
+      #page-content {
+        height: auto;
+
+        #region-main-box {
+          height: auto;
+        }
+      }
+
+      div[role="main"] {
+        padding: 0;
+        height: auto;
+      }
+
+      .secondary-navigation .navigation {
+        border: none;
+      }
+    }
+  }
+}
+
+#page-question-type-sqlrunner {
+  .ui_wrapper {
+    border: 1px solid #E5E6E9 !important;
+    padding: 16px 0;
+    background: $white!important;
+    border-radius: 8px;
+    resize: none!important;
+
+    .ace_editor {
+      background-color: transparent;
+    }
+
+    .ace_mobile-menu {
+      background: transparent;
+      border: none;
+    }
+
+    // line numbers
+    .ace_gutter {
+      background: unset;
+      color: #3A3D46;
+
+      .ace_gutter-cell {
+        padding: 0 16px;
+        border: none;
+        font-size: 14px;
+
+        &.ace_gutter-active-line {
+          background: none;
+        }
+      }
+    }
+
+    .ace_scrollbar-h {
+      bottom: 2px!important;
+    }
+
+    .ace_scrollbar-v,
+    .ace_scrollbar-h {
+      &::-webkit-scrollbar {
+        height: 4px;
+        width: 4px;
+      }
+
+      &::-webkit-scrollbar-track {
+        background: #F5F7F9;
+        height: 4px;
+      }
+
+      &::-webkit-scrollbar-thumb {
+        background-color: $scroll-purple;
+        border-radius: 12px;
+      }
+    }
+
+    // writing area
+    .ace_scroller {
+      .ace_layer {
+        .ace_print-margin {
+          display: none;
+        }
+
+        .ace_line {
+          font-size: 100%;
+          line-height: 18px;
+          color: #3A3D46;
+
+          .ace_keyword {
+            color: #6878E1;
+          }
+        }
+
+        .ace_active-line {
+          background: none;
+        }
+      }
+    }
+  }
+}
+
+
+body#page-mod-quiz-attempt {
+  background-color: #F5F7F9;
+  pointer-events: none;
+
+  #region-main {
+    background-color: transparent;
+  }
+
+  #page-wrapper {
+    #page {
+      margin: 76px 48px 16px 48px;
+      padding: 24px 56px 0 56px;
+      height: fit-content;
+      background: transparent;
+      box-shadow: none!important;
+
+      @media (max-width: 700px) {
+        margin: 64px 8px 0 8px;
+      }
+
+      .main-inner {
+        padding: 0;
+        margin: 0;
+        min-height: initial;
+        background-color: transparent;
+      }
+    }
+  }
+}

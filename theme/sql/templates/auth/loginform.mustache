@@ -1,0 +1,215 @@
+{{!
+This file is part of Moodle - http://moodle.org/
+
+Moodle is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+Moodle is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with Moodle. If not, see
+<http: //www.gnu.org/licenses />.
+}}
+{{!
+@template core/loginform
+
+Moodle template for the login page.
+
+Context variables required for this template:
+* autofocusform: Auto focus on form ?,
+* canloginasguest - Is guest login allowed?,
+* canloginbyemail - Is login by email allowed?,
+* cansignup - Signup allowed?,
+* cookieshelpicon - cookies help icon details
+* error - Any errors in the form?,
+* forgotpasswordurl - Forgot password url,
+* hasidentityproviders - Flag, set to true to hide identity providers,
+* hasinstructions - Flag, set to true to show instructions,
+* identityproviders - List of identiy providers,
+* instructions - Instructions,
+* instructionsformat - Format of instructions,
+* loginurl - Login url,
+* rememberusername - Remeber username?,
+* signupurl - Signup url,
+* cookieshelpiconformatted - Formatted html of cookies help icon,
+* errorformatted - Formatted error,
+* logourl - Flag, logo url,
+* sitename - Name of site.,
+* logintoken - Random token to protect login request.,
+* maintenance - Maintenance message
+
+Example context (json):
+{
+"autofocusform": false,
+"canloginasguest": "1",
+"canloginbyemail": false,
+"cansignup": true,
+"cookieshelpicon": {
+"heading": "Cookies must be enabled in your browser",
+"text": "<div class=\"no-overflow\">Two cookies are used on this site. Both died..</div>",
+"icon": {
+"attributes": [
+{
+"name": "class",
+"value": "iconhelp"
+},
+{
+"name": "alt",
+"value": "Help with Cookies must be enabled in your browser"
+},
+{
+"name": "title",
+"value": "Help with Cookies must be enabled in your browser"
+},
+{
+"name": "src",
+"value": "http://localhost/stable_master/theme/image.php?theme=boost&component=core&image=help"
+}
+]
+},
+"linktext": null,
+"title": "Help with Cookies must be enabled in your browser",
+"url": "http://localhost/stable_master/help.php?component=core&identifier=cookiesenabled&lang=en",
+"ltr": true
+},
+"error": "",
+"forgotpasswordurl": "http://localhost/stable_master/login/forgot_password.php",
+"hasidentityproviders": false,
+"hasinstructions": true,
+"identityproviders": [],
+"instructions": "For full access to this site, you first need to create an account.",
+"instructionsformat": "1",
+"loginurl": "http://localhost/stable_master/login/index.php",
+"rememberusername": true,
+"signupurl": "http://localhost/stable_master/login/signup.php",
+"cookieshelpiconformatted": "",
+"errorformatted": "",
+"logourl": false,
+"sitename": "Beer & Chips",
+"logintoken": "randomstring",
+"maintenance": "For full access to this site, you need to login in as an admin."
+}
+}}
+
+<div class="login-custom-wrapper">
+    <div class="image-wrapper">
+        <div class="image">
+            <img src="{{signin_imgsrc}}">
+        </div>
+    </div>
+    <div id="information">
+        <div class="login-wrapper">
+            <div class="logo-wrapper">
+                <div class="logo-image">
+                    <img src="{{signin_logo}}">
+                </div>
+            </div>
+            <div class="login-container">
+                <div class="card">
+                    <div class="card-block">
+                        <div class="card-body">
+                            <div class="box-content">
+                                <div class="form-wrapper">
+                                    <form class="mt-3" action="{{loginurl}}" method="post" id="login">
+                                        <input type="hidden" name="logintoken" value="{{logintoken}}">
+                                        <div class="box-title">
+                                            <h3>{{#str}} login, core {{/str}}</h3>
+                                        </div>
+
+                                        <div class="trustpilot-widget" style="margin: 20px 0;position: relative;display: flex;left: -67px;width: 100%;" data-locale="en-US" data-template-id="5419b732fbfb950b10de65e5" data-businessunit-id="65ef970d494d641f72b34141" data-style-height="24px" data-style-width="89%" data-theme="white">
+                                            <iframe title="Customer reviews powered by Trustpilot" loading="auto" src="https://widget.trustpilot.com/trustboxes/5419b732fbfb950b10de65e5/index.html?templateId=5419b732fbfb950b10de65e5&amp;businessunitId=65ef970d494d641f72b34141#locale=en-US&amp;styleHeight=24px&amp;styleWidth=100%25&amp;theme=dark" style="position: relative; height: 24px; width: 100%; border-style: none; display: block; overflow: hidden;"></iframe>
+                                        </div>
+                                        <script type="text/javascript" src="https://widget.trustpilot.com/bootstrap/v5/tp.widget.bootstrap.min.js" async></script>
+
+                                        {{#error}}
+                                            <div class="block-error-enter">
+                                                <div class="alert-logo">
+                                                    <img src="{{signin_error_imgsrc}}" alt="">
+                                                </div>
+
+                                                <div class="alert-text" role="alert" data-aria-autofocus="true">{{#str}}
+                                                    signin_error_enter_text,
+                                                    theme_sql {{/str}}</div>
+                                            </div>
+                                        {{/error}}
+
+                                        <div class="form-group">
+                                            <div id="block-input-email" class="input-box"
+                                                 data-error="{{#str}} signin_error_email_text, theme_sql {{/str}}">
+                                                <label for="email">Email</label>
+                                                <input type="text" name="username" id="username" class="form-control"
+                                                       value="{{username}}">
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <div id="block-input-password" class="input-box"
+                                                 data-error="{{#str}} signin_error_password_text, theme_sql {{/str}}">
+                                                <label for="password">Password</label>
+                                                <div class="password-container">
+                                                    <input type="password" name="password" id="password"
+                                                           class="form-control">
+                                                    <div class="password-eye"></div>
+
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="block-remember">
+
+                                            <div class="rememberpass">
+                                                <input type="checkbox" name="rememberusername" id="rememberusername"
+                                                       checked="checked">
+                                                <label for="rememberusername">{{#str}}
+                                                    remember_me, theme_sql {{/str}}</label>
+                                            </div>
+
+                                            <a class="forgotpassword" href="{{forgotpasswordurl}}">{{#str}}
+                                                signin_forgotpassword_text,
+                                                theme_sql {{/str}}</a>
+                                        </div>
+                                        <button type="text" onclick="this.style.pointerEvents = 'none';" class="btn btn-primary btn-block" id="loginbtn">
+                                            <span>{{#str}} login, theme_sql {{/str}}</span>
+                                        </button>
+                                    </form>
+                                    {{{identityproviders}}}
+                                    <div class="no-account">
+								<span class="donthaveaccount">{{#str}} signin_donthaveaccount_text, theme_sql
+                                {{/str}}</span>
+                                        <span>
+									<a class="link-sign-up" href="{{signupurl}}">{{#str}} signup,
+										theme_sql {{/str}}</a>
+								</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {{> theme_sql/auth/login_footer }}
+    </div>
+</div>
+
+{{#maintenance}}
+    <div class="row justify-content-center mt-3">
+        <div class="col-xl-6 col-sm-8">
+            <div class="card">
+                <div class="card-body">
+                    <div class="card-title">
+                        <h2>{{#str}}sitemaintenance, core_admin{{/str}}</h2>
+                    </div>
+                    <div>
+                        {{{maintenance}}}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{{/maintenance}}

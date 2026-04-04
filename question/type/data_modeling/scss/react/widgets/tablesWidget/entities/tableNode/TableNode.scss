@@ -1,0 +1,69 @@
+.Table {
+  border-radius: 4px;
+  border: 1px solid var(--athens_gray2);
+  overflow: hidden;
+}
+
+.TableHeader {
+  background-color: var(--havelock_blue);
+  color: var(--white);
+  font-size: 14px;
+  font-family: Inter-SemiBold, sans-serif;
+  padding: 8px 16px;
+  height: 37px;
+  white-space: nowrap;
+  cursor: move;
+}
+
+.TableContentContainer {
+  background-color: var(--athens_gray1);
+}
+
+.TableFieldsContainer {
+  padding-left: 0;
+  margin-bottom: 0;
+  -webkit-margin-start: 0;
+}
+
+.FieldContainer {
+  padding: 4px 15px;
+  display: flex;
+  justify-content: space-between;
+  cursor: pointer;
+  transition: all .1s ease-in-out;
+  &:hover {
+    background-color: var(--titan_white);
+  }
+}
+
+.FieldContainer:hover .Field {
+  opacity: 1;
+}
+
+.Field {
+  font-family: Inter-Regular, sans-serif;
+  line-height: 22px;
+  font-size: 14px;
+  white-space: nowrap;
+}
+
+.SelectForbidden {
+  cursor: not-allowed;
+}
+
+.FieldHandle {
+  opacity: 1;
+}
+
+.FieldTextLeft {
+  color: var(--tuna);
+}
+
+.FieldTextRight {
+  color: var(--aluminium);
+  text-align: right;
+}
+
+.FieldTextPrimaryKey {
+  font-family: Inter-Bold, sans-serif;
+}

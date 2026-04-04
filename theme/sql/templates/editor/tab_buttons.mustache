@@ -1,0 +1,20 @@
+{{!
+    @template theme_sql/tab_buttons
+
+    Tab buttons template
+
+    Example context (json):{}
+}}
+<div class="tabs_buttons_container">
+    <div class="tab_button_wrapper button_question {{^has_output}}active{{/has_output}}">
+        <h2 class="tab_button">Question</h2>
+    </div>
+    <div class="tab_button_wrapper button_output {{#has_output}}active{{/has_output}}">
+        <h2 class="tab_button">{{#str}} output, theme_sql{{/str}}</h2>
+    </div>
+    {{#video_exist}}
+        <div class="tab_button_wrapper button_video pulse">
+            <h2 class="tab_button">Video</h2>
+        </div>
+    {{/video_exist}}
+</div>

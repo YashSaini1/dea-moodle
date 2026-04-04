@@ -1,0 +1,10 @@
+{
+  "name": "moodle-availability_sql_premium-form",
+  "builds": {
+    "moodle-availability_sql_premium-form": {
+      "jsfiles": [
+        "form.js"
+      ]
+    }
+  }
+}

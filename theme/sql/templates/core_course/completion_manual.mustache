@@ -1,0 +1,84 @@
+{{!
+    @template core_course/completion_manual
+
+    Template for displaying the manual completion button.
+
+    Example context (json):
+    {
+        "cmid": 0,
+        "overallcomplete": true,
+        "overallincomplete": false,
+        "modulepage": true // is module view page or not
+    }
+}}
+{{^modulepage}}
+    {{#istrackeduser}}
+        {{#overallcomplete}}
+            <span class="badge badge-pill alert-success icon-no-margin" role="listitem" {{!
+            }}{{#accessibledescription}}{{!
+                }}title="{{.}}" {{!
+                }}aria-label="{{.}}" {{!
+            }}{{/accessibledescription}}>
+                {{#str}}done, theme_sql{{/str}}
+                {{#pix}}i/checked{{/pix}}
+            </span>
+        {{/overallcomplete}}
+        {{#overallincomplete}}
+            <span class="badge badge-pill badge-light" role="listitem" {{!
+            }}{{#accessibledescription}}{{!
+                }}title="{{.}}" {{!
+                }}aria-label="{{.}}" {{!
+            }}{{/accessibledescription}}>
+            <strong>{{#str}}todo, theme_sql{{/str}}</strong>
+            </span>
+        {{/overallincomplete}}
+    {{/istrackeduser}}
+    {{^istrackeduser}}
+        <button class="btn btn-outline-secondary btn-sm text-nowrap" disabled>
+            {{#str}} completion_manual:markdone, core_course {{/str}}
+        </button>
+    {{/istrackeduser}}
+{{/modulepage}}
+{{#modulepage}}
+    {{#istrackeduser}}
+        {{#overallcomplete}}
+            <button class="btn btn-success btn-sm text-nowrap" data-action="toggle-manual-completion" data-toggletype="manual:undo" data-cmid="{{cmid}}" data-activityname="{{activityname}}" data-withavailability="{{withavailability}}" {{!
+            }}{{#accessibledescription}}{{!
+                }}title="{{.}}" {{!
+                }}aria-label="{{.}}" {{!
+            }}{{/accessibledescription}}{{!
+            }}{{^accessibledescription}}{{!
+                }}title="{{#str}}completion_manual:aria:done, course, {{activityname}} {{/str}}" {{!
+                }}aria-label="{{#str}}completion_manual:aria:done, course, {{activityname}} {{/str}}" {{!
+            }}{{/accessibledescription}}>
+                {{#str}} completion_manual:done, core_course {{/str}} <i class="fa fa-check" aria-hidden="true"></i>
+            </button>
+        {{/overallcomplete}}
+        {{#overallincomplete}}
+            <button class="btn btn-outline-secondary btn-sm text-nowrap" data-action="toggle-manual-completion" data-toggletype="manual:mark-done" data-cmid="{{cmid}}" data-activityname="{{activityname}}" data-withavailability="{{withavailability}}" {{!
+            }}{{#accessibledescription}}{{!
+                }}title="{{.}}" {{!
+                }}aria-label="{{.}}" {{!
+            }}{{/accessibledescription}}{{!
+            }}{{^accessibledescription}}{{!
+                }}title="{{#str}}completion_manual:aria:markdone, course, {{activityname}} {{/str}}" {{!
+                }}aria-label="{{#str}}completion_manual:aria:markdone, course, {{activityname}} {{/str}}" {{!
+            }}{{/accessibledescription}}>
+                {{#str}} completion_manual:markdone, core_course {{/str}}
+            </button>
+        {{/overallincomplete}}
+    {{/istrackeduser}}
+    {{^istrackeduser}}
+        <button class="btn btn-outline-secondary btn-sm text-nowrap" disabled>
+            {{#str}} completion_manual:markdone, core_course {{/str}}
+        </button>
+    {{/istrackeduser}}
+    {{#js}}
+        require(['core_course/manual_completion_toggle'], toggle => {
+            toggle.init()
+            document.addEventListener('core_course:manualcompletiontoggled', (e) => {
+                window.location.reload();
+            })
+        });
+    {{/js}}
+{{/modulepage}}

@@ -1,0 +1,63 @@
+.extended_checkbox_list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  text-align: left;
+}
+
+.extended_checkbox_list .fitem {
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+}
+
+.extended_checkbox_list .form-checkbox {
+  width: 20px;
+  height: 20px;
+  margin-right: 10px;
+  vertical-align: middle;
+  cursor: pointer;
+}
+
+.extended_checkbox_list .form-label {
+  font-size: 16px;
+  line-height: 20px;
+  cursor: pointer;
+}
+
+.extended_checkbox_list .form-checkbox:hover {
+  background-color: #e0e0e0;
+}
+
+.extended_checkbox_list .form-checkbox:checked {
+  background-color: #007bff;
+  border-color: #007bff;
+}
+
+.extended_checkbox_list {
+  max-height: 300px;
+  overflow-y: auto;
+  overflow-x: auto;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  width: 100%;
+  box-sizing: border-box;
+  margin-bottom: 20px;
+}
+
+.update-subscription-buttons-wrapper {
+  margin-bottom: 10px;
+}
+
+.extended_checkbox_list .fitem {
+  margin-bottom: 8px;
+}
+
+.extended_checkbox_list .form-checkbox {
+  margin-right: 8px;
+}
+
+.extended_checkbox_list .form-label {
+  font-size: 16px;
+}

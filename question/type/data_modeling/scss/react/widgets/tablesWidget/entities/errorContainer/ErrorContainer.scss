@@ -1,0 +1,12 @@
+.ErrorContainer {
+  font-family: Inter-Regular, sans-serif;
+  font-size: 13px;
+  line-height: 19px;
+  padding: 5px 10px;
+  color: var(--white);
+  background-color: var(--cinnabar);
+  width: 100%;
+  position: absolute;
+  top: 0;
+  z-index: 50;
+}

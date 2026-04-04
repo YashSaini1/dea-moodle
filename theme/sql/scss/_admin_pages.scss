@@ -1,0 +1,51 @@
+#page-question-bank-managecategories-category {
+  .tertiary-navigation {
+    padding-top: 0;
+
+     .navitem {
+       margin-bottom: 0;
+
+       .btn.ml-2 {
+         margin-left: 0 !important;
+       }
+     }
+  }
+
+  .questioncategories > ul {
+    padding-left: 0;
+    margin-bottom: 0;
+
+    & > li {
+      list-style: none;
+
+      li {
+        margin-bottom: 10px;
+        p {
+          margin-bottom: 0;
+        }
+      }
+    }
+  }
+
+  h2 {
+    font-family: 'Inter-Bold', sans-serif;
+    font-size: 40px;
+    line-height: 48px;
+    margin-bottom: 32px;
+  }
+
+  h3 {
+    font-family: 'Inter-Bold', sans-serif;
+    font-size: 24px;
+    line-height: 30px;
+    margin-bottom: 16px;
+  }
+}
+
+#page-course-edit.course-create {
+  #page {
+    .secondary-navigation, #page-header {
+      display: none;
+    }
+  }
+}

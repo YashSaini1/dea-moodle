@@ -1,0 +1,85 @@
+{{!
+    @template auth_stripe/payment_stripe_form.mustache
+
+    This is stipe cad form
+
+    Example context (json):
+    {
+        "logourl": "https://moodle.org/logo/moodle-logo.svg",
+        "sitename": "Site name",
+        "error": "Error message",
+        "formhtml": "(Form html would go here)"
+    }
+}}
+
+<form style="display: none" id="stripe-payment-form">
+    <div class="form_wrapper">
+        <h1 class="sign-up-title">{{#str}}payment_title, auth_stripe{{/str}}</h1>
+        <div id="payments_method">
+            <label id="label_payment_method">
+                <input name="payment_method" id="credit_card" type="radio" checked/>
+                <span>creditcard</span>
+            </label>
+            <span id="icon_cards">
+              <span class="icon_card icon_card-1"></span>
+              <span class="icon_card icon_card-2"></span>
+              <span class="icon_card icon_card-3"></span>
+              <span class="icon_card icon_card-4"></span>
+            </span>
+        </div>
+        {{#email}}
+            <input type="hidden" id="customer_email" name="email" value="{{email}}"/>
+        {{/email}}
+        {{^email}}
+            <label class="customer_email label_column">
+                <span>{{#str}}email{{/str}}</span>
+                <input id="customer_email" name="email" value="" required class="field is-empty"/>
+            </label>
+        {{/email}}
+        <label class="cardholder_name label_column">
+            <span>{{#str}}cardholder_name_field, auth_stripe{{/str}}</span>
+            <input name="cardholder-name" value="{{name}}" required class="field is-empty"/>
+        </label>
+        <label class="credit_card label_column">
+            <span>{{#str}}credit_card_field, auth_stripe{{/str}}</span>
+            <div id="card-element" class="field is-empty"></div>
+        </label>
+        {{#coupon_allowed}}
+            <div class="label_column coupon">
+                <label for="coupon">
+                    <span>{{#str}}coupon, auth_stripe{{/str}}</span>
+                </label>
+                <div class="coupon-wrapper">
+                    <input id="coupon" name="coupon" value="" class="field is-empty" placeholder="COUPON" autocomplete="off"/>
+                    <button id="coupon-button" class="btn btn-blue">{{#str}} coupon:apply, auth_stripe{{/str}}</button>
+                </div>
+                <div class="discount_information"></div>
+            </div>
+        {{/coupon_allowed}}
+        {{#requireagreements}}
+            <div id="require_agreements">
+                <input id="agreeterms" name="agreeterms" type="checkbox" checked="checked"/>
+                <label for="agreeterms">{{#str}}require_agreements_terms_conditions, auth_stripe{{/str}}</label>
+            </div>
+            <div class="invalid-container">
+                <span class="invalid-checkbox" style="display: none">{{#str}}error_required, auth_stripe{{/str}}</span>
+            </div>
+        {{/requireagreements}}
+    </div>
+
+    <div id="stripe-payment-form_links" class="mt-4">
+        {{^new_user}}
+            <a id="prev-activity-link" class="btn btn-link btn-secondary">
+                {{> auth_stripe/svg/back}}
+                {{#str}}go_back, auth_stripe{{/str}}
+            </a>
+        {{/new_user}}
+        <button id="next-activity-link" class="btn btn-link btn-primary" type="submit">
+            {{#str}}submit_payment, auth_stripe{{/str}}
+        </button>
+    </div>
+    <div class="outcome">
+        <div class="error" role="alert"></div>
+    </div>
+    <script src="https://js.stripe.com/v3/"></script>
+</form>

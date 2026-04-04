@@ -1,0 +1,24 @@
+Options -Indexes
+
+# Cache these type of files for 7 days
+<FilesMatch "(?<!robots)\.txt$">
+    Redirect 404
+</FilesMatch>
+
+<FilesMatch "\.(json|lock|html|xml|bat|sh|bash|dist|yaml|yml|md)$">
+    Redirect 404
+</FilesMatch>
+
+<Files ~ "\.json$">
+    Redirect 404
+</Files>
+
+#disable moodle core files
+<FilesMatch "^(.eslintignore|.eslintrc|.gherkin-lintrc|.gitattributes|.gitignore|.jshintignore|.htaccess|.jshintrc|.nvmrc|.stylelintignore|.stylelintrc|Gruntfile.js|config.php|version.php|makefile)$">
+    Redirect 404
+</FilesMatch>
+
+# disable ddos files
+<FilesMatch "^(.env.php|info.php|inf.php|ingfo.php|in.php|i.php|admin_phpinfo.php|server_info.php|sys_phpinfo.php|fo.php|ii.php|/phpinfo.php|PHPInfo.php|php.php|ppinfo.php|pp.php|test.php)">
+    Redirect 404
+</FilesMatch>

@@ -1,0 +1,124 @@
+.slider-container {
+  position: relative;
+  margin-bottom: 16px;
+}
+
+.mySwiper {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+
+  .swiper-button-prev {
+    background-image: url([[pix:theme_sql|next_slide]]);
+    width: 24px;
+    height: 24px;
+    background-repeat: no-repeat;
+
+    &:hover {
+      background-image: url([[pix:theme_sql|hover_arrow]]);
+    }
+  }
+  .swiper-button-next {
+    background-image: url([[pix:theme_sql|next_slide]]);
+    width: 24px;
+    height: 24px;
+    background-repeat: no-repeat;
+
+    &:hover {
+      background-image: url([[pix:theme_sql|hover_arrow]]);
+    }
+  }
+
+  .swiper-button-prev {
+    position: absolute;
+    top: 50%;
+    left: -16px;
+    transform: translate(-50%, -50%) rotate(180deg);
+  }
+
+  .swiper-button-disabled {
+    background-image: url([[pix:theme_sql|disable_arrow]]);
+
+    &:hover {
+      background-image: url([[pix:theme_sql|disable_arrow]]);
+    }
+  }
+
+  .swiper-button-next {
+    position: absolute;
+    top: 50%;
+    right: -16px;
+    transform: translate(50%, -50%);
+  }
+}
+
+.swiper-wrapper {
+  display: flex;
+  width: fit-content;
+
+  .swiper-slide {
+    position: relative;
+
+    &:last-child {
+      margin-right: 0 !important;
+    }
+
+    a {
+      border-radius: 8px;
+      min-height: 98px;
+      background-repeat: no-repeat;
+      background-size: cover;
+      background-position: center;
+      width: 100%;
+      display: block;
+
+      @media (max-width: 1440px) and (min-width: 1300px){
+        min-height: 66px;
+      }
+    }
+
+    &.done:after,
+    &.locked:after,
+    &.disabled:after {
+      width: 24px;
+      height: 24px;
+      position: absolute;
+      right: 8px;
+      top: 8px;
+    }
+
+    &.done:after {
+      content: url([[pix:theme_sql|video_done]]);
+    }
+
+    &.disabled {
+      &:before {
+        content: '';
+        background: linear-gradient(0deg, rgba(229, 230, 233, 0.72), rgba(229, 230, 233, 0.72));
+        width: 100%;
+        height: 100%;
+        min-width: 107px;
+        position: absolute;
+        min-height: 66px;
+        z-index: 1;
+      }
+    }
+
+    &.locked {
+      &:before {
+        content: '';
+        background: linear-gradient(0deg, rgba(229, 230, 233, 0.72), rgba(229, 230, 233, 0.72));
+        width: 100%;
+        height: 100%;
+        min-width: 107px;
+        position: absolute;
+        min-height: 66px;
+        z-index: 1;
+      }
+
+      &:after {
+        content: url([[pix:theme_sql|video_lock]]);
+      }
+    }
+  }
+}

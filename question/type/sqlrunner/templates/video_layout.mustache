@@ -1,0 +1,19 @@
+{{#initialisationerrormessage}}
+    {{{initialisationerrormessage}}}
+{{/initialisationerrormessage}}
+
+<div class="video-wrapper">
+    <iframe src="{{{videourl}}}" allowfullscreen></iframe>
+</div>
+
+<!--Special case hack for programming contest problems-->
+{{#programming_contest_problem}}
+    {{{programming_contest_problem}}}
+{{/programming_contest_problem}}
+
+{{#exapmles_data}}
+    <p class ="for-example-para"> {{exapmle_string}}:</p>
+    <div class="sqlrunner-examples">
+        {{{exapmles_data}}}
+    </div>
+{{/exapmles_data}}

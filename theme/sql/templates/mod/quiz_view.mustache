@@ -1,0 +1,20 @@
+<table class="generaltable quizattemptsummary">
+    <thead>
+    <tr>
+        <th class="header c0"  scope="col">{{#str}}question, theme_sql{{/str}}</th>
+        <th class="header c1"  scope="col">{{#str}}company, theme_sql{{/str}}</th>
+        <th class="header c2 " scope="col">{{#str}}status, theme_sql{{/str}}</th>
+    </tr>
+    </thead>
+    <tbody>
+    {{#questions}}
+        <tr id="{{id}}" class="{{class}}">
+            <td class="cell c0" >{{{name}}}</td>
+            <td class="cell c1" >{{{category}}}</td>
+            <td class="cell c2" ><div class="{{class}}">{{{statestring}}}</div></td>
+        </tr>
+    {{/questions}}
+    </tbody>
+</table>
+
+{{> theme_sql/upgrade_popup}}
