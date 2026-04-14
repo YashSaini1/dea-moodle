@@ -54,7 +54,7 @@ require_once($CFG->dirroot . '/user/profile/lib.php');
  * @category   external
  * @copyright  2016 Juan Leyva <juan@moodle.com>
  */
-class auth_stripe_external extends external_api {
+class external extends external_api {
 
     /**
      * Check if registration is enabled in this site.

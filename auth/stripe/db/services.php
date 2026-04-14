@@ -25,7 +25,7 @@ defined('MOODLE_INTERNAL') || die();
 
 $functions = array(
     'auth_stripe_get_signup_settings' => array(
-        'classname'     => 'auth_stripe_external',
+        'classname'     => '\auth_stripe\external',
         'classpath'     => 'auth/stripe/classes/external.php',
         'methodname'    => 'get_signup_settings',
         'description'   => 'Get the signup required settings and profile fields.',
@@ -34,7 +34,7 @@ $functions = array(
         'loginrequired' => false,
     ),
     'auth_stripe_validate_coupon'     => array(
-        'classname'     => '\auth_stripe\auth_stripe_external',
+        'classname'     => '\auth_stripe\external',
         'classpath'     => 'auth/stripe/classes/external.php',
         'methodname'    => 'validate_coupon',
         'description'   => 'Validate inputted coupon code',
@@ -43,7 +43,7 @@ $functions = array(
         'loginrequired' => false,
     ),
     'auth_stripe_update_coupon'       => array(
-        'classname'     => '\auth_stripe\auth_stripe_external',
+        'classname'     => '\auth_stripe\external',
         'classpath'     => 'auth/stripe/classes/external.php',
         'methodname'    => 'update_coupon',
         'description'   => 'Disable/enable coupons endpoint',
@@ -54,7 +54,7 @@ $functions = array(
     ),
 
     'auth_stripe_validate_promocode'     => array(
-        'classname'     => '\auth_stripe\auth_stripe_external',
+        'classname'     => '\auth_stripe\external',
         'classpath'     => 'auth/stripe/classes/external.php',
         'methodname'    => 'validate_promocode',
         'description'   => 'Validate inputted promocode code',
@@ -63,7 +63,7 @@ $functions = array(
         'loginrequired' => false,
     ),
     'auth_stripe_update_promocode'       => array(
-        'classname'     => '\auth_stripe\auth_stripe_external',
+        'classname'     => '\auth_stripe\external',
         'classpath'     => 'auth/stripe/classes/external.php',
         'methodname'    => 'update_promocode',
         'description'   => 'Disable/enable promocode endpoint',

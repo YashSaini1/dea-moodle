@@ -4,7 +4,6 @@
   align-items: center;
   justify-content: center;
 
-
   #region-main-box {
     padding-left: 0;
     padding-right: 0;
@@ -12,7 +11,7 @@
 
   .invalid-feedback {
     position: absolute;
-    top:100%
+    top: 100%;
   }
 
   footer {
@@ -24,11 +23,10 @@
   }
 
   .main-inner {
-    padding: 0!important;
-    margin-top: 24px!important;
-    margin-bottom: 24px!important;
+    padding: 0 !important;
+    margin-top: 24px !important;
+    margin-bottom: 24px !important;
     width: 100%;
-
   }
 
   .no-account {
@@ -38,7 +36,7 @@
     color: $secondary-black;
 
     .link-sign-up {
-      font-family: 'Inter-SemiBold', sans-serif;
+      font-family: "Inter-SemiBold", sans-serif;
       color: $main-blue-hover;
       text-decoration: underline;
     }
@@ -84,7 +82,10 @@
     justify-content: center;
     width: 100%;
     display: flex;
-    flex-direction: column
+    flex-direction: column;
+    height: 100%;
+    overflow-y: auto;
+    display: block;
   }
 
   .sign-up-wrapper {
@@ -128,7 +129,7 @@
     }
 
     .sign-up-title {
-      font-family: 'Inter-Bold', sans-serif;
+      font-family: "Inter-Bold", sans-serif;
       color: $black;
       font-size: 40px;
       line-height: 42px;
@@ -145,7 +146,7 @@
       margin-bottom: 24px;
 
       input::placeholder {
-        color: #A7ABB2
+        color: #a7abb2;
       }
     }
 
@@ -176,7 +177,7 @@
       }
 
       .col-md-3.col-form-label.d-flex.pb-0.pr-md-0 {
-        display: none!important;
+        display: none !important;
       }
     }
 
@@ -219,12 +220,12 @@
       width: 100%;
       height: 48px;
       background: $main-yellow;
-      font-family: 'Inter-Bold',sans-serif;
+      font-family: "Inter-Bold", sans-serif;
       font-size: 16px;
       line-height: 18px;
       padding: 14px 0;
       border: none;
-      transition: all .3s ease-in-out;
+      transition: all 0.3s ease-in-out;
       margin-bottom: 10px;
 
       &:hover {
@@ -237,7 +238,7 @@
     }
 
     .col-md-9.form-inline.align-items-start.felement,
-    .col-md-3.col-form-label.d-flex.pb-0.pr-md-0{
+    .col-md-3.col-form-label.d-flex.pb-0.pr-md-0 {
       min-width: 100%;
     }
 
@@ -258,7 +259,8 @@
     display: none;
   }
 
-  header, .navbar {
+  header,
+  .navbar {
     display: none;
   }
 
@@ -284,7 +286,7 @@
     }
 
     .account-created-text {
-      font-family: 'Inter-Bold', sans-serif;
+      font-family: "Inter-Bold", sans-serif;
       font-size: 32px;
       line-height: 40px;
       margin-bottom: 16px;
@@ -334,7 +336,6 @@
     padding-left: 20px;
     max-height: 100vh;
 
-
     .image {
       max-width: 100%;
       display: flex;
@@ -372,11 +373,25 @@
   }
 
   .site_logo {
+    margin: 0 auto;
     margin-bottom: 12px !important;
+    display: flex;
     @media (max-height: 643px) {
-      visibility: hidden;
+      display: none;
     }
   }
-
-
 }
+
+// .signupform {
+//   max-height: 100vh;
+//   overflow: hidden;
+
+//   .form_right {
+//     max-height: 100vh;
+//     overflow-y: auto;
+//   }
+
+//   .sign-up-wrapper {
+//     max-height: 100vh;
+//   }
+// }

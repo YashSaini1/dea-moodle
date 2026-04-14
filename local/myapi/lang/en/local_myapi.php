@@ -15,19 +15,14 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Version details
+ * Language strings for local_myapi plugin
  *
- * @package     auth_stripe
- * @copyright   2022 Alexey Kazlovsky <sat.lesha.kazlovsky@gmail.com>
+ * @package    local_myapi
+ * @copyright  2026
+ * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-defined('MOODLE_INTERNAL') || die;
+defined('MOODLE_INTERNAL') || die();
 
-/** @var stdClass $plugin */
-$plugin->component = 'auth_stripe';      // Full name of the plugin (used for diagnostics)
-$plugin->version   = 2026040703;        // The current plugin version (Date: YYYYMMDDXX)
-
-$plugin->requires  = 2022112800;        // Requires this Moodle version
-$plugin->dependencies = [
-    'local_sql' => 2022122300
-];
+$string['pluginname'] = 'My API';
+$string['plugindesc'] = 'Provides external API endpoints for course data retrieval';
