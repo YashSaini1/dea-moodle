@@ -8,6 +8,27 @@ $functions = [
         'description' => 'Get full course data',
         'type'        => 'read',
     ],
+    'local_coursebuilder_create_sections' => [
+        'classname'   => 'local_myapi\\external\\course_external',
+        'methodname'  => 'create_sections',
+        'classpath'   => '',
+        'description' => 'Create sections inside a course',
+        'type'        => 'write',
+    ],
+    'local_coursebuilder_create_module' => [
+        'classname'   => 'local_myapi\\external\\course_external',
+        'methodname'  => 'create_module',
+        'classpath'   => '',
+        'description' => 'Create a module inside a course section',
+        'type'        => 'write',
+    ],
+    'local_myapi_update_module' => [
+        'classname'   => 'local_myapi\\external\\course_external',
+        'methodname'  => 'update_module',
+        'classpath'   => '',
+        'description' => 'Update a module visibility or availability settings',
+        'type'        => 'write',
+    ],
     'local_myapi_get_users' => [
         'classname'   => 'local_myapi\\external\\user_external',
         'methodname'  => 'get_users',
