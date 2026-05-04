@@ -524,6 +524,9 @@ $definitions = array(
         'simpledata' => true,
         'staticacceleration' => true,
         'datasource' => '\core_course\cache\course_image',
+        // 'invalidationevents' => [
+        //     'changesincourse',
+        // ],
     ],
 
     // Cache the course categories where the user has access the content bank.

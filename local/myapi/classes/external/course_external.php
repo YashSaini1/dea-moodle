@@ -682,7 +682,7 @@ class course_external extends \external_api
 
     public static function save_course_image($courseid, $draftitemid)
     {
-        global $CFG, $USER;
+        global $CFG, $DB;
 
         require_once($CFG->libdir . '/filelib.php');
 
@@ -717,11 +717,61 @@ class course_external extends \external_api
             $options
         );
 
+        // Fix mimetype mismatch if file exists but mimetype doesn't match actual content
+        self::fix_overview_file_mimetypes($coursecontext->id);
+
+        rebuild_course_cache($course->id, true);
+        \cache::make('core', 'course_image')->delete($course->id);
+
         return [
             'success' => true,
             'message' => 'Course image saved successfully',
             'courseid' => (int) $course->id,
         ];
+    }
+
+    /**
+     * Fix mimetype mismatch in overview files by detecting actual file type with GD
+     *
+     * @param int $contextid The context ID where overview files are stored
+     * @return void
+     */
+    protected static function fix_overview_file_mimetypes($contextid)
+    {
+        global $DB;
+
+        // Get all image files in overviewfiles for this context (excluding directory entries)
+        $files = $DB->get_records_select(
+            'files',
+            'contextid = ? AND component = ? AND filearea = ? AND itemid = 0 AND filename <> ?',
+            [$contextid, 'course', 'overviewfiles', '.'],
+            'id ASC'
+        );
+
+        $fs = get_file_storage();
+
+        foreach ($files as $filerecord) {
+            $storedfile = $fs->get_file_by_id($filerecord->id);
+            if (!$storedfile) {
+                continue;
+            }
+
+            // Get the actual mimetype from GD
+            $imageinfo = $storedfile->get_imageinfo();
+            if (!$imageinfo || empty($imageinfo['mimetype'])) {
+                continue;
+            }
+
+            $actualmimetype = $imageinfo['mimetype'];
+
+            // If stored mimetype doesn't match actual mimetype, update it
+            if ($storedfile->get_mimetype() !== $actualmimetype) {
+                $DB->update_record('files', (object) [
+                    'id' => $filerecord->id,
+                    'mimetype' => $actualmimetype,
+                ]);
+            }
+        }
     }
 
     public static function save_course_image_returns()
