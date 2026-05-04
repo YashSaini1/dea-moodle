@@ -43,4 +43,11 @@ $functions = [
         'description' => 'Get users with pagination',
         'type'        => 'read',
     ],
+    'local_myapi_save_course_image' => [
+        'classname'   => 'local_myapi\\external\\course_external',
+        'methodname'  => 'save_course_image',
+        'classpath'   => '',
+        'description' => 'Save course overview image from draft files',
+        'type'        => 'write',
+    ],
 ];

@@ -671,4 +671,65 @@ class course_external extends \external_api
             'availability' => new \external_value(PARAM_RAW, VALUE_OPTIONAL),
         ]);
     }
+
+    public static function save_course_image_parameters()
+    {
+        return new \external_function_parameters([
+            'courseid' => new \external_value(PARAM_INT, 'Course ID'),
+            'draftitemid' => new \external_value(PARAM_INT, 'Draft item ID of the uploaded image'),
+        ]);
+    }
+
+    public static function save_course_image($courseid, $draftitemid)
+    {
+        global $CFG, $USER;
+
+        require_once($CFG->libdir . '/filelib.php');
+
+        $params = self::validate_parameters(
+            self::save_course_image_parameters(),
+            [
+                'courseid' => $courseid,
+                'draftitemid' => $draftitemid,
+            ]
+        );
+
+        $course = get_course($params['courseid'], MUST_EXIST);
+        $coursecontext = \context_course::instance($course->id);
+
+        self::validate_context($coursecontext);
+        require_capability('moodle/course:update', $coursecontext);
+
+        // Move the image from draft area to course overview files
+        $options = [
+            'maxbytes' => $CFG->maxbytes,
+            'maxfiles' => 1,
+            'subdirs' => 0,
+            'accepted_types' => ['image'],
+        ];
+
+        file_save_draft_area_files(
+            $params['draftitemid'],
+            $coursecontext->id,
+            'course',
+            'overviewfiles',
+            0,
+            $options
+        );
+
+        return [
+            'success' => true,
+            'message' => 'Course image saved successfully',
+            'courseid' => (int) $course->id,
+        ];
+    }
+
+    public static function save_course_image_returns()
+    {
+        return new \external_single_structure([
+            'success' => new \external_value(PARAM_BOOL, 'Whether the image was saved successfully'),
+            'message' => new \external_value(PARAM_RAW, 'Status message'),
+            'courseid' => new \external_value(PARAM_INT, 'Course ID'),
+        ]);
+    }
 }
