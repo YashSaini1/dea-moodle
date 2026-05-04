@@ -29,6 +29,13 @@ $functions = [
         'description' => 'Update a module visibility or availability settings',
         'type'        => 'write',
     ],
+    'local_myapi_update_section' => [
+        'classname'   => 'local_myapi\\external\\course_external',
+        'methodname'  => 'update_section',
+        'classpath'   => '',
+        'description' => 'Update a course section name, visibility, summary, or availability',
+        'type'        => 'write',
+    ],
     'local_myapi_get_users' => [
         'classname'   => 'local_myapi\\external\\user_external',
         'methodname'  => 'get_users',
