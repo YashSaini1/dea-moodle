@@ -228,8 +228,19 @@ class course_external extends \external_api
             $DB->update_record('course_sections', $sectionrecord);
             rebuild_course_cache($course->id);
 
+            $updatedsection = $DB->get_record('course_sections', ['id' => $sectionrecord->id], '*', MUST_EXIST);
+
             $result[] = [
-                'sectionid' => (int) $sectionrecord->id,
+                'id' => (int) $updatedsection->id,
+                'course' => (int) $updatedsection->course,
+                'section' => (int) $updatedsection->section,
+                'name' => $updatedsection->name,
+                'summary' => $updatedsection->summary,
+                'summaryformat' => (int) $updatedsection->summaryformat,
+                'sequence' => $updatedsection->sequence,
+                'visible' => (int) $updatedsection->visible,
+                'availability' => $updatedsection->availability,
+                'timemodified' => (int) $updatedsection->timemodified,
             ];
         }
 
@@ -239,10 +250,24 @@ class course_external extends \external_api
     public static function create_sections_returns()
     {
         return new \external_multiple_structure(
-            new \external_single_structure([
-                'sectionid' => new \external_value(PARAM_INT),
-            ])
+            self::get_section_structure_without_modules()
         );
+    }
+
+    protected static function get_section_structure_without_modules()
+    {
+        return new \external_single_structure([
+            'id' => new \external_value(PARAM_INT),
+            'course' => new \external_value(PARAM_INT),
+            'section' => new \external_value(PARAM_INT),
+            'name' => new \external_value(PARAM_RAW, VALUE_OPTIONAL),
+            'summary' => new \external_value(PARAM_RAW, VALUE_OPTIONAL),
+            'summaryformat' => new \external_value(PARAM_INT),
+            'sequence' => new \external_value(PARAM_RAW, VALUE_OPTIONAL),
+            'visible' => new \external_value(PARAM_INT),
+            'availability' => new \external_value(PARAM_RAW, VALUE_OPTIONAL),
+            'timemodified' => new \external_value(PARAM_INT),
+        ]);
     }
 
     public static function update_section_parameters()
@@ -451,24 +476,60 @@ class course_external extends \external_api
         $createdmodule = create_module($moduleinfo);
         rebuild_course_cache($course->id);
 
-        return [
-            'coursemoduleid' => (int) $createdmodule->coursemodule,
-            'instanceid' => (int) $createdmodule->id,
-            'sectionid' => (int) $sectionrecord->id,
-            'sectionnum' => (int) $sectionrecord->section,
-            'modulename' => $params['modulename'],
+        $cm = get_coursemodule_from_id('', $createdmodule->coursemodule, 0, false, MUST_EXIST);
+        $moduleinstance = $DB->get_record($cm->modname, ['id' => $cm->instance], '*', MUST_EXIST);
+        $modinfo = get_fast_modinfo($course->id);
+
+        $moduledata = [
+            'id' => (int) $cm->id,
+            'course' => (int) $cm->course,
+            'module' => (int) $cm->module,
+            'instance' => (int) $cm->instance,
+            'section' => (int) $cm->section,
+            'idnumber' => $cm->idnumber,
+            'added' => (int) $cm->added,
+            'score' => (int) $cm->score,
+            'indent' => (int) $cm->indent,
+            'visible' => (int) $cm->visible,
+            'visibleoncoursepage' => (int) $cm->visibleoncoursepage,
+            'visibleold' => (int) $cm->visibleold,
+            'groupmode' => (int) $cm->groupmode,
+            'groupingid' => (int) $cm->groupingid,
+            'completion' => (int) $cm->completion,
+            'completiongradeitemnumber' => $cm->completiongradeitemnumber,
+            'completionview' => (int) $cm->completionview,
+            'completionexpected' => (int) $cm->completionexpected,
+            'completionpassgrade' => (int) $cm->completionpassgrade,
+            'showdescription' => (int) $cm->showdescription,
+            'availability' => $cm->availability,
+            'deletioninprogress' => (int) $cm->deletioninprogress,
+            'downloadcontent' => $cm->downloadcontent,
+            'lang' => $cm->lang,
+            'modname' => $cm->modname,
+            'name' => $moduleinstance->name,
+            'url' => null,
         ];
+
+        if ($cm->modname === 'url') {
+            $urlinstance = $DB->get_record('url', ['id' => $cm->instance], 'externalurl', IGNORE_MISSING);
+            if ($urlinstance && !empty($urlinstance->externalurl)) {
+                $moduledata['url'] = $urlinstance->externalurl;
+            }
+        }
+
+        if ($moduledata['url'] === null && isset($modinfo->cms[$cm->id])) {
+            $cminfo = $modinfo->cms[$cm->id];
+            if (!empty($cminfo->url)) {
+                $moduledata['url'] = $cminfo->url->out(false);
+            }
+        }
+
+        return $moduledata;
     }
 
     public static function create_module_returns()
     {
-        return new \external_single_structure([
-            'coursemoduleid' => new \external_value(PARAM_INT),
-            'instanceid' => new \external_value(PARAM_INT),
-            'sectionid' => new \external_value(PARAM_INT),
-            'sectionnum' => new \external_value(PARAM_INT),
-            'modulename' => new \external_value(PARAM_TEXT),
-        ]);
+        return self::get_module_structure();
     }
 
     public static function update_module_parameters()
@@ -653,23 +714,59 @@ class course_external extends \external_api
         }
 
         $updatedcm = get_coursemodule_from_id('', $cm->id, 0, false, MUST_EXIST);
+        $moduleinstance = $DB->get_record($updatedcm->modname, ['id' => $updatedcm->instance], '*', MUST_EXIST);
+        $modinfo = get_fast_modinfo($course->id);
 
-        return [
-            'coursemoduleid' => (int) $updatedcm->id,
+        $moduledata = [
+            'id' => (int) $updatedcm->id,
+            'course' => (int) $updatedcm->course,
+            'module' => (int) $updatedcm->module,
+            'instance' => (int) $updatedcm->instance,
+            'section' => (int) $updatedcm->section,
+            'idnumber' => $updatedcm->idnumber,
+            'added' => (int) $updatedcm->added,
+            'score' => (int) $updatedcm->score,
+            'indent' => (int) $updatedcm->indent,
             'visible' => (int) $updatedcm->visible,
             'visibleoncoursepage' => (int) $updatedcm->visibleoncoursepage,
+            'visibleold' => (int) $updatedcm->visibleold,
+            'groupmode' => (int) $updatedcm->groupmode,
+            'groupingid' => (int) $updatedcm->groupingid,
+            'completion' => (int) $updatedcm->completion,
+            'completiongradeitemnumber' => $updatedcm->completiongradeitemnumber,
+            'completionview' => (int) $updatedcm->completionview,
+            'completionexpected' => (int) $updatedcm->completionexpected,
+            'completionpassgrade' => (int) $updatedcm->completionpassgrade,
+            'showdescription' => (int) $updatedcm->showdescription,
             'availability' => $updatedcm->availability,
+            'deletioninprogress' => (int) $updatedcm->deletioninprogress,
+            'downloadcontent' => $updatedcm->downloadcontent,
+            'lang' => $updatedcm->lang,
+            'modname' => $updatedcm->modname,
+            'name' => $moduleinstance->name,
+            'url' => null,
         ];
+
+        if ($updatedcm->modname === 'url') {
+            $urlinstance = $DB->get_record('url', ['id' => $updatedcm->instance], 'externalurl', IGNORE_MISSING);
+            if ($urlinstance && !empty($urlinstance->externalurl)) {
+                $moduledata['url'] = $urlinstance->externalurl;
+            }
+        }
+
+        if ($moduledata['url'] === null && isset($modinfo->cms[$updatedcm->id])) {
+            $cminfo = $modinfo->cms[$updatedcm->id];
+            if (!empty($cminfo->url)) {
+                $moduledata['url'] = $cminfo->url->out(false);
+            }
+        }
+
+        return $moduledata;
     }
 
     public static function update_module_returns()
     {
-        return new \external_single_structure([
-            'coursemoduleid' => new \external_value(PARAM_INT),
-            'visible' => new \external_value(PARAM_INT),
-            'visibleoncoursepage' => new \external_value(PARAM_INT),
-            'availability' => new \external_value(PARAM_RAW, VALUE_OPTIONAL),
-        ]);
+        return self::get_module_structure();
     }
 
     public static function save_course_image_parameters()
