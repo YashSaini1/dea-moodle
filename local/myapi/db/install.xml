@@ -35,6 +35,27 @@
                 <KEY NAME="courseid" TYPE="foreign" FIELDS="courseid" REFTABLE="course" REFFIELDS="id"/>
             </KEYS>
         </TABLE>
+        <TABLE NAME="local_myapi_module_group_map" COMMENT="Maps course modules to groups">
+            <FIELDS>
+                <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true"/>
+                <FIELD NAME="coursemoduleid" TYPE="int" LENGTH="10" NOTNULL="true"/>
+                <FIELD NAME="courseid" TYPE="int" LENGTH="10" NOTNULL="true"/>
+                <FIELD NAME="groupid" TYPE="int" LENGTH="10" NOTNULL="true"/>
+                <FIELD NAME="timecreated" TYPE="int" LENGTH="10" NOTNULL="true"/>
+                <FIELD NAME="timemodified" TYPE="int" LENGTH="10" NOTNULL="true"/>
+            </FIELDS>
+
+            <KEYS>
+                <KEY NAME="primary" TYPE="primary" FIELDS="id"/>
+            </KEYS>
+
+            <INDEXES>
+                <INDEX NAME="idx_mgm_coursemodule" UNIQUE="false" FIELDS="coursemoduleid"/>
+                <INDEX NAME="idx_mgm_group" UNIQUE="false" FIELDS="groupid"/>
+                <INDEX NAME="idx_mgm_course" UNIQUE="false" FIELDS="courseid"/>
+                <INDEX NAME="idx_unique_module_group" UNIQUE="true" FIELDS="coursemoduleid,groupid"/>
+            </INDEXES>
+        </TABLE>
     </TABLES>
 
 </XMLDB>

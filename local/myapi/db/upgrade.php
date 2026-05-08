@@ -54,5 +54,51 @@ function xmldb_local_myapi_upgrade($oldversion)
         upgrade_plugin_savepoint(true, 2026050202, 'local', 'myapi');
     }
 
+    if ($oldversion < 2026050203) {
+        $table = new xmldb_table('local_myapi_module_group_map');
+
+        $table->add_field('id', XMLDB_TYPE_INTEGER, '10', null, XMLDB_NOTNULL, XMLDB_SEQUENCE, null);
+        $table->add_field('coursemoduleid', XMLDB_TYPE_INTEGER, '10', null, XMLDB_NOTNULL, null, null);
+        $table->add_field('courseid', XMLDB_TYPE_INTEGER, '10', null, XMLDB_NOTNULL, null, null);
+        $table->add_field('groupid', XMLDB_TYPE_INTEGER, '10', null, XMLDB_NOTNULL, null, null);
+        $table->add_field('timecreated', XMLDB_TYPE_INTEGER, '10', null, XMLDB_NOTNULL, null, null);
+        $table->add_field('timemodified', XMLDB_TYPE_INTEGER, '10', null, XMLDB_NOTNULL, null, null);
+
+        $table->add_key('primary', XMLDB_KEY_PRIMARY, ['id']);
+        $table->add_index('idx_mgm_coursemodule', XMLDB_INDEX_NOTUNIQUE, ['coursemoduleid']);
+        $table->add_index('idx_mgm_group', XMLDB_INDEX_NOTUNIQUE, ['groupid']);
+        $table->add_index('idx_mgm_course', XMLDB_INDEX_NOTUNIQUE, ['courseid']);
+        $table->add_index('idx_unique_module_group', XMLDB_INDEX_UNIQUE, ['coursemoduleid', 'groupid']);
+
+        if (!$dbman->table_exists($table)) {
+            $dbman->create_table($table);
+        }
+
+        upgrade_plugin_savepoint(true, 2026050203, 'local', 'myapi');
+    }
+
+    if ($oldversion < 2026050208) {
+        $table = new xmldb_table('local_myapi_module_group_map');
+
+        $table->add_field('id', XMLDB_TYPE_INTEGER, '10', null, XMLDB_NOTNULL, XMLDB_SEQUENCE, null);
+        $table->add_field('coursemoduleid', XMLDB_TYPE_INTEGER, '10', null, XMLDB_NOTNULL, null, null);
+        $table->add_field('courseid', XMLDB_TYPE_INTEGER, '10', null, XMLDB_NOTNULL, null, null);
+        $table->add_field('groupid', XMLDB_TYPE_INTEGER, '10', null, XMLDB_NOTNULL, null, null);
+        $table->add_field('timecreated', XMLDB_TYPE_INTEGER, '10', null, XMLDB_NOTNULL, null, null);
+        $table->add_field('timemodified', XMLDB_TYPE_INTEGER, '10', null, XMLDB_NOTNULL, null, null);
+
+        $table->add_key('primary', XMLDB_KEY_PRIMARY, ['id']);
+        $table->add_index('idx_mgm_coursemodule', XMLDB_INDEX_NOTUNIQUE, ['coursemoduleid']);
+        $table->add_index('idx_mgm_group', XMLDB_INDEX_NOTUNIQUE, ['groupid']);
+        $table->add_index('idx_mgm_course', XMLDB_INDEX_NOTUNIQUE, ['courseid']);
+        $table->add_index('idx_unique_module_group', XMLDB_INDEX_UNIQUE, ['coursemoduleid', 'groupid']);
+
+        if (!$dbman->table_exists($table)) {
+            $dbman->create_table($table);
+        }
+
+        upgrade_plugin_savepoint(true, 2026050208, 'local', 'myapi');
+    }
+
     return true;
 }

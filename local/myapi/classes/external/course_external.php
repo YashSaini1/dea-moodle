@@ -548,6 +548,23 @@ class course_external extends \external_api
     {
         global $CFG, $DB;
 
+        // Normalize empty strings to null for optional parameters to prevent validation errors
+        if ($name === '') {
+            $name = null;
+        }
+        if ($visible === '') {
+            $visible = null;
+        }
+        if ($visibleoncoursepage === '') {
+            $visibleoncoursepage = null;
+        }
+        if ($availability === '') {
+            $availability = null;
+        }
+        if ($fields === '') {
+            $fields = null;
+        }
+
         $isjsonobject = static function ($value) {
             if (!is_string($value)) {
                 return false;
@@ -704,6 +721,7 @@ class course_external extends \external_api
 
                     $DB->set_field('course_modules', 'availability', $tree->is_empty() ? null : $params['availability'], ['id' => $cm->id]);
                 }
+                $updatemodule = true;
             } else {
                 throw new \moodle_exception('availability is not enabled on this site');
             }
