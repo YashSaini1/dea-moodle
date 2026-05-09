@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Plugin lib
  *
@@ -10,28 +11,31 @@
 use local_sql\core\sql_database;
 use local_sql\moodle\role_manager;
 
-require_once($CFG->dirroot.'/local/sql/files_lib.php');
+require_once($CFG->dirroot . '/local/sql/files_lib.php');
 
 /**
  * Enrol user to all courses in default category (for our system is a client courses)
  *
  * @param int $userid
  */
-function local_sql_enrol_user_to_all_courses($userid){
+function local_sql_enrol_user_to_all_courses($userid)
+{
     global $CFG, $DB;
-    require_once($CFG->dirroot.'/theme/sql/lib.php');
+    require_once($CFG->dirroot . '/theme/sql/lib.php');
 
-    // Do not enrol user to the coaching courses
+    // Do not enrol user to internal courses only.
     $defaultcategory = \core_course_category::get_default();
     $params = ['category' => $defaultcategory->id];
-    $coaching_courses = \local_sql\coaching::get_courses();
-    $coaching_sql = '';
-    if (!empty($coaching_courses)){
-        [$sql, $coaching_params] = $DB->get_in_or_equal(array_keys($coaching_courses), SQL_PARAMS_NAMED, 'coachingcourse', false);
-        $params += $coaching_params;
-        $coaching_sql .= ' AND id '.$sql;
-    }
-    $courses = $DB->get_records_select('course', 'category=:category '.$coaching_sql, $params);
+
+    $sql = "SELECT c.*
+              FROM {course} c
+         LEFT JOIN {local_myapi_course} mc ON mc.courseid = c.id
+             WHERE c.category = :category
+               AND (mc.id IS NULL OR mc.isinternal = 0)";
+
+    $courses = $DB->get_records_sql($sql, $params);
+
+    // Enrol user into selected courses.
 
     \local_sql\core::enrol_user_to_courses($userid, $courses);
 }
@@ -42,10 +46,11 @@ function local_sql_enrol_user_to_all_courses($userid){
  *
  * @param int $courseid
  */
-function local_sql_enrol_all_users_to_course($courseid){
+function local_sql_enrol_all_users_to_course($courseid)
+{
     try {
         $course = get_course($courseid);
-    } catch (\Exception $e){
+    } catch (\Exception $e) {
         mtrace('Course doesn\'t exists');
         return;
     }
@@ -57,13 +62,13 @@ function local_sql_enrol_all_users_to_course($courseid){
     $manual = enrol_get_plugin('manual');
 
     $enrols = enrol_get_instances($course->id, true);
-    if (empty($enrols)){
+    if (empty($enrols)) {
         mtrace('Course doesn\'t have enrol instances');
         return;
     }
 
     $roles = [];
-    if (\local_sql\coaching::is_coaching_course($courseid)){
+    if (\local_sql\coaching::is_coaching_course($courseid)) {
         $roles = [
             role_manager::COACHING_ROLE,
             role_manager::STUDENT_ROLE,
@@ -72,12 +77,12 @@ function local_sql_enrol_all_users_to_course($courseid){
     }
 
     $users = \local_sql\moodle\user::get_users_with_role($roles);
-    foreach ($users as $userinfo){
-        foreach ($enrols as $enrol){
+    foreach ($users as $userinfo) {
+        foreach ($enrols as $enrol) {
             $manual->enrol_user($enrol, $userinfo->userid, $userinfo->roleid, $timeenrol);
         }
     }
-    mtrace('Enrolled '.count($users).' users');
+    mtrace('Enrolled ' . count($users) . ' users');
 }
 
 /**
@@ -85,14 +90,15 @@ function local_sql_enrol_all_users_to_course($courseid){
  *
  * @param int $userid
  */
-function update_filepicker_preference($userid){
+function update_filepicker_preference($userid)
+{
     global $DB;
 
     $upload_repo = $DB->get_record('repository', ['type' => 'upload']);
     if (empty($upload_repo)) return;
 
     $repo_preference = $DB->get_record('user_preferences', ['userid' => $userid, 'name' => 'filepicker_recentrepository']);
-    if (empty($repo_preference)){
+    if (empty($repo_preference)) {
         $preferences = new stdClass();
         $preferences->userid = $userid;
         $preferences->name = 'filepicker_recentrepository';
@@ -109,19 +115,30 @@ function update_filepicker_preference($userid){
  *
  * @param string $str
  */
-function local_sql_clear_spaces($str){
+function local_sql_clear_spaces($str)
+{
     return preg_replace('/\s+/', ' ', trim($str));
 }
 
-if (\local_sql\analytics::is_enabled()){
-    function local_sql_before_standard_html_head(){
+if (\local_sql\analytics::is_enabled()) {
+    function local_sql_before_standard_html_head()
+    {
         return \local_sql\analytics::apply();
     }
 }
 
-function get_users_listing_local($sort='lastaccess', $dir='ASC', $page=0, $recordsperpage=0,
-                           $search='', $firstinitial='', $lastinitial='', $extraselect='',
-                           array $extraparams=null, $extracontext = null) {
+function get_users_listing_local(
+    $sort = 'lastaccess',
+    $dir = 'ASC',
+    $page = 0,
+    $recordsperpage = 0,
+    $search = '',
+    $firstinitial = '',
+    $lastinitial = '',
+    $extraselect = '',
+    array $extraparams = null,
+    $extracontext = null
+) {
     global $DB, $CFG;
 
     $fullname  = $DB->sql_fullname();
@@ -131,8 +148,8 @@ function get_users_listing_local($sort='lastaccess', $dir='ASC', $page=0, $recor
 
     if (!empty($search)) {
         $search = trim($search);
-        $select .= " AND (". $DB->sql_like($fullname, ':search1', false, false).
-            " OR ". $DB->sql_like('email', ':search2', false, false).
+        $select .= " AND (" . $DB->sql_like($fullname, ':search1', false, false) .
+            " OR " . $DB->sql_like('email', ':search2', false, false) .
             " OR username = :search3)";
         $params['search1'] = "%$search%";
         $params['search2'] = "%$search%";
@@ -140,11 +157,11 @@ function get_users_listing_local($sort='lastaccess', $dir='ASC', $page=0, $recor
     }
 
     if ($firstinitial) {
-        $select .= " AND ". $DB->sql_like('firstname', ':fni', false, false);
+        $select .= " AND " . $DB->sql_like('firstname', ':fni', false, false);
         $params['fni'] = "$firstinitial%";
     }
     if ($lastinitial) {
-        $select .= " AND ". $DB->sql_like('lastname', ':lni', false, false);
+        $select .= " AND " . $DB->sql_like('lastname', ':lni', false, false);
         $params['lni'] = "$lastinitial%";
     }
 
@@ -181,10 +198,10 @@ function get_users_listing_local($sort='lastaccess', $dir='ASC', $page=0, $recor
                                         $joins
                                   WHERE $select
                                   $sort", array_merge($params, $joinparams), $page, $recordsperpage);
-
 }
 
-function get_sections_by_condition($condition_key, $condition_value) {
+function get_sections_by_condition($condition_key, $condition_value)
+{
     global $DB;
 
     $sections = $DB->get_records_select('course_sections', "availability IS NOT NULL AND availability <> ''");
@@ -208,7 +225,8 @@ function get_sections_by_condition($condition_key, $condition_value) {
     return $matching_sections;
 }
 
-function json_die($data, $status_code) {
+function json_die($data, $status_code)
+{
     ob_clean();
     http_response_code($status_code);
     header('Content-Type: application/json');
@@ -216,7 +234,8 @@ function json_die($data, $status_code) {
     die();
 }
 
-function security_gen_str($length): string {
+function security_gen_str($length): string
+{
     $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
     $charactersLength = strlen($characters);
     $token = '';
@@ -226,13 +245,14 @@ function security_gen_str($length): string {
     }
     return $token;
 }
-function get_actual_email($user) {
+function get_actual_email($user)
+{
     global $DB;
 
     if (empty($user))
         return null;
 
-    $sql = "SELECT * FROM {".sql_database::TABLE_PAYPAL."}
+    $sql = "SELECT * FROM {" . sql_database::TABLE_PAYPAL . "}
                 WHERE userid = :userid
                 ORDER BY timecreated DESC
                 LIMIT 1";
