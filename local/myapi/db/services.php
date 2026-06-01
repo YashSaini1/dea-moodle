@@ -36,6 +36,13 @@ $functions = [
         'description' => 'Update a course section name, visibility, summary, or availability',
         'type'        => 'write',
     ],
+    'local_myapi_delete_section' => [
+        'classname'   => 'local_myapi\\external\\course_external',
+        'methodname'  => 'delete_section',
+        'classpath'   => '',
+        'description' => 'Delete a course section and all modules inside it',
+        'type'        => 'write',
+    ],
     'local_myapi_get_users' => [
         'classname'   => 'local_myapi\\external\\user_external',
         'methodname'  => 'get_users',

@@ -408,6 +408,52 @@ class course_external extends \external_api
         ]);
     }
 
+    public static function delete_section_parameters()
+    {
+        return new \external_function_parameters([
+            'sectionid' => new \external_value(PARAM_INT, 'Course section ID'),
+        ]);
+    }
+
+    public static function delete_section($sectionid)
+    {
+        global $DB;
+
+        $params = self::validate_parameters(
+            self::delete_section_parameters(),
+            ['sectionid' => $sectionid]
+        );
+
+        $section = $DB->get_record('course_sections', ['id' => $params['sectionid']], '*', MUST_EXIST);
+        $course = get_course($section->course, MUST_EXIST);
+        $coursecontext = \context_course::instance($course->id);
+
+        self::validate_context($coursecontext);
+        require_capability('moodle/course:update', $coursecontext);
+
+        $deleted = course_delete_section($course, $section->section, true, false);
+        if (!$deleted) {
+            throw new \moodle_exception('unabletodeletesection', 'error');
+        }
+
+        return [
+            'sectionid' => (int) $section->id,
+            'courseid' => (int) $course->id,
+            'section' => (int) $section->section,
+            'deleted' => true,
+        ];
+    }
+
+    public static function delete_section_returns()
+    {
+        return new \external_single_structure([
+            'sectionid' => new \external_value(PARAM_INT),
+            'courseid' => new \external_value(PARAM_INT),
+            'section' => new \external_value(PARAM_INT),
+            'deleted' => new \external_value(PARAM_BOOL),
+        ]);
+    }
+
     public static function create_module_parameters()
     {
         return new \external_function_parameters([
