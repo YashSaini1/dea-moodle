@@ -14,7 +14,7 @@ if (!defined('MOODLE_INTERNAL')) {
     die('Direct access to this script is forbidden.');    //  It must be included from a Moodle page.
 }
 
-require_once($CFG->dirroot.'/lib/formslib.php');
+require_once($CFG->dirroot . '/lib/formslib.php');
 
 /**
  * Class user_edit_form.
@@ -22,12 +22,14 @@ require_once($CFG->dirroot.'/lib/formslib.php');
  * @copyright 1999 Martin Dougiamas  http://dougiamas.com
  * @license http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-class user_edit_form extends moodleform {
+class user_edit_form extends moodleform
+{
 
     /**
      * Define the form.
      */
-    public function definition () {
+    public function definition()
+    {
         global $CFG, $COURSE, $USER, $SESSION;
 
         $mform = $this->_form;
@@ -94,13 +96,15 @@ class user_edit_form extends moodleform {
                 $mform->insertElementBefore($imagefile, 'userpicturewarning');
             }
         }
-        // Do not allow to edit profile fields manually
+
+        // Render custom profile fields (core behavior) so user-defined fields appear in edit profile.
+        profile_definition($mform, $userid);
 
         $this->add_action_buttons(true, get_string('updatemyprofile'));
 
         $this->set_data($user);
-        if (empty($SESSION->opened) && !empty($SESSION->profile_redirect_field)){
-            if ($SESSION->profile_redirect_field == 'phone1'){
+        if (empty($SESSION->opened) && !empty($SESSION->profile_redirect_field)) {
+            if ($SESSION->profile_redirect_field == 'phone1') {
                 $mform->setElementError('phone', \auth_stripe\core::str('error_required'));
             } else {
                 $mform->setElementError($SESSION->profile_redirect_field, \auth_stripe\core::str('error_required'));
@@ -112,7 +116,8 @@ class user_edit_form extends moodleform {
     /**
      * Extend the form definition after the data has been parsed.
      */
-    public function definition_after_data() {
+    public function definition_after_data()
+    {
         global $CFG, $DB, $OUTPUT;
 
         $mform = $this->_form;
@@ -137,6 +142,11 @@ class user_edit_form extends moodleform {
             if ($mform->elementExists('deletepicture') && !$hasuploadedpicture) {
                 $mform->freeze('deletepicture');
             }
+
+            // Finalise custom profile field state (visibility, defaults, dynamic rules).
+            profile_definition_after_data($mform, $user->id);
+        } else {
+            profile_definition_after_data($mform, 0);
         }
     }
 
@@ -146,7 +156,8 @@ class user_edit_form extends moodleform {
      * @param array $files
      * @return array
      */
-    public function validation($usernew, $files) {
+    public function validation($usernew, $files)
+    {
         global $CFG, $DB;
 
         $errors = parent::validation($usernew, $files);
@@ -186,7 +197,7 @@ class user_edit_form extends moodleform {
 
         // Validate hidden 'phone1' field. but show error to the input 'phone' field
         $usernew->phone1 = PhoneNumber::parse($usernew->phone1);
-        if ($validation_error = PhoneNumber::validate($usernew->phone1)){
+        if ($validation_error = PhoneNumber::validate($usernew->phone1)) {
             $errors['phone'] = $validation_error;
         }
 
@@ -194,18 +205,18 @@ class user_edit_form extends moodleform {
         if (($usernew->username !== $user->username)) {
             // The fastest solution to find symbols
             // Do not save email as username
-            if ((str_replace(['.', '@'], '', $usernew->username) != $usernew->username)){
+            if ((str_replace(['.', '@'], '', $usernew->username) != $usernew->username)) {
                 $errors['username'] = get_string('invalidusernameupload');
             } else {
                 // Make a case-insensitive query for the given email address.
-                $select = $DB->sql_equal('username', ':username', false).' AND mnethostid = :mnethostid AND id <> :userid';
+                $select = $DB->sql_equal('username', ':username', false) . ' AND mnethostid = :mnethostid AND id <> :userid';
                 $params = array(
                     'username'   => $usernew->username,
                     'mnethostid' => $CFG->mnet_localhost_id,
                     'userid'     => $usernew->id
                 );
                 // If there are other user(s) that already have the same email, show an error.
-                if ($DB->record_exists_select('user', $select, $params)){
+                if ($DB->record_exists_select('user', $select, $params)) {
                     $errors['username'] = get_string('usernameexists', 'theme_sql');
                 }
             }
@@ -220,7 +231,8 @@ class user_edit_form extends moodleform {
     /**
      * Render phone field here because we need to save submitted value (if validation failed)
      */
-    function display(){
+    function display()
+    {
         $phone_value = $this->_form->getElementValue('phone1');
         PhoneNumber::render_for_form($this->_form, $phone_value);
         parent::display();
