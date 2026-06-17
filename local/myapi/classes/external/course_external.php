@@ -464,11 +464,12 @@ class course_external extends \external_api
             'intro' => new \external_value(PARAM_RAW, 'Module intro text', VALUE_DEFAULT, ''),
             'introformat' => new \external_value(PARAM_INT, 'Intro format', VALUE_DEFAULT, FORMAT_HTML),
             'visible' => new \external_value(PARAM_INT, 'Whether the module is visible', VALUE_DEFAULT, 1),
+            'showdescription' => new \external_value(PARAM_INT, 'Whether to show intro on course page', VALUE_DEFAULT, 0),
             'fields' => new \external_value(PARAM_RAW, 'Optional JSON object with extra module fields', VALUE_DEFAULT, '{}'),
         ]);
     }
 
-    public static function create_module($courseid, $sectionid, $modulename, $name, $intro = '', $introformat = FORMAT_HTML, $visible = 1, $fields = '{}')
+    public static function create_module($courseid, $sectionid, $modulename, $name, $intro = '', $introformat = FORMAT_HTML, $visible = 1, $showdescription = 0, $fields = '{}')
     {
         global $DB;
 
@@ -482,6 +483,7 @@ class course_external extends \external_api
                 'intro' => $intro,
                 'introformat' => $introformat,
                 'visible' => $visible,
+                'showdescription' => $showdescription,
                 'fields' => $fields,
             ]
         );
@@ -502,6 +504,7 @@ class course_external extends \external_api
         $moduleinfo->section = (int) $sectionrecord->section;
         $moduleinfo->name = $params['name'];
         $moduleinfo->visible = (int) $params['visible'];
+        $moduleinfo->showdescription = (int) $params['showdescription'];
         $moduleinfo->introeditor = [
             'text' => $params['intro'],
             'format' => $params['introformat'],
@@ -585,12 +588,13 @@ class course_external extends \external_api
             'name' => new \external_value(PARAM_TEXT, 'Module name', VALUE_OPTIONAL),
             'visible' => new \external_value(PARAM_INT, 'Whether the module is visible', VALUE_OPTIONAL),
             'visibleoncoursepage' => new \external_value(PARAM_INT, 'Whether the module is shown on the course page', VALUE_OPTIONAL),
+            'showdescription' => new \external_value(PARAM_INT, 'Whether to show intro on course page', VALUE_OPTIONAL),
             'availability' => new \external_value(PARAM_RAW, 'Availability JSON for the module', VALUE_OPTIONAL),
             'fields' => new \external_value(PARAM_RAW, 'Optional JSON object with extra module fields', VALUE_OPTIONAL),
         ]);
     }
 
-    public static function update_module($coursemoduleid, $name = null, $visible = null, $visibleoncoursepage = null, $availability = null, $fields = null)
+    public static function update_module($coursemoduleid, $name = null, $visible = null, $visibleoncoursepage = null, $availability = null, $fields = null, $showdescription = null)
     {
         global $CFG, $DB;
 
@@ -609,6 +613,9 @@ class course_external extends \external_api
         }
         if ($fields === '') {
             $fields = null;
+        }
+        if ($showdescription === '') {
+            $showdescription = null;
         }
 
         $isjsonobject = static function ($value) {
@@ -644,6 +651,9 @@ class course_external extends \external_api
         }
         if ($visibleoncoursepage !== null) {
             $incoming['visibleoncoursepage'] = $visibleoncoursepage;
+        }
+        if ($showdescription !== null) {
+            $incoming['showdescription'] = $showdescription;
         }
         if ($availability !== null) {
             $incoming['availability'] = $availability;
@@ -747,6 +757,12 @@ class course_external extends \external_api
                 : (int) $cm->visibleoncoursepage;
 
             set_coursemodule_visible($cm->id, $newvisible, $newvisibleoncoursepage);
+        }
+
+        if (array_key_exists('showdescription', $params)) {
+            require_capability('moodle/course:activityvisibility', $modcontext);
+            $DB->set_field('course_modules', 'showdescription', (int) $params['showdescription'], ['id' => $cm->id]);
+            $updatemodule = true;
         }
 
         if (array_key_exists('availability', $params)) {
