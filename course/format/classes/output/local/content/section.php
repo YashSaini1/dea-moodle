@@ -318,7 +318,7 @@ class section implements named_templatable, renderable {
             $data->collapsemenu = true;
         }
 
-        $data->contentcollapsed = false;
+        $data->contentcollapsed = true;
         $preferences = $format->get_sections_preferences();
         if (isset($preferences[$section->id])) {
             $sectionpreferences = $preferences[$section->id];
