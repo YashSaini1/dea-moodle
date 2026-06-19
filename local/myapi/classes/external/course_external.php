@@ -61,10 +61,14 @@ class course_external extends \external_api
                 continue;
             }
 
-            $modulename = $DB->get_field($cm->modname, 'name', ['id' => $cm->instance], IGNORE_MISSING);
+            $modulerecord = $DB->get_record($cm->modname, ['id' => $cm->instance], '*', IGNORE_MISSING);
             $sectionindex = $sectionmap[$cm->section];
             $moduledata = (array) $cm;
-            $moduledata['name'] = $modulename !== false ? $modulename : $cm->modname;
+            $moduledata['name'] = ($modulerecord && property_exists($modulerecord, 'name')) ? $modulerecord->name : $cm->modname;
+            $moduledata['intro'] = ($modulerecord && property_exists($modulerecord, 'intro')) ? $modulerecord->intro : null;
+            $moduledata['introformat'] = ($modulerecord && property_exists($modulerecord, 'introformat'))
+                ? (int) $modulerecord->introformat
+                : null;
             $moduledata['url'] = null;
 
             if ($cm->modname === 'url') {
@@ -215,6 +219,8 @@ class course_external extends \external_api
             'lang' => new \external_value(PARAM_RAW, VALUE_OPTIONAL),
             'modname' => new \external_value(PARAM_RAW),
             'name' => new \external_value(PARAM_RAW),
+            'intro' => new \external_value(PARAM_RAW, VALUE_OPTIONAL),
+            'introformat' => new \external_value(PARAM_INT, VALUE_OPTIONAL),
             'url' => new \external_value(PARAM_RAW, VALUE_OPTIONAL),
         ]);
     }
@@ -590,6 +596,8 @@ class course_external extends \external_api
             'lang' => $cm->lang,
             'modname' => $cm->modname,
             'name' => $moduleinstance->name,
+            'intro' => property_exists($moduleinstance, 'intro') ? $moduleinstance->intro : null,
+            'introformat' => property_exists($moduleinstance, 'introformat') ? (int) $moduleinstance->introformat : null,
             'url' => null,
         ];
 
@@ -858,6 +866,8 @@ class course_external extends \external_api
             'lang' => $updatedcm->lang,
             'modname' => $updatedcm->modname,
             'name' => $moduleinstance->name,
+            'intro' => property_exists($moduleinstance, 'intro') ? $moduleinstance->intro : null,
+            'introformat' => property_exists($moduleinstance, 'introformat') ? (int) $moduleinstance->introformat : null,
             'url' => null,
         ];
 
