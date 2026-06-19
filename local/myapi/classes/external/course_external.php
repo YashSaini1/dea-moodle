@@ -54,6 +54,8 @@ class course_external extends \external_api
             ]
         );
 
+        $modulesbysection = [];
+
         foreach ($coursemodules as $cm) {
             if (!isset($sectionmap[$cm->section])) {
                 continue;
@@ -79,7 +81,39 @@ class course_external extends \external_api
                 }
             }
 
-            $data['sections'][$sectionindex]['modules'][] = $moduledata;
+            if (!isset($modulesbysection[$cm->section])) {
+                $modulesbysection[$cm->section] = [];
+            }
+
+            $modulesbysection[$cm->section][(int) $cm->id] = $moduledata;
+        }
+
+        foreach ($sections as $section) {
+            $sectionid = (int) $section->id;
+            if (empty($modulesbysection[$sectionid])) {
+                continue;
+            }
+
+            $orderedmodules = [];
+            $remainingmodules = $modulesbysection[$sectionid];
+            $sequence = trim((string) $section->sequence);
+
+            if ($sequence !== '') {
+                foreach (explode(',', $sequence) as $cmidraw) {
+                    $cmid = (int) trim($cmidraw);
+                    if ($cmid > 0 && isset($remainingmodules[$cmid])) {
+                        $orderedmodules[] = $remainingmodules[$cmid];
+                        unset($remainingmodules[$cmid]);
+                    }
+                }
+            }
+
+            foreach ($remainingmodules as $moduledata) {
+                $orderedmodules[] = $moduledata;
+            }
+
+            $sectionindex = $sectionmap[$sectionid];
+            $data['sections'][$sectionindex]['modules'] = $orderedmodules;
         }
 
         return $data;
