@@ -76,7 +76,7 @@ $primarymenu = theme_sql_process_primary_menu($primarymenu);
 
 $header = $PAGE->activityheader;
 $headercontent = $header->export_for_template($renderer);
-unset($headercontent['description']);
+// unset($headercontent['description']);
 
 $templatecontext = [
     'sitename' => format_string($SITE->shortname, true, ['context' => context_course::instance(SITEID), "escape" => false]),
