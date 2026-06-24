@@ -22,6 +22,13 @@ $functions = [
         'description' => 'Create a module inside a course section',
         'type'        => 'write',
     ],
+    'local_coursebuilder_duplicate_module' => [
+        'classname'   => 'local_myapi\\external\\course_external',
+        'methodname'  => 'duplicate_module',
+        'classpath'   => '',
+        'description' => 'Duplicate a course module and place it in a target section',
+        'type'        => 'write',
+    ],
     'local_myapi_update_module' => [
         'classname'   => 'local_myapi\\external\\course_external',
         'methodname'  => 'update_module',

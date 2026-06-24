@@ -78,6 +78,34 @@ class course_external extends \external_api
                 }
             }
 
+            if ($cm->modname === 'quiz') {
+                global $USER;
+                $quizdata = [
+                    'grade' => null,
+                    'attempts' => [],
+                ];
+
+                $quizgrade = $DB->get_record('quiz_grades', ['quiz' => $cm->instance, 'userid' => $USER->id], 'grade');
+                if ($quizgrade) {
+                    $quizdata['grade'] = (string) $quizgrade->grade;
+                }
+
+                $attempts = $DB->get_records('quiz_attempts', ['quiz' => $cm->instance, 'userid' => $USER->id], 'attempt ASC', 'id, attempt, state, timestart, timefinish, sumgrades');
+                if ($attempts) {
+                    foreach ($attempts as $attempt) {
+                        $quizdata['attempts'][] = [
+                            'id' => (int) $attempt->id,
+                            'attempt' => (int) $attempt->attempt,
+                            'state' => $attempt->state,
+                            'timestart' => (int) $attempt->timestart,
+                            'timefinish' => (int) $attempt->timefinish,
+                            'sumgrades' => $attempt->sumgrades !== null ? (string) $attempt->sumgrades : null,
+                        ];
+                    }
+                }
+                $moduledata['quizdata'] = $quizdata;
+            }
+
             if ($moduledata['url'] === null && isset($modinfo->cms[$cm->id])) {
                 $cminfo = $modinfo->cms[$cm->id];
                 if (!empty($cminfo->url)) {
@@ -222,6 +250,19 @@ class course_external extends \external_api
             'intro' => new \external_value(PARAM_RAW, VALUE_OPTIONAL),
             'introformat' => new \external_value(PARAM_INT, VALUE_OPTIONAL),
             'url' => new \external_value(PARAM_RAW, VALUE_OPTIONAL),
+            'quizdata' => new \external_single_structure([
+                'grade' => new \external_value(PARAM_RAW, 'Final quiz grade', VALUE_OPTIONAL),
+                'attempts' => new \external_multiple_structure(
+                    new \external_single_structure([
+                        'id' => new \external_value(PARAM_INT, 'Attempt ID'),
+                        'attempt' => new \external_value(PARAM_INT, 'Attempt number'),
+                        'state' => new \external_value(PARAM_RAW, 'Attempt state'),
+                        'timestart' => new \external_value(PARAM_INT, 'Time started'),
+                        'timefinish' => new \external_value(PARAM_INT, 'Time finished'),
+                        'sumgrades' => new \external_value(PARAM_RAW, 'Sum of grades', VALUE_OPTIONAL),
+                    ]), 'Quiz attempts details', VALUE_OPTIONAL
+                )
+            ], 'Quiz data for student', VALUE_OPTIONAL),
         ]);
     }
 
@@ -993,6 +1034,185 @@ class course_external extends \external_api
                 ]);
             }
         }
+    }
+
+    public static function duplicate_module_parameters()
+    {
+        return new \external_function_parameters([
+            'sectionid' => new \external_value(PARAM_INT, 'The section ID to copy the module to'),
+            'referencemoduleid' => new \external_value(PARAM_INT, 'The course module ID of the original module to copy'),
+        ]);
+    }
+
+    public static function duplicate_module($sectionid, $referencemoduleid)
+    {
+        global $DB, $CFG;
+        require_once($CFG->dirroot . '/course/lib.php');
+
+        $params = self::validate_parameters(
+            self::duplicate_module_parameters(),
+            [
+                'sectionid' => $sectionid,
+                'referencemoduleid' => $referencemoduleid,
+            ]
+        );
+
+        $cm = get_coursemodule_from_id('', $params['referencemoduleid'], 0, false, MUST_EXIST);
+        $sourcecourse = $DB->get_record('course', ['id' => $cm->course], '*', MUST_EXIST);
+
+        $targetsection = $DB->get_record('course_sections', [
+            'id' => $params['sectionid'],
+        ], '*', MUST_EXIST);
+        $targetcourse = $DB->get_record('course', ['id' => $targetsection->course], '*', MUST_EXIST);
+
+        // Security check: must have manageactivities capability in source module context and target course context
+        $sourcecontext = \context_module::instance($cm->id);
+        $targetcontext = \context_course::instance($targetcourse->id);
+
+        self::validate_context($sourcecontext);
+        self::validate_context($targetcontext);
+
+        require_capability('moodle/course:manageactivities', $sourcecontext);
+        require_capability('moodle/course:manageactivities', $targetcontext);
+
+        $newcm = null;
+
+        if ((int) $sourcecourse->id === (int) $targetcourse->id) {
+            // Same course duplication - use Moodle's built-in standard method
+            $newcm = duplicate_module($sourcecourse, $cm);
+            if (!$newcm) {
+                throw new \moodle_exception('unabletoduplicate', 'error');
+            }
+            // Set name to original name (without " copy")
+            $DB->set_field($cm->modname, 'name', $cm->name, ['id' => $newcm->instance]);
+
+            if ((int) $newcm->section !== (int) $targetsection->id) {
+                moveto_module($newcm, $targetsection);
+                $newcm = get_coursemodule_from_id('', $newcm->id, 0, false, MUST_EXIST);
+            }
+            rebuild_course_cache($sourcecourse->id, true);
+        } else {
+            // Cross-course duplication using backup and restore controllers
+            global $USER;
+            require_once($CFG->dirroot . '/backup/util/includes/backup_includes.php');
+            require_once($CFG->dirroot . '/backup/util/includes/restore_includes.php');
+            require_once($CFG->libdir . '/filelib.php');
+
+            $cmcontext = \context_module::instance($cm->id);
+
+            // 1. Backup the original module
+            $bc = new \backup_controller(\backup::TYPE_1ACTIVITY, $cm->id, \backup::FORMAT_MOODLE,
+                \backup::INTERACTIVE_NO, \backup::MODE_IMPORT, $USER->id);
+            $backupid = $bc->get_backupid();
+            $backupbasepath = $bc->get_plan()->get_basepath();
+            $bc->execute_plan();
+            $bc->destroy();
+
+            // 2. Restore the module into the target course
+            $rc = new \restore_controller($backupid, $targetcourse->id,
+                \backup::INTERACTIVE_NO, \backup::MODE_IMPORT, $USER->id, \backup::TARGET_CURRENT_ADDING);
+
+            $plan = $rc->get_plan();
+            $groupsetting = $plan->get_setting('groups');
+            if (empty($groupsetting->get_value())) {
+                $groupsetting->set_value(true);
+            }
+
+            if (!$rc->execute_precheck()) {
+                $precheckresults = $rc->get_precheck_results();
+                if (is_array($precheckresults) && !empty($precheckresults['errors'])) {
+                    if (empty($CFG->keeptempdirectoriesonbackup)) {
+                        fulldelete($backupbasepath);
+                    }
+                    throw new \moodle_exception('precheckfailed', 'error');
+                }
+            }
+
+            $rc->execute_plan();
+
+            $newcmid = null;
+            $tasks = $rc->get_plan()->get_tasks();
+            foreach ($tasks as $task) {
+                if (is_subclass_of($task, 'restore_activity_task')) {
+                    if ($task->get_old_contextid() == $cmcontext->id) {
+                        $newcmid = $task->get_moduleid();
+                        break;
+                    }
+                }
+            }
+
+            $rc->destroy();
+
+            if (empty($CFG->keeptempdirectoriesonbackup)) {
+                fulldelete($backupbasepath);
+            }
+
+            if (!$newcmid) {
+                throw new \moodle_exception('unabletoduplicate', 'error');
+            }
+
+            // Get new module object from the target course
+            $newcm = get_coursemodule_from_id($cm->modname, $newcmid, $targetcourse->id);
+
+            // Keep the original name instead of renaming to indicate it is a copy
+            $DB->set_field($cm->modname, 'name', $cm->name, ['id' => $newcm->instance]);
+
+            // Move the activity to our target section
+            moveto_module($newcm, $targetsection);
+
+            // Reload the newly moved module
+            $newcm = get_coursemodule_from_id('', $newcm->id, 0, false, MUST_EXIST);
+
+            rebuild_course_cache($targetcourse->id, true);
+        }
+
+        $moduleinstance = $DB->get_record($newcm->modname, ['id' => $newcm->instance], '*', MUST_EXIST);
+
+        $moduledata = [
+            'id' => (int) $newcm->id,
+            'course' => (int) $newcm->course,
+            'module' => (int) $newcm->module,
+            'instance' => (int) $newcm->instance,
+            'section' => (int) $newcm->section,
+            'idnumber' => $newcm->idnumber,
+            'added' => (int) $newcm->added,
+            'score' => (int) $newcm->score,
+            'indent' => (int) $newcm->indent,
+            'visible' => (int) $newcm->visible,
+            'visibleoncoursepage' => (int) $newcm->visibleoncoursepage,
+            'visibleold' => (int) $newcm->visibleold,
+            'groupmode' => (int) $newcm->groupmode,
+            'groupingid' => (int) $newcm->groupingid,
+            'completion' => (int) $newcm->completion,
+            'completiongradeitemnumber' => $newcm->completiongradeitemnumber,
+            'completionview' => (int) $newcm->completionview,
+            'completionexpected' => (int) $newcm->completionexpected,
+            'completionpassgrade' => (int) $newcm->completionpassgrade,
+            'showdescription' => (int) $newcm->showdescription,
+            'availability' => $newcm->availability,
+            'deletioninprogress' => (int) $newcm->deletioninprogress,
+            'downloadcontent' => $newcm->downloadcontent,
+            'lang' => $newcm->lang,
+            'modname' => $newcm->modname,
+            'name' => $moduleinstance->name,
+            'intro' => property_exists($moduleinstance, 'intro') ? $moduleinstance->intro : null,
+            'introformat' => property_exists($moduleinstance, 'introformat') ? (int) $moduleinstance->introformat : null,
+            'url' => null,
+        ];
+
+        if ($newcm->modname === 'url') {
+            $urlinstance = $DB->get_record('url', ['id' => $newcm->instance], 'externalurl', IGNORE_MISSING);
+            if ($urlinstance && !empty($urlinstance->externalurl)) {
+                $moduledata['url'] = $urlinstance->externalurl;
+            }
+        }
+
+        return $moduledata;
+    }
+
+    public static function duplicate_module_returns()
+    {
+        return self::get_module_structure();
     }
 
     public static function save_course_image_returns()
