@@ -69,6 +69,7 @@ class course_external extends \external_api
             $moduledata['introformat'] = ($modulerecord && property_exists($modulerecord, 'introformat'))
                 ? (int) $modulerecord->introformat
                 : null;
+            $moduledata['display'] = ($modulerecord && property_exists($modulerecord, 'display')) ? (int) $modulerecord->display : null;
             $moduledata['url'] = null;
 
             if ($cm->modname === 'url') {
@@ -249,6 +250,7 @@ class course_external extends \external_api
             'name' => new \external_value(PARAM_RAW),
             'intro' => new \external_value(PARAM_RAW, VALUE_OPTIONAL),
             'introformat' => new \external_value(PARAM_INT, VALUE_OPTIONAL),
+            'display' => new \external_value(PARAM_INT, VALUE_OPTIONAL),
             'url' => new \external_value(PARAM_RAW, VALUE_OPTIONAL),
             'quizdata' => new \external_single_structure([
                 'grade' => new \external_value(PARAM_RAW, 'Final quiz grade', VALUE_OPTIONAL),
@@ -639,6 +641,7 @@ class course_external extends \external_api
             'name' => $moduleinstance->name,
             'intro' => property_exists($moduleinstance, 'intro') ? $moduleinstance->intro : null,
             'introformat' => property_exists($moduleinstance, 'introformat') ? (int) $moduleinstance->introformat : null,
+            'display' => property_exists($moduleinstance, 'display') ? (int) $moduleinstance->display : null,
             'url' => null,
         ];
 
@@ -909,6 +912,7 @@ class course_external extends \external_api
             'name' => $moduleinstance->name,
             'intro' => property_exists($moduleinstance, 'intro') ? $moduleinstance->intro : null,
             'introformat' => property_exists($moduleinstance, 'introformat') ? (int) $moduleinstance->introformat : null,
+            'display' => property_exists($moduleinstance, 'display') ? (int) $moduleinstance->display : null,
             'url' => null,
         ];
 
