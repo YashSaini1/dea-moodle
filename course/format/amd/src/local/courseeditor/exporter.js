@@ -82,6 +82,7 @@ export default class {
             section.cms.push(cm);
         });
         section.hascms = (section.cms.length != 0);
+        section.issectionhidden = (!this.reactive.isEditing && !section.hascms && section.number > 0);
 
         return section;
     }

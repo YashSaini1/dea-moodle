@@ -109,7 +109,7 @@ class course_external extends \external_api
 
             if ($moduledata['url'] === null && isset($modinfo->cms[$cm->id])) {
                 $cminfo = $modinfo->cms[$cm->id];
-                if (!empty($cminfo->url)) {
+                if (!empty($cminfo->url) && $cm->modname !== 'page' && $cm->modname !== 'label') {
                     $moduledata['url'] = $cminfo->url->out(false);
                 }
             }
@@ -605,6 +605,15 @@ class course_external extends \external_api
             }
         }
 
+        if ($moduleinfo->modulename === 'page') {
+            if (!isset($moduleinfo->content)) {
+                $moduleinfo->content = $params['intro'];
+            }
+            if (!isset($moduleinfo->contentformat)) {
+                $moduleinfo->contentformat = $params['introformat'];
+            }
+        }
+
         $createdmodule = create_module($moduleinfo);
         rebuild_course_cache($course->id);
 
@@ -654,7 +663,7 @@ class course_external extends \external_api
 
         if ($moduledata['url'] === null && isset($modinfo->cms[$cm->id])) {
             $cminfo = $modinfo->cms[$cm->id];
-            if (!empty($cminfo->url)) {
+            if (!empty($cminfo->url) && $cm->modname !== 'page' && $cm->modname !== 'label') {
                 $moduledata['url'] = $cminfo->url->out(false);
             }
         }

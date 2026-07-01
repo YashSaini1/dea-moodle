@@ -156,6 +156,19 @@ class section implements named_templatable, renderable {
         $haspartials['cm'] = $this->add_cm_data($data, $output);
         $this->add_format_data($data, $haspartials, $output);
 
+        $modinfo = $format->get_modinfo();
+        $hasvisiblemods = false;
+        if (!empty($modinfo->sections[$section->section])) {
+            foreach ($modinfo->sections[$section->section] as $modnumber) {
+                $mod = $modinfo->cms[$modnumber];
+                if ($mod->is_visible_on_course_page()) {
+                    $hasvisiblemods = true;
+                    break;
+                }
+            }
+        }
+        $data->issectionhidden = (!$PAGE->user_is_editing() && !$hasvisiblemods && $section->section > 0);
+
         return $data;
     }
 
